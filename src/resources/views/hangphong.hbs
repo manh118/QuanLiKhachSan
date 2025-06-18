@@ -1,0 +1,29 @@
+<div class="body_phu">
+    <h3 class="Phu__room__heading">Hạng Phòng</h3>
+    <div class="Phu__room__description">Khách sạn 20 Hotel giúp du khách có thể chiêm ngưỡng những nét đẹp nổi bật 
+        của Hà Nội. Không gian phòng đảm bảo mang đến cho quý khách sự ấm cúng, tiện nghi và yên tĩnh. Nội thất được bài trí chi tiết
+        mang đến cho quý khách những cảm xúc đặc biệt, được hòa mình vào bầu không khí trong lành, gần gũi với văn hóa bản địa. Để đặt chỗ 
+        và giải đáp thắc mắc, vui lòng gọi 012345678 hoặc gửi mail đến: 20hotel@gmail.com. Hoặc đặt phòng trực tuyến tại đây.
+    </div>
+    <div class="row">
+        {{#each RoomTypes}}
+        <div class="col-4">
+            <div class="card phu__room__card" style="width: 100%;">
+                <div class="phu__room__img" style="background:url({{this.img}}) top center / cover no-repeat;">
+                    <p class="phu__room__img__price color__price_phong">CHỈ TỪ {{money this.price}} VNĐ/ĐÊM</p>
+                </div>
+                <div class="card-body">
+                    <div class="card-body__content">
+                        <h5 class="card-title phu__room__type">{{this.name}}</h5>
+                    </div>
+                    <p class="card-text phu__room__cart__des">
+                        {{this.description}}
+                    </p>
+                    <a href="/hangphong/{{this._id}}/rooms" class="btn phu__room__cart__btn">Xem</a>
+                </div>
+            </div>
+        </div>
+        
+        {{/each}}
+    </div>
+</div>

@@ -1,0 +1,50 @@
+@use 'variables' as v;
+
+.form__login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:  100px 100px;
+}
+
+.form__login__lable{
+    font-size: 2.6rem;
+}
+
+.form__login__btn{ 
+    font-size:1.6rem;
+    background-color: v.$btn;
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+.form__login__body{
+    // background-color: ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px;
+    height: 400px;
+    border: 1px solid #ccc;
+}
+
+.form__login__title{
+    font-size: 2.6rem;
+    margin-top: 30px;
+}
+
+.form__login__input{
+    text-align: center;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.form__login__input-1{
+    width: 80%;
+    font-size: 1.6rem;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}

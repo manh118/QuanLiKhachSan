@@ -1,0 +1,50 @@
+<div class='mt-4 manage_crud'>
+  <h3 class="Mangage_title">Thêm phòng</h3>
+
+  <form method="POST" action="/manage/quan_li_phong/crud/create" class="form_CreateRoom" enctype="multipart/form-data">
+    
+    <!-- Số phòng -->
+    <div class='form-group '>
+      <label class="Mangage_label" for='roomBumber'>Phòng số</label>
+      <input type='number' class='form-control Mangage_input' id='roomNumber' name="roomNumber" required />
+    </div>
+
+    <!-- Số giường -->
+    <div class='form-group'>
+      <label class="Mangage_label" for='bedType'>Số giường</label>
+      <select class="form-control Mangage_input" id="bedType" name="bedType" required>
+        {{#each bedTypes}}
+          <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <!-- Hạng phòng -->
+    <div class='form-group'>
+      <label class="Mangage_label" for='roomType'>Hạng phòng</label>
+      <select class="form-control Mangage_input" id="roomType" name="roomType" required>
+        {{#each roomTypes}}
+          <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    {{!-- Ảnh --}}
+    <div class='form-group'>
+      <label class="Mangage_label" for='img'>Ảnh phòng</label>
+      <input type='file' class='form-control Mangage_input' id='img' name="img" accept="image/*" {{!-- multiple--}}  required />
+    </div>
+
+    <!-- Trạng thái -->
+    <div class='form-group'>
+      <label class="Mangage_label" for='status'>Trạng thái</label>
+      <select class="form-control Mangage_input" id="status" name="status">
+        <option value="trống">Trống</option>
+        <option value="đã đặt">Đã đặt</option>
+      </select>
+    </div>
+    <div class="div_Mangage_btn">
+          <button type='submit' class='btn btn-primary mt-3 Mangage_btn'>Thêm mới</button>
+    </div>
+  </form>
+</div>

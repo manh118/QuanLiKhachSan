@@ -1,0 +1,162 @@
+  <div class="row manage_body">
+    <div class="col-2" style="padding-right: 0; margin-top: 117px;">
+        <form class="form__sreach ">
+            <p class="lable__search">Tìm kiếm</p>
+            <input class="input__serach" name="q" type="search" placeholder="Tìm kiếm hạng phòng" aria-label="Search">
+        </form>
+    </div>
+    <div class="col-10">
+        <form class="form_quanliphong" name="submit_request_delete" method="POST" action="/courses/handle-form-actions">
+
+            <h2>Danh sách Hạng phòng</h2>
+            {{!-- {{#if deletedCount}} --}}
+            <a href="/me/trash/courses">Thùng rác ({{deletedCount}})</a>
+            {{!-- {{/if}} --}}
+            <div class="mt-4 d-flex form_ChonXoa">
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+                <label class="form-check-label" for="checkbox-all">
+                Chọn tất cả
+                </label>
+                </div> 
+
+                <select class="form-control checkbox_all" name="action" required>
+                    <option value="">-- Chọn hành động --</option>
+                    <option value="delete">Xóa</option>  
+                </select>
+
+                <button class="btn btn-primary btn-exec disabled">Thực hiện</button>
+                <a class="btn form_quanliphong__btn__them" href="/manage/quan_li_phong/crud/show_create">Thêm Phòng</a>
+            </div>
+            
+            <table class="table mt-4">
+                <thead>
+                    <tr> 
+                        <th scope="col">#</th>
+                        <th scope="col">STT</th>
+                        <th scope="col"><Math></Math>Loại Phòng</th>
+                        <th class="haha" scope="col">Giá</th>        
+                        <th scope="col" colspan="2"></th>         
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each Roomtypes}}
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                            <input class="form-check-input" name="courseIds[]" type="checkbox" value="{{this._id}}" >
+                            </div> 
+                        </td>
+                        <th scope="row">{{sum @index 1}}</th>
+                        <td>{{this.name}}</td>
+                        <td>{{this.price}}</td>
+                        <td><a href="/manage/quan_li_phong/crud/{{this._id}}/show_update" class="btn btn-link">Sửa</a></td>
+                        <td><a href="" class="btn btn-link"  data-toggle="modal" data-id="{{this._id}}" data-target="#exampleModal">Xóa</a></td>              
+                    </tr>
+
+                    {{else}}
+                    <tr>
+                        <td colspan="5" class="text-center">
+                        Bạn chưa có phòng nào.
+                        <a href="/manage/quan_li_phong/create" >Thêm Phòng</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </form> 
+    </div>
+  </div>  
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Xóa Phòng</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+              <h5 class="modal-title" id="exampleModalLabel">Bạn xác nhận muốn xóa chứ ?</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+          <button id="btn-id-delete" type="button" class="btn btn-danger" >Xóa</button>       
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+<form name="delete-course-form" method="POST" ></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var courseId;
+        var deleteForm = document.forms['delete-course-form']
+        var btnDeleteCourse = document.getElementById('btn-id-delete')
+        var submitForm = document.forms['submit_request_delete']
+        var checkBoxAll = $('#checkbox-all')
+        var courseItemCheckbox = $('input[name="courseIds[]"]')
+        var bthExec = $('.btn-exec')
+
+
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            courseId = button.data('id') 
+        })
+
+        btnDeleteCourse.onclick = function(){
+            deleteForm.action = '/manage/quan_li_phong/crud/' + courseId + '/delete?_method=DELETE';
+            deleteForm.submit()
+        }
+        
+        //check box all change
+        checkBoxAll.change(function(){
+          var isChecked = $(this).prop('checked');
+
+          if(isChecked){
+            courseItemCheckbox.prop('checked', true)
+          }else{
+            courseItemCheckbox.prop('checked', false)
+          }
+          renderCheckAllSubmitBtn()
+        })
+
+        //Course item checkbox
+        courseItemCheckbox.change(function(){
+          var isCheckedAll = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length
+          if(isCheckedAll){
+            checkBoxAll.prop('checked', true)
+          }else{
+             checkBoxAll.prop('checked', false)
+          }
+          renderCheckAllSubmitBtn()
+        })
+
+        //check btn submit click
+
+        bthExec.on('submit', function(e){
+          var isSubmitable = !$(this).hasClass('disabled')
+          if(!isSubmitable){
+             e.preventDefault();
+          }
+        })
+
+        function renderCheckAllSubmitBtn() {
+          var checkedCount = $('input[name="courseIds[]"]:checked').length;
+        
+         if(checkedCount > 0){
+              bthExec.removeClass('disabled')
+          }else{
+              bthExec.addClass('disabled')
+          }
+          
+        }
+    })
+   
+</script>

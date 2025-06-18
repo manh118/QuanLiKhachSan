@@ -1,0 +1,42 @@
+{
+  "name": "on_nodejs",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon --inspect src/index.js",
+    "watch": "sass src/resources/scss:src/public/css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/manh118/nodejs_blog.git"
+  },
+  "keywords": [
+    "f8",
+    "blog"
+  ],
+  "author": "manh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manh118/nodejs_blog/issues"
+  },
+  "homepage": "https://github.com/manh118/nodejs_blog#readme",
+  "description": "",
+  "dependencies": {
+    "connect-mongo": "^5.1.0",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.3",
+    "express-session": "^1.18.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.15.1",
+    "mongoose-delete": "^1.0.2",
+    "mongoose-slug-generator": "^1.0.4",
+    "mongoose-slug-updater": "^3.3.0",
+    "multer": "^2.0.1"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.10",
+    "sass": "^1.89.0"
+  }
+}

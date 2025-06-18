@@ -1,0 +1,26 @@
+.slide_hbs_phu{
+    margin: 0;
+    padding: 0;
+    position: relative;
+    height: 350px;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), /* lớp phủ mờ */
+        url('/img/slide_phu1.jpg') top center / cover no-repeat;
+}
+
+.slide_hbs_phu .slide__content_phu{
+    position: absolute;
+    bottom: 150px;
+    color: #fff;   
+}
+
+.slide__content_phu{
+    width: 100%;
+    text-align: center;
+}
+
+.slide__content_phu .text__des{
+    text-shadow: 0 0px 2px rgba(255, 255, 255, 0.6);
+    font-size: 6rem;
+    text-transform: uppercase;
+}

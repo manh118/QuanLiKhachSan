@@ -1,0 +1,57 @@
+<div class="manage__header">
+    <div class="manage__navbar">
+      <ul class="manage__navbar_list ">
+        <li class="manage__navbar__hangphong ">
+          <a class="manage__navbar_item" navbar_itemhref="">Tổng quan</a>
+        </li>
+        <li class="manage__navbar__hangphong ">
+          <a class="manage__navbar_item" href="/manage/quan_li_phong">Phòng</a>
+          <ul class="manage__navbar__hangphong__list">
+            <li class="manage__navbar__hangphong__item__link">
+              <a href="/manage/quan_li_phong">Danh sách phòng</a>
+            </li>
+            <li class="manage__navbar__hangphong__item__link">
+              <a href="/manage/quan_li_hangphong">Hạng phòng</a>
+            </li>
+          </ul>
+        </li>
+        <li class="manage__navbar__dichvu ">
+          <a class="manage__navbar_item" href="/manage/quan_li_dichvu">dịch vụ</a>
+          {{!-- <ul class="manage__navbar__dichvu__list">
+            <li class="manage__navbar__hangphong__item__link">
+              <a href="">Tiệc cưới & Hội nghị</a>
+            </li>
+            <li class="manage__navbar__hangphong__item__link">
+              <a href="">Ẩm thực & Ăn uống</a>
+            </li>
+            <li class="manage__navbar__hangphong__item__link">
+              <a href="">Giải trí & Thư giãn</a>
+            </li>            
+          </ul> --}}
+        </li>
+        <li ><a class="manage__navbar_item" href="/manage/quan_li_phieuthue">Giao dịch</a></li>
+        <li ><a class="manage__navbar_item" href="">Khách hàng</a></li>
+        <li ><a class="manage__navbar_item" href="/manage/quan_li_nhanvien">nhân viên</a></li>
+      </ul>
+      <ul class="manage__navbar_list">
+        {{#if username}}
+          <li class="manage__navbar__user">
+            <a href="/manage" class="manage__navbar_item">{{username}}</a>
+            <ul class="manage__navbar__user__list">
+              <li class="manage__navbar__hangphong__item__link">
+                  <a href="/">Trang chủ</a>
+              </li>
+              <li class="manage__navbar__hangphong__item__link">
+                  <a href="/manage/logout">Đăng xuất</a>
+              </li>
+          </ul>
+          </li>
+        {{else}}
+          <li><a href="/login" class="manage__navbar_item">
+            <i class="fa-solid fa-user mr-3"></i>Tài khoản</a>
+          </li>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+

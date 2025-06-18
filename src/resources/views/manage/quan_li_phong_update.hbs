@@ -1,0 +1,40 @@
+<form class="manage_crud" method="POST" action="/manage/quan_li_phong/crud/{{room._id}}/update?_method=PUT">
+  <h3 class="Mangage_title">Cập Nhập Phòng</h3>
+  <!-- Số phòng -->
+  <div class='form-group'>
+    <label class="Mangage_label" for='roomBumber'>Phòng số</label>
+    <input type='number' class='form-control Mangage_input' id='roomBumber' name="roomBumber" value="{{room.roomBumber}}" required />
+  </div>
+
+  <!-- Số giường -->
+  <div class='form-group'>
+    <label class="Mangage_label" for='bedType'>Số giường</label>
+    <select class="form-control Mangage_input" id="bedType" name="bedType" required>
+      {{#each bedTypes}}
+        <option value="{{this._id}}" {{isSelected this._id ../room.bedType}}>{{this.name}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <!-- Hạng phòng -->
+  <div class='form-group'>
+    <label class="Mangage_label" for='roomType'>Hạng phòng</label>
+    <select class="form-control Mangage_input" id="roomType" name="roomType" required>
+      {{#each roomTypes}}
+        <option value="{{this._id}}" {{isSelected this._id ../room.roomType}}>{{this.name}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <!-- Trạng thái -->
+  <div class='form-group'>
+    <label class="Mangage_label" for='status'>Trạng thái</label>
+    <select class="form-control Mangage_input" id="status" name="status">
+      <option value="trống" {{isSelected room.status "trống"}}>Trống</option>
+      <option value="đã đặt" {{isSelected room.status "đã đặt"}}>Đã đặt</option>
+    </select>
+  </div>
+  <div class="div_Mangage_btn">
+      <button type='submit' class='btn btn-primary mt-3 Mangage_btn'>Cập nhật</button>
+  </div>
+</form>

@@ -1,0 +1,15 @@
+<div class="form__login">
+    <form class="form__login__body" method="POST" action="/login" >
+        <p class="form__login__title">Đăng nhập ngay</p>
+        <div class="form__login__input" >
+            <input type="text" class="form__login__input-1" name="name" placeholder="Tên đăng nhập" >
+        </div>
+        <div class="form__login__input">
+            <input type="password" class="form__login__input-1 " name="password" placeholder="Mật khẩu" >
+        </div>
+        {{#if error}}
+        <p>{{error}}</p>
+        {{/if}}
+        <button type="submit" class="btn form__login__btn">Đăng nhập</button>
+    </form>
+</div>

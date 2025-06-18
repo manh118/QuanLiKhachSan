@@ -1,0 +1,39 @@
+<div class='mt-4 manage_crud'>
+  <h3 class="Mangage_title">Thêm dịch vụ</h3>
+
+  <form method="POST" action="/manage/quan_li_dichvu/crud/create" class="form_CreateRoom">
+    
+    <!-- Số phòng -->
+    <div class='form-group '>
+      <label class="Mangage_label" for='roomBumber'>Mã dịch vụ</label>
+      <input type='text' class='form-control Mangage_input' id='roomBumber' name="idService" required />
+    </div>
+
+    <!-- Số giường -->
+    <div class='form-group'>
+      <label class="Mangage_label" for='bedType'>Tên dịch vụ</label>
+      <input type='text' class='form-control Mangage_input' id='roomBumber' name="name" required />
+    </div>
+
+    <!-- Hạng phòng -->
+    <div class='form-group'>
+      <label class="Mangage_label" for='roomType'>Giá</label>
+      <input type='text' class='form-control Mangage_input' id='roomBumber' name="price" required />
+
+    </div>
+
+    <!-- Trạng thái -->
+    <div class='form-group'>
+      <label class="Mangage_label" for='status'>Đơn vị</label>
+      <select class="form-control Mangage_input" id="status" name="unit">
+        <option value="Lần">Lần</option>
+        <option value="Người">Người</option>
+        <option value="Chai">Chai</option>
+        <option value="Giờ">Giờ</option>
+      </select>
+    </div>
+    <div class="div_Mangage_btn">
+          <button type='submit' class='btn btn-primary mt-3 Mangage_btn'>Thêm mới</button>
+    </div>
+  </form>
+</div>

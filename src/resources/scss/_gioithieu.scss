@@ -1,0 +1,38 @@
+@use 'variables' as v;
+
+.GioiThieu__titile{
+    font-size: 2.5rem;
+    line-height: 31px;
+    font-weight: 700;
+    text-align: justify;
+    color: rgb(203, 190, 115);
+    
+}
+
+.GioiThieu__des{
+    margin-top: 18px;
+    font-size: 1.6rem;
+    text-align: justify;
+    color: rgb(40, 40, 40);
+}
+
+.GioiThieu__img {
+  width: 100%;         /* hoặc một giá trị cụ thể như 600px */
+  max-width: 100%;     /* không cho tràn chiều ngang */
+  overflow: hidden;    /* ẩn phần tràn nếu có */
+  
+}
+
+.GioiThieu__img img {
+  width: 100%;         /* ảnh tự co giãn theo khung */
+  height: 480px;        /* giữ nguyên tỉ lệ ảnh */
+  display: block;      /* loại bỏ khoảng trắng dưới ảnh */
+  object-fit: cover;   /* nếu muốn cắt ảnh vừa khung */
+}
+
+.GioiThieu__img .img2{
+  width: 100%;         
+  height: 200px;       
+  display: block;      
+  object-fit: cover;
+}

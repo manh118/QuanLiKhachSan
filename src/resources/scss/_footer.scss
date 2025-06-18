@@ -1,0 +1,95 @@
+@use 'variables' as v;
+
+footer{
+    margin-top: 50px;
+    height: 382px ;
+    background-color: v.$btn;
+}
+
+.row_footer{
+    padding-top: 80px;
+}
+
+.footer__cot{
+    
+}
+
+.footer__heading{
+    font-size: 2.1rem;
+    margin-bottom: 20px;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.footer__list{
+    list-style: none;
+    padding: 0;
+}
+
+.footer__item{
+    
+}
+
+.footer__item__link {
+    display: block;
+    font-size: 1.4rem;
+    color: v.$white-color;
+    padding: 8px 0;
+}
+
+.footer__item__link:hover{
+    text-decoration: none;
+    color: #fff;
+}
+
+.footer__cot4{
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+}
+
+.footer__email{
+    border-radius: 20px;
+    padding: 15px;
+    margin: 10px 0;
+    width: 80%;
+}
+
+.footer__form_group{
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.footer__btn{
+    margin-left: 5px;
+    background-color: v.$chudao;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.footer__end{
+    width: 100%;
+    border-top: 2px solid v.$chudao;
+    height: 52px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer__end__titel{
+    margin: 0;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.footer__end__icon i{
+    font-size: 1.5rem;
+    padding: 0 15px;
+    color: #fff;
+}

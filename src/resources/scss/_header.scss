@@ -1,0 +1,225 @@
+@use 'variables' as v;
+
+*{
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+.logo{
+    width: 15rem;
+    position: relative;
+    top: -7px;
+    left: -20px;
+}
+
+.header-1{
+    color: v.$white-color;
+    background-color: #046056;
+    font-size: 2rem;
+    height: 50px;
+}
+
+.contact{
+    height: 100%;    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contact__list{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.contact__item{
+    padding: 0;
+    list-style: none;
+}
+
+.contact__item-separate {
+    position: relative; 
+}
+
+.contact__item-separate::after{
+    display: block;
+    content: "";
+    position: absolute;
+    background-color: #fff;
+    width: 1px;
+    height: 18px;
+    top: 8px;
+    right: -8px;
+
+}
+
+.contact__icon-link{
+    color: v.$white-color;
+    padding: 0 3px;
+}
+
+
+.contact__icon-link:hover{
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+}
+
+.header{
+    height: 90px;
+    background-color: #fff;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    border-bottom: 1px solid hsla(0, 3%, 8%, 0.486);
+}
+
+.container{
+    height: 100%;
+}
+
+.navbar{
+    height: 100%;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar_list{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar_item{
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: black;
+    padding: 0 12px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+
+.navbar_item.Huy_padding{
+    padding-right: 0;
+}
+
+.navbar_item:hover{
+    cursor: pointer;
+    color: rgb(8, 90, 26);
+    text-decoration: none;
+}
+
+.navbar__dichvu{
+    position: relative;}
+
+
+.navbar__hangphong{
+    position: relative;
+}
+
+.navbar__hangphong__list{
+    position: absolute;
+    top: calc(100% + 15px);
+    left: -5px;
+    width: 170px;
+    padding: 0;
+    background-color: v.$white-color;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    z-index: 1;
+    display: none;
+    animation: hangphong ease-in 0.15s;
+    will-change: hangphong;
+}
+
+.navbar__dichvu__list{
+    position: absolute;
+    top: calc(100% + 14px);
+    left: -5px;
+    width: 200px;
+    padding: 0;
+    background-color: v.$white-color;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    z-index: 1;
+    display: none;
+    animation: hangphong ease-in 0.15s;
+    will-change: hangphong;
+}
+
+@keyframes hangphong {
+    from{
+        transform: translateY(8px);
+    }to{
+        transform: translateY(0);
+    }
+}
+
+.navbar__hangphong::after{
+    cursor: pointer;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 130px;
+    height: 35px;
+    background-color: transparent;
+    bottom: -32px;
+    left: 10px;
+}
+
+.navbar__dichvu::after{
+    cursor: pointer;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 130px;
+    height: 35px;
+    background-color: transparent;
+    bottom: -32px;
+    left: 10px;
+}
+
+.navbar__hangphong__item__link{
+    list-style: none;
+}
+
+.navbar__hangphong__item__link a{
+    font-size: 1.6rem;
+    padding: 8px 20px;
+    display: block;
+    color: #000;
+    text-decoration: none;
+    
+}
+
+.navbar__hangphong__item__link a:hover{
+    cursor: pointer;
+    color: #fff;
+    background-color: rgb(8, 90, 26);
+}
+
+.navbar__hangphong:hover .navbar__hangphong__list{
+    display: block;
+
+}
+
+.navbar__dichvu:hover .navbar__dichvu__list{
+    display: block;
+}
+
+
+
+
+

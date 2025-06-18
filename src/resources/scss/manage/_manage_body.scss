@@ -1,0 +1,165 @@
+@use '../variables' as v;
+
+
+
+.chinh{
+    padding: 6px 0;
+    display: inline;
+}
+
+.manage_body{
+    background-color: #f7f8f9;
+    min-height: 100vh;
+}
+
+.manage_crud{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+}
+
+.Mangage_title{
+    font-size: 3rem;
+    margin-bottom: 30px;
+}
+
+.Mangage_label{
+    font-size: 1.6rem;
+}
+
+.Mangage_input{
+    width: 400px;
+}
+
+.div_Mangage_btn{
+    width: 100%;
+    text-align: center;
+}
+
+.Mangage_btn{
+    font-size: 1.6rem;
+    margin-left: auto;
+    
+}
+
+.form_quanliphong{
+    margin: 40px 30px ;
+}
+
+.form_quanliphong h2{
+    font-size: 3rem;
+    text-transform: uppercase;
+}
+
+.nowrap {
+  white-space: nowrap;
+  display: flex;
+    align-items: center;      /* Căn trái theo chiều ngang, hoặc center nếu muốn */
+    height: 138px;                /* Chiều cao tùy chỉnh ô, để thấy hiệu quả căn giữa */
+    gap: 5px; 
+}
+
+.form-check{
+
+}
+
+.table{
+    background-color: #fff;
+    box-shadow: 0 0 2px #ccc;;
+}
+
+.form__sreach{
+    width: 238px;
+    margin-left: 14px;
+    margin-top: 47px;
+    background-color: #fff;
+    padding: 10px 12px;
+    font-size: 1.6rem;
+    box-shadow: 0 0 2px #ccc;
+}
+
+.lable__search{
+    margin-left: 5px;
+}
+
+.input__serach{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 5px 10px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.form__sreach__btn{
+    font-size: 1.6rem;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 15px;
+}
+
+.form_quanliphong__btn__them{
+    margin-left: auto;
+    margin-right: 35px;
+    padding: 5px 10px;
+    background-color: v.$btn_quanli;
+    color:#fff;
+    border-radius: 5px;
+    font-size: 1.6rem;
+}
+
+.btn-link{
+    font-size: 1.6rem;
+}
+
+.form-check-label {
+    font-size: 1.6rem;
+    margin-left: 5px;
+}
+
+.form-check-input{
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: 2px
+}
+
+.form_ChonXoa{
+    white-space: nowrap;
+    align-items: center;
+}
+
+.checkbox_all{
+    width: 200px;
+    margin: 0 16px;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.table{
+    font-size: 1.6rem;
+}
+
+//quan li phong
+.SoGiuong, .HangPhong{
+    width: 200px;
+    height: 40px;
+}
+
+.table.mt-4 th, .table.mt-4 td{
+    padding: 7.5px 25px;
+    // text-align: center;
+}
+
+.chinh{
+    margin-right: 400px;
+}
+
+
+

@@ -1,0 +1,1743 @@
+@charset "UTF-8";
+.body_phu {
+  padding: 75px 0 25px 0;
+}
+
+.Body_height {
+  min-height: 100vh;
+}
+
+.Pagination {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  margin-top: 48px;
+  margin-bottom: 10px;
+}
+
+.pagination-item {
+  margin: 0 12px;
+}
+
+.pagination-item--active .pagination-item__link {
+  color: var(--while-color);
+  background-color: var(--primary-color);
+}
+
+.pagination-item__link {
+  display: block;
+  font-weight: 300;
+  text-decoration: none;
+  font-size: 2rem;
+  color: #939393;
+  height: 30px;
+  min-width: 40px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 2px;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.6rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 15rem;
+  position: relative;
+  top: -7px;
+  left: -20px;
+}
+
+.header-1 {
+  color: #fff;
+  background-color: #046056;
+  font-size: 2rem;
+  height: 50px;
+}
+
+.contact {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contact__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.contact__item {
+  padding: 0;
+  list-style: none;
+}
+
+.contact__item-separate {
+  position: relative;
+}
+
+.contact__item-separate::after {
+  display: block;
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  width: 1px;
+  height: 18px;
+  top: 8px;
+  right: -8px;
+}
+
+.contact__icon-link {
+  color: #fff;
+  padding: 0 3px;
+}
+
+.contact__icon-link:hover {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+}
+
+.header {
+  height: 90px;
+  background-color: #fff;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  border-bottom: 1px solid hsla(0, 3%, 8%, 0.486);
+}
+
+.container {
+  height: 100%;
+}
+
+.navbar {
+  height: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar_list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar_item {
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: black;
+  padding: 0 12px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+.navbar_item.Huy_padding {
+  padding-right: 0;
+}
+
+.navbar_item:hover {
+  cursor: pointer;
+  color: rgb(8, 90, 26);
+  text-decoration: none;
+}
+
+.navbar__dichvu {
+  position: relative;
+}
+
+.navbar__hangphong {
+  position: relative;
+}
+
+.navbar__hangphong__list {
+  position: absolute;
+  top: calc(100% + 15px);
+  left: -5px;
+  width: 170px;
+  padding: 0;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  display: none;
+  animation: hangphong ease-in 0.15s;
+  will-change: hangphong;
+}
+
+.navbar__dichvu__list {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: -5px;
+  width: 200px;
+  padding: 0;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  display: none;
+  animation: hangphong ease-in 0.15s;
+  will-change: hangphong;
+}
+
+@keyframes hangphong {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.navbar__hangphong::after {
+  cursor: pointer;
+  content: "";
+  display: block;
+  position: absolute;
+  width: 130px;
+  height: 35px;
+  background-color: transparent;
+  bottom: -32px;
+  left: 10px;
+}
+
+.navbar__dichvu::after {
+  cursor: pointer;
+  content: "";
+  display: block;
+  position: absolute;
+  width: 130px;
+  height: 35px;
+  background-color: transparent;
+  bottom: -32px;
+  left: 10px;
+}
+
+.navbar__hangphong__item__link {
+  list-style: none;
+}
+
+.navbar__hangphong__item__link a {
+  font-size: 1.6rem;
+  padding: 8px 20px;
+  display: block;
+  color: #000;
+  text-decoration: none;
+}
+
+.navbar__hangphong__item__link a:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: rgb(8, 90, 26);
+}
+
+.navbar__hangphong:hover .navbar__hangphong__list {
+  display: block;
+}
+
+.navbar__dichvu:hover .navbar__dichvu__list {
+  display: block;
+}
+
+footer {
+  margin-top: 50px;
+  height: 382px;
+  background-color: #046056;
+}
+
+.row_footer {
+  padding-top: 80px;
+}
+
+.footer__heading {
+  font-size: 2.1rem;
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.footer__list {
+  list-style: none;
+  padding: 0;
+}
+
+.footer__item__link {
+  display: block;
+  font-size: 1.4rem;
+  color: #fff;
+  padding: 8px 0;
+}
+
+.footer__item__link:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+.footer__cot4 {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+}
+
+.footer__email {
+  border-radius: 20px;
+  padding: 15px;
+  margin: 10px 0;
+  width: 80%;
+}
+
+.footer__form_group {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.footer__btn {
+  margin-left: 5px;
+  background-color: #0bb4a1;
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.footer__end {
+  width: 100%;
+  border-top: 2px solid #0bb4a1;
+  height: 52px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__end__titel {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.footer__end__icon i {
+  font-size: 1.5rem;
+  padding: 0 15px;
+  color: #fff;
+}
+
+.phu__room__img {
+  position: relative;
+  padding-top: 50%;
+  height: 250px;
+}
+
+.Phu__room__heading {
+  font-size: 3.2rem;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #0bb4a1;
+}
+
+.Phu__room__description {
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+  text-align: justify;
+  color: rgb(99, 106, 118);
+  font-weight: 500;
+  padding: 10px 0;
+}
+
+.Phu__room__form__sreach {
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  padding: 30px 0;
+  justify-content: flex-end;
+}
+
+.Chinh_icon_area {
+  position: relative;
+  top: 2px;
+}
+
+.Phu__room__form__sreach__select {
+  margin: 0 10px;
+}
+
+.Phu__room__form__sreach-btn {
+  font-size: 1.6rem;
+  background-color: #046056;
+}
+
+.phu__room__img__price {
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5137254902);
+  width: 100%;
+  text-align: center;
+  font-size: 1.6rem;
+  padding: 4px 0;
+  text-transform: uppercase;
+  text-shadow: 0 0px 2px rgba(255, 255, 255, 0.1);
+  font-weight: 500;
+}
+
+.card-body__content {
+  width: 100%;
+  text-align: center;
+}
+
+.phu__room__type {
+  font-size: 2.2rem;
+}
+
+.phu__room__name {
+  margin: 14px 0;
+}
+
+.phu__room__name,
+.phu__room__title {
+  font-size: 1.5rem;
+  color: #33312d;
+  font-weight: 500;
+}
+
+.phu__room__cart__des {
+  padding: 0 10px;
+  margin-top: 20px;
+  font-size: 1.6rem;
+  text-align: justify;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+
+.phu__room__cart__btn {
+  margin: 10px 10px 0;
+  font-size: 1.5rem;
+  width: calc(100% - 20px);
+  font-weight: 500;
+  background-color: #046056;
+  color: #fff;
+  padding: 5px 0;
+  border-radius: 5px;
+}
+
+.phu__room__card {
+  position: relative;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+.phu__room__status {
+  position: absolute;
+  top: 20px;
+  left: -6px;
+  background-color: #0bb4a1;
+  font-size: 1.6rem;
+  color: #fff;
+  padding: 5px 8px;
+  line-height: 20px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.phu__room__status--booked {
+  background-color: rgb(0, 44, 31);
+}
+
+.phu__room__status::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  border-top: 4px solid #0bb4a1;
+  border-left: 4px solid transparent;
+  filter: brightness(60%);
+}
+
+.phu__room__status__icon {
+  font-size: 1.5rem;
+}
+
+.huy_pd {
+  padding: 0;
+}
+
+.huy_mg {
+  margin: 0;
+}
+
+.Bao {
+  margin-top: 100px;
+}
+
+.den {
+  color: #000;
+}
+
+.mg-50 {
+  margin-top: 50px;
+}
+
+.introduce__img, .introduce__img_2 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.introduce__img:hover, .introduce__img_2:hover {
+  transform: scale(1.05);
+}
+
+.bo_goc {
+  width: 265px;
+  height: 190px;
+  overflow: hidden;
+  border-radius: 5px;
+  margin: 0 0 0 14px;
+}
+
+.bo_goc_2 {
+  width: 265px;
+  height: 390px;
+  overflow: hidden;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+.introduce__title_mini {
+  font-size: 1.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  color: #0bb4a1;
+  letter-spacing: 2px;
+}
+
+.introduce__title {
+  font-size: 3.8rem;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+
+.introduce__description {
+  font-size: 1.8rem;
+  text-align: justify;
+  line-height: 3.2rem;
+  color: rgb(99, 106, 118);
+}
+
+.introduce__btn {
+  margin-top: 18px;
+  font-size: 1.6rem;
+  padding: 6px 20px;
+}
+
+.PhongNghi_gt {
+  text-align: center;
+}
+
+.phongnghi-mt {
+  margin-top: 50px;
+}
+
+.PhongNghi__tieude {
+  font-weight: 500;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  color: #0bb4a1;
+}
+
+.PhongNghi__mota {
+  margin-top: 5px;
+  font-weight: 500;
+  font-size: 3.2rem;
+  text-transform: uppercase;
+  color: #14404a;
+}
+
+.PhongNghi__slide {
+  margin-top: 65px;
+  box-shadow: 0 1px 20px #888888;
+  height: 400px;
+  border-radius: 5px;
+}
+
+.PhongNghi__title_mini {
+  font-size: 2.6rem;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.PhongNghi__title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.PhongNghi__description {
+  padding: 0 20px;
+  font-size: 1.6rem;
+}
+
+.PhongNghi__img {
+  height: 400px;
+  border-radius: 5px;
+}
+
+.PhongNghi__btn {
+  margin-top: 50px;
+  font-size: 1.6rem;
+  padding: 6px 20px;
+}
+
+.carousel-control-prev {
+  left: -130px; /* Di chuyển sang trái */
+}
+
+.carousel-control-next {
+  right: -130px; /* Di chuyển sang phải */
+}
+
+.PhongNghi__slide__icon {
+  color: #000;
+  font-size: 3rem;
+}
+
+.home_gt_dichvu {
+  display: block;
+  position: relative;
+}
+
+.home_gt_dichvu__img {
+  width: 350px;
+  height: 420px;
+  filter: brightness(80%);
+  border-radius: 3px;
+  object-fit: cover;
+}
+
+.home_gt_dichvu__ten {
+  position: absolute;
+  bottom: 20px;
+  font-size: 2.8rem;
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  text-shadow: 0 0px 2px rgba(255, 255, 255, 0.6);
+}
+
+.home__gt__tintuc__img {
+  width: 35rem;
+  height: 24rem;
+  border-radius: 3px;
+}
+
+.home__gt__tintuc__content {
+  margin-top: 20px;
+}
+
+.home__gt__tintuc__time {
+  font-size: 1.6rem;
+  color: #afb4bf;
+}
+
+.home__gt__tintuc__time_1 {
+  font-size: 1.6rem;
+  color: #0bb4a1;
+  margin-left: 32px;
+  font-weight: 500;
+}
+
+.home__gt__tintuc__tieude {
+  font-size: 2.1rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #14404a;
+}
+
+.home__gt__tintuc__mota {
+  margin-top: 20px;
+  font-size: 1.6rem;
+  color: #636a76;
+}
+
+.home__gt__tintuc__price {
+  font-size: 1.6rem;
+  color: #636a76;
+}
+
+.home__gt__tintuc__btn {
+  margin-top: 40px;
+  width: 13.5rem;
+  height: 3.7rem;
+  font-size: 1.6rem;
+  background-color: #046056;
+  color: #fff;
+}
+
+.home__gt__tintuc__icon {
+  position: relative;
+  right: -4px;
+  top: 2px;
+}
+
+.thuvien__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  display: block;
+}
+
+.img3-wrapper {
+  height: 50%;
+  overflow: hidden; /* Ẩn phần ảnh tràn */
+  position: relative;
+}
+
+.row_285 {
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* khoảng cách giữa 2 hàng */
+}
+
+.thuvien__btn {
+  margin-top: 18px;
+  font-size: 1.6rem;
+  padding: 6px 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+  margin-top: 30px;
+  background-color: #0bb4a1;
+  color: #fff;
+}
+
+.btn:hover {
+  color: #ffffff;
+  filter: brightness(90%);
+}
+
+.form__login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px 100px;
+}
+
+.form__login__lable {
+  font-size: 2.6rem;
+}
+
+.form__login__btn {
+  font-size: 1.6rem;
+  background-color: #046056;
+  color: #fff;
+  padding: 5px 20px;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.form__login__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 360px;
+  height: 400px;
+  border: 1px solid #ccc;
+}
+
+.form__login__title {
+  font-size: 2.6rem;
+  margin-top: 30px;
+}
+
+.form__login__input {
+  text-align: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.form__login__input-1 {
+  width: 80%;
+  font-size: 1.6rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.slide_hbs {
+  position: relative;
+  padding-top: 50%;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("/img/slide.jpg") top center/cover no-repeat;
+}
+
+.slide_hbs .slide__content {
+  position: absolute;
+  bottom: 300px;
+  color: #fff;
+}
+
+.slide__content {
+  width: 100%;
+  text-align: center;
+}
+
+.text__heading {
+  font-size: 2rem;
+}
+
+.text__des {
+  font-size: 7rem;
+}
+
+.header__booking {
+  position: relative;
+  background-color: #046056;
+  width: 100%;
+  height: 100px;
+}
+
+.header__booking__container {
+  display: flex;
+  align-items: center;
+}
+
+.header__booking__container button {
+  width: 212px;
+  height: 38px;
+  margin-top: 29px;
+  font-size: 1.6rem;
+}
+
+.custom-select {
+  width: 212px;
+  height: 38px;
+  font-size: 1.6rem;
+}
+
+.form-control {
+  width: 212px;
+  height: 38px;
+  font-size: 1.6rem;
+}
+
+.header__booking__form {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.header__booking__des {
+  font-size: 1.6rem;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.header__booking__content {
+  margin-right: 20px;
+}
+
+.slide_hbs_phu {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  height: 350px;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/img/slide_phu1.jpg") top center/cover no-repeat;
+}
+
+.slide_hbs_phu .slide__content_phu {
+  position: absolute;
+  bottom: 150px;
+  color: #fff;
+}
+
+.slide__content_phu {
+  width: 100%;
+  text-align: center;
+}
+
+.slide__content_phu .text__des {
+  text-shadow: 0 0px 2px rgba(255, 255, 255, 0.6);
+  font-size: 6rem;
+  text-transform: uppercase;
+}
+
+.RoomDetail_img {
+  width: 1110px;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.RoomDetail_title {
+  font-size: 2.8rem;
+  margin: 25px 0;
+  padding: 0 10px;
+  border-left: 5px solid #0bb4a1;
+  line-height: 28px;
+  font-weight: 500;
+  display: block;
+}
+
+.RoomDetail_des {
+  font-size: 1.6rem;
+  text-align: justify;
+  color: #636a76;
+  line-height: 30px;
+}
+
+.RoomDetail__body__cot1 {
+  padding: 0 20px 0 0;
+}
+
+.RoomDetail__tienich__list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.RoomDetail__tienich__item {
+  margin-right: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+  border: 1px solid #0bb4a1;
+  border-radius: 10px;
+}
+
+.RoomDetail__tienich__icon {
+  margin-right: 8px;
+  font-size: 1.6rem;
+}
+
+.Libary_icon {
+  font-size: 1.8rem;
+}
+
+.RoomDetail__tienich__name {
+  font-size: 1.6rem;
+  margin: 0;
+  line-height: 13px;
+  display: inline;
+}
+
+.RoomDetail__booking {
+  margin-top: 25px;
+  background-color: #046056;
+  padding: 20px 30px;
+  border-radius: 3px;
+}
+
+.RoomDetail__booking_title {
+  font-size: 2.6rem;
+  color: #fab950;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #fff;
+  text-shadow: 0 1px 2px #f3d199;
+}
+
+.RoomDetail__booking__content {
+  margin-bottom: 15px;
+}
+
+.RoomDetail__booking__des {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 7px;
+}
+
+.RoomDetail__booking__input {
+  width: 100%;
+}
+
+.RoomDetail__booking__btn {
+  background-color: #0bb4a1;
+  font-size: 1.6rem;
+  width: 100%;
+  color: #fff;
+}
+
+.disabled-btn {
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed;
+  pointer-events: none;
+  border: none;
+}
+
+.RoomDetail__relate {
+  border: 1px solid #0bb4a1;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.RoomDetail__relate__body {
+  padding: 15px 14px 0 14px;
+  display: flex;
+}
+
+.RoomDetail__relate__img {
+  width: 100%;
+  height: 140px;
+  position: relative;
+}
+
+.RoomDetail__relate__card {
+  margin: 0 10px;
+  width: 220px;
+}
+
+.RoomDetail__relate__name {
+  font-size: 1.6rem;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+  color: #0bb4a1;
+}
+
+.RoomDetail__relate__name:hover {
+  text-decoration: none;
+}
+
+.RoomDetail__roomtype {
+  border: 1px solid #0bb4a1;
+  border-radius: 5px;
+  height: 380px;
+}
+
+.RoomDetail__roomtype__list {
+  list-style: none;
+  height: 100%;
+  padding: 10px 20px 20px 20px;
+}
+
+.RoomDetail__roomtype__item {
+  border-bottom: 1px solid #0bb4a1;
+}
+
+.RoomDetail__roomtype__item:last-child {
+  border-bottom: none;
+}
+
+.RoomDetail__roomtype__item__link {
+  display: flex;
+  padding: 10px 0;
+}
+
+.RoomDetail__roomtype__item__link:hover {
+  text-decoration: none;
+}
+
+.RoomDetail__roomtype__item__img {
+  width: 155px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.RoomDetail__roomtype__item__content {
+  font-size: 1.4rem;
+  margin-left: 20px;
+  margin-top: 18px;
+}
+
+.RoomDetail__roomtype__item__title {
+  color: #000;
+  font-weight: 500;
+}
+
+.RoomDetail__roomtype__item__price {
+  margin-top: 10px;
+  color: #ca9a15;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.modal__booking {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.color__price {
+  color: red;
+  font-weight: 400;
+}
+
+.color__price_phong {
+  color: #fcd058;
+  font-weight: 400;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.modal__booking.open {
+  display: flex;
+}
+
+.modal__booking__container {
+  background-color: #fff;
+  width: 800px;
+  max-height: 600px;
+  position: relative;
+}
+
+.modal__booking__close {
+  font-size: 2rem;
+  display: flex;
+  position: absolute;
+  right: 0;
+}
+
+.modal__booking__close i {
+  padding: 5px;
+  color: #046056;
+}
+
+.modal__booking__close:hover i {
+  cursor: pointer;
+}
+
+.modal__booking__header {
+  font-size: 3rem;
+  border-bottom: 3px solid #0bb4a1;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #046056;
+  font-weight: 700;
+}
+
+.modal__booking__title {
+  font-weight: 500;
+  font-size: 2rem;
+  margin: 10px;
+  color: #0bb4a1;
+}
+
+.modal__booking__contet {
+  padding: 0 50px;
+}
+
+.modal__booking__body {
+  padding: 10px 0;
+}
+
+.modal__booking__label {
+  font-size: 1.8rem;
+  display: block;
+  font-weight: 500;
+  color: #046056;
+}
+
+.modal__booking__input {
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1.6rem;
+  padding: 0 10px;
+}
+
+.modal__booking__chooseService {
+  font-size: 1.6rem;
+  color: #fff;
+  width: auto;
+  background-color: #046056;
+  padding: 5px;
+  border-radius: 3px;
+  margin-top: 50px;
+  margin-left: 120px;
+}
+
+.modal__booking__service {
+  background-color: #fff;
+  margin-left: 30px;
+  max-height: 500px;
+  width: 480px;
+}
+
+.modal__booking__service__form {
+  display: flex;
+  padding: 10px 20px;
+  align-items: center;
+}
+
+.modal__booking__service__lable {
+  color: #046056;
+  font-size: 1.4rem;
+  width: 115px;
+  font-weight: 500;
+}
+
+.modal__booking__service__form1 {
+  display: flex;
+  margin-left: 30px;
+  align-items: center;
+}
+
+.modal__booking__service__input {
+  width: 110px;
+}
+
+.modal__booking__service__price {
+  margin-left: 10px;
+  font-size: 1.4rem;
+  color: red;
+}
+
+.btn_tamtinh {
+  margin-bottom: 15px;
+  font-size: 1.6rem;
+  color: #fff;
+  background-color: #046056;
+  padding: 5px;
+  border-radius: 3px;
+  margin-top: 10px;
+}
+
+.modal__booking__frame__btn {
+  background-color: #046056;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.modal__booking__contet__des {
+  font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__booking__btn {
+  background-color: #0bb4a1;
+  font-size: 2rem;
+  color: #fff;
+  width: 30%;
+  height: 50px;
+  border-radius: 5px;
+}
+
+.GioiThieu__titile {
+  font-size: 2.5rem;
+  line-height: 31px;
+  font-weight: 700;
+  text-align: justify;
+  color: rgb(203, 190, 115);
+}
+
+.GioiThieu__des {
+  margin-top: 18px;
+  font-size: 1.6rem;
+  text-align: justify;
+  color: rgb(40, 40, 40);
+}
+
+.GioiThieu__img {
+  width: 100%; /* hoặc một giá trị cụ thể như 600px */
+  max-width: 100%; /* không cho tràn chiều ngang */
+  overflow: hidden; /* ẩn phần tràn nếu có */
+}
+
+.GioiThieu__img img {
+  width: 100%; /* ảnh tự co giãn theo khung */
+  height: 480px; /* giữ nguyên tỉ lệ ảnh */
+  display: block; /* loại bỏ khoảng trắng dưới ảnh */
+  object-fit: cover; /* nếu muốn cắt ảnh vừa khung */
+}
+
+.GioiThieu__img .img2 {
+  width: 100%;
+  height: 200px;
+  display: block;
+  object-fit: cover;
+}
+
+.Service__body {
+  margin-top: 50px;
+}
+
+.Service__des {
+  font-size: 1.6rem;
+  font-style: italic;
+}
+
+.Service__title {
+  font-size: 4.5rem;
+  font-weight: 500;
+}
+
+.Service__des2 {
+  font-size: 1.6rem;
+  text-align: justify;
+  padding-right: 20px;
+}
+
+.Service__title2 {
+  font-size: 3.2rem;
+  font-weight: 500;
+}
+
+.Service__form__frame__time {
+  display: flex;
+}
+
+.Service__form__icon {
+  font-size: 2.2rem;
+  margin-top: 13px;
+  color: rgb(217, 134, 0);
+}
+
+.Service__form__content {
+  padding: 5px 15px;
+  font-size: 1.6rem;
+}
+
+.tabs_monan_form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nav.nav-tabs {
+  font-size: 2rem;
+  margin-top: 80px;
+  justify-content: center;
+}
+
+.nav-link {
+  padding: 5px 40px;
+}
+
+.nav-tabs .nav-link.active {
+  color: rgb(217, 134, 0);
+}
+
+.tab-content {
+  margin-top: 40px;
+}
+
+.serive__dish__form {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.serive__dish__img img {
+  width: 170px;
+  height: 150px;
+}
+
+.serive__dish__content {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.serive__dish__title {
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+
+.serive__dish__des {
+  font-size: 1.6rem;
+  color: rgb(51, 51, 51);
+  padding: 10px 0;
+}
+
+.serive__dish__price {
+  font-size: 3rem;
+}
+
+.Service__tiec__title {
+  font-size: 2.4rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.Service__tiec__des {
+  font-size: 1.6rem;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.Service__tiec__img img {
+  width: 100%;
+  height: 422px;
+  object-fit: cover;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.6rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+.manage__header {
+  height: 50px;
+  background-color: rgb(0, 112, 244);
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  border-bottom: 1px solid hsla(0, 3%, 8%, 0.486);
+}
+
+.manage__navbar {
+  height: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 20px;
+}
+
+.manage__navbar_list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.manage__navbar_item {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: black;
+  padding: 8px 20px;
+  text-transform: uppercase;
+  display: block;
+  color: #fff;
+  border-radius: 7px;
+}
+
+.manage__navbar__user,
+.manage__navbar__hangphong,
+.manage__navbar__dichvu {
+  position: relative;
+}
+
+.manage__navbar_item:hover {
+  color: #fff;
+  background-color: rgb(2, 80, 170);
+  text-decoration: none;
+}
+
+.manage__navbar__dichvu__list {
+  position: relative;
+}
+
+.manage__navbar__hangphong__list {
+  position: absolute;
+  top: calc(100% + 7px);
+  left: -5px;
+  width: 170px;
+  padding: 10px 0;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  display: none;
+  animation: hangphong ease-in 0.15s;
+  will-change: hangphong;
+  border-radius: 5px;
+}
+
+.manage__navbar__user__list {
+  position: absolute;
+  top: calc(100% + 7px);
+  right: 0;
+  width: 120px;
+  padding: 0;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  display: none;
+  animation: hangphong ease-in 0.15s;
+  will-change: hangphong;
+}
+
+.manage__navbar__dichvu__list {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: -5px;
+  width: 200px;
+  padding: 0;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  display: none;
+  animation: hangphong ease-in 0.15s;
+  will-change: hangphong;
+}
+
+@keyframes hangphong {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.manage__navbar__hangphong::after {
+  cursor: pointer;
+  content: "";
+  display: block;
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  background-color: transparent;
+  bottom: -15px;
+  left: 15px;
+}
+
+.manage__navbar__user::after {
+  cursor: pointer;
+  content: "";
+  display: block;
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  background-color: transparent;
+  bottom: -20px;
+  right: 0;
+}
+
+.manage__navbar__hangphong__item__link {
+  list-style: none;
+}
+
+.manage__navbar__hangphong__item__link a {
+  font-size: 1.6rem;
+  padding: 8px 20px;
+  display: block;
+  color: #000;
+  text-decoration: none;
+}
+
+.manage__navbar__hangphong__item__link a:hover {
+  cursor: pointer;
+  color: #000;
+  background-color: #ccc;
+}
+
+.manage__navbar__hangphong:hover .manage__navbar__hangphong__list {
+  display: block;
+}
+
+.manage__navbar__user:hover .manage__navbar__user__list {
+  display: block;
+}
+
+.manage__navbar__dichvu:hover .manage__navbar__dichvu__list {
+  display: block;
+}
+
+.chinh {
+  padding: 6px 0;
+  display: inline;
+}
+
+.manage_body {
+  background-color: #f7f8f9;
+  min-height: 100vh;
+}
+
+.manage_crud {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+}
+
+.Mangage_title {
+  font-size: 3rem;
+  margin-bottom: 30px;
+}
+
+.Mangage_label {
+  font-size: 1.6rem;
+}
+
+.Mangage_input {
+  width: 400px;
+}
+
+.div_Mangage_btn {
+  width: 100%;
+  text-align: center;
+}
+
+.Mangage_btn {
+  font-size: 1.6rem;
+  margin-left: auto;
+}
+
+.form_quanliphong {
+  margin: 40px 30px;
+}
+
+.form_quanliphong h2 {
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+
+.nowrap {
+  white-space: nowrap;
+  display: flex;
+  align-items: center; /* Căn trái theo chiều ngang, hoặc center nếu muốn */
+  height: 138px; /* Chiều cao tùy chỉnh ô, để thấy hiệu quả căn giữa */
+  gap: 5px;
+}
+
+.table {
+  background-color: #fff;
+  box-shadow: 0 0 2px #ccc;
+}
+
+.form__sreach {
+  width: 238px;
+  margin-left: 14px;
+  margin-top: 47px;
+  background-color: #fff;
+  padding: 10px 12px;
+  font-size: 1.6rem;
+  box-shadow: 0 0 2px #ccc;
+}
+
+.lable__search {
+  margin-left: 5px;
+}
+
+.input__serach {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 5px 10px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.form__sreach__btn {
+  font-size: 1.6rem;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 15px;
+}
+
+.form_quanliphong__btn__them {
+  margin-left: auto;
+  margin-right: 35px;
+  padding: 5px 10px;
+  background-color: rgb(0, 112, 244);
+  color: #fff;
+  border-radius: 5px;
+  font-size: 1.6rem;
+}
+
+.btn-link {
+  font-size: 1.6rem;
+}
+
+.form-check-label {
+  font-size: 1.6rem;
+  margin-left: 5px;
+}
+
+.form-check-input {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  top: 2px;
+}
+
+.form_ChonXoa {
+  white-space: nowrap;
+  align-items: center;
+}
+
+.checkbox_all {
+  width: 200px;
+  margin: 0 16px;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.table {
+  font-size: 1.6rem;
+}
+
+.SoGiuong, .HangPhong {
+  width: 200px;
+  height: 40px;
+}
+
+.table.mt-4 th, .table.mt-4 td {
+  padding: 7.5px 25px;
+}
+
+.chinh {
+  margin-right: 400px;
+}
+
+/*# sourceMappingURL=main.css.map */

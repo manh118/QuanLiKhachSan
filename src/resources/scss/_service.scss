@@ -1,0 +1,125 @@
+.Service__body{
+    margin-top: 50px;
+}
+
+
+.Service__des{
+    font-size: 1.6rem;
+    font-style: italic;
+}
+
+.Service__title{
+    font-size: 4.5rem;
+    font-weight: 500;
+}
+
+
+.Service__des2{
+    font-size: 1.6rem;
+    text-align: justify;
+    padding-right: 20px;
+}
+
+.Service__title2{
+    font-size: 3.2rem;
+    font-weight: 500;
+}
+
+.Service__form__frame__time{
+    display: flex;
+
+}
+
+.Service__form__icon{
+    font-size: 2.2rem;
+    margin-top: 13px;
+    color: rgb(217, 134, 0);
+}
+
+.Service__form__content{
+    padding: 5px 15px;
+    font-size: 1.6rem;
+}
+
+.Service__form__title{
+
+}
+
+.Service__form__time{
+
+}
+
+.tabs_monan_form{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav.nav-tabs{
+    font-size: 2rem;
+    margin-top: 80px;
+    justify-content: center;
+}
+
+.nav-link{
+    padding: 5px 40px;
+}
+
+.nav-tabs .nav-link.active{
+    color: rgb(217, 134, 0);
+}
+
+.tab-content{
+    margin-top: 40px;
+}
+
+.serive__dish__form{
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.serive__dish__img img{
+    width: 170px;
+    height: 150px;
+}
+
+.serive__dish__content{
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.serive__dish__title{
+    font-size: 2.2rem;
+    font-weight: 500;
+}
+
+.serive__dish__des{
+    font-size: 1.6rem;
+    color: rgb(51, 51, 51);
+    padding: 10px 0;
+}
+
+.serive__dish__price{
+    font-size: 3rem;
+}
+
+//tiec
+.Service__tiec__title{
+    font-size: 2.4rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.Service__tiec__des{
+    font-size: 1.6rem;
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+.Service__tiec__img img{
+    width: 100%;
+    height: 422px;
+    object-fit: cover;
+}

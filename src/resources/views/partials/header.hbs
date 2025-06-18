@@ -1,0 +1,74 @@
+<div class="header-1">
+  <div class="container">
+    <div class="contact">
+      <ul class="contact__list">
+        <li class="contact__item contact__item-separate ">Kính chào quý khách</li>
+        <li class="contact__item ml-4">
+          Kết nối
+          <a href="" class="contact__icon-link"><i class="fa-brands fa-facebook"></i></a>
+          <a href="" class="contact__icon-link"><i class="fa-brands fa-instagram"></i></a>
+        </li>
+      </ul>
+      <ul class="contact__list">
+        <li class="contact__item">
+          <a href="" class="contact__icon-link mr-3"><i class="fa-solid fa-phone mr-3"></i>0983230944</a>
+          <a href="" class="contact__icon-link"><i class="fa-solid fa-envelope mr-3"></i>20hotel@gmail.com</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="header">
+  <div class="container ">
+    <div class="navbar">
+      <ul class="navbar_list">
+        <li><a class="navbar_item" href="/">
+          <img class="logo" src="/img/logo.png" alt="">
+        </a></li>
+        <li>
+          <a href="/" class="navbar_item" navbar_itemhref="">Trang chủ</a>
+        </li>
+        <li>
+          <a href="/gioi_thieu" class="navbar_item" navbar_itemhref="">Giới thiệu</a>
+        </li>
+        <li class="navbar__hangphong">
+          
+          <a class="navbar_item" href="/hangphong">hạng phòng</a>
+          <ul class="navbar__hangphong__list">
+            {{#each RoomTypes}}
+            <li class="navbar__hangphong__item__link">
+              <a href="/hangphong/{{this._id}}/rooms">{{this.name}}</a>
+            </li>
+            {{/each}}
+          </ul>
+        </li>
+        <li class="navbar__dichvu">
+          <a class="navbar_item" >dịch vụ</a>
+          <ul class="navbar__dichvu__list">
+            <li class="navbar__hangphong__item__link">
+              <a href="/dichvu/amthuc">Ẩm thực & Ăn uống</a>
+            </li>
+            <li class="navbar__hangphong__item__link">
+              <a href="/dichvu/tiec">Tiệc cưới & Hội nghị</a>
+            </li>
+            <li class="navbar__hangphong__item__link">
+              <a href="">Giải trí & Thư giãn</a>
+            </li>            
+          </ul>
+        </li>
+        <li><a class="navbar_item" href="">điểm đến</a></li>
+        <li><a class="navbar_item" href="">ưu đãi</a></li>
+      </ul>
+      <ul class="navbar_list">
+        {{#if username}}
+          <li><a href="/manage" class="navbar_item Huy_padding">{{username}}</a>
+          </li>
+        {{else}}
+          <li><a href="/login" class="navbar_item Huy_padding">
+            <i class="fa-solid fa-user mr-3"></i>Tài khoản</a>
+          </li>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</div>

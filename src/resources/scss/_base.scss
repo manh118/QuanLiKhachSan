@@ -1,0 +1,39 @@
+.body_phu{
+    padding: 75px 0 25px 0;
+}
+
+.Body_height{
+    min-height: 100vh;
+}
+
+.Pagination{
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+     margin-top: 48px;
+    margin-bottom: 10px ;
+}
+
+.pagination-item{
+    margin: 0 12px;
+}
+
+.pagination-item--active .pagination-item__link{
+    color: var(--while-color);
+    background-color: var(--primary-color);
+}
+
+.pagination-item__link{
+    display: block;
+    font-weight: 300;
+    text-decoration: none;
+    font-size: 2rem;
+    color: #939393;
+    height: 30px;
+    min-width: 40px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 2px;
+}
+

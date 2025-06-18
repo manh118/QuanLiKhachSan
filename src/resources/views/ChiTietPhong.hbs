@@ -1,0 +1,338 @@
+<div class="container RoomDetail">
+    <div class="row" style="margin-top: 70px;">
+        <img class="RoomDetail_img" src="{{Room.img}}" alt="">
+    </div>
+    <div class="row RoomDetail__body">
+        <div class="col-8 RoomDetail__body__cot1">
+            <p class="RoomDetail_title">Phòng: {{Room.roomNumber}} - {{Room.roomType.name}}</p>
+            <p class="RoomDetail_des">
+                {{Room.roomType.description}}
+            </p>
+            <ul class="RoomDetail__tienich__list" style="margin-top: 20px;">   
+                    <li class="RoomDetail__tienich__item">
+                        <i class="fa-solid fa-bed RoomDetail__tienich__icon "></i> 
+                        <p class="RoomDetail__tienich__name">{{Room.bedType.name}}</p> 
+                    </li>        
+                    <li class="RoomDetail__tienich__item">
+                        <i class="bx  bx-area RoomDetail__tienich__icon Libary_icon"></i> 
+                        <p class="RoomDetail__tienich__name">Phòng {{{m2 Room.area}}}</p> 
+                    </li>                     
+            </ul>
+            <p class="RoomDetail_title">Tiện nghi</p>
+            <ul class="RoomDetail__tienich__list">
+                {{#each Room.roomType.utilities}}
+                    <li class="RoomDetail__tienich__item">
+                    <i class="{{this.icon}} RoomDetail__tienich__icon"></i> 
+                    <p class="RoomDetail__tienich__name">{{this.name}}</p> 
+                    </li> 
+                {{/each}}
+            </ul>
+        </div>
+    
+        <div class="col-4" style="padding: 0 0 0 20px;">
+            <div class="RoomDetail__booking" >
+                    <p class="RoomDetail__booking_title ">{{money Room.price}} VNĐ/ ĐÊM</p>
+                    <div class="RoomDetail__booking__form">
+                        <div class="RoomDetail__booking__content">
+                            <div class="RoomDetail__booking__des">Ngày đến</div>
+                            <input type="date" id="ngayDen" class="form-control  RoomDetail__booking__input">               
+                        </div>
+                        <div class="RoomDetail__booking__content">
+                            <div class="RoomDetail__booking__des">Ngày đi</div>
+                            <input type="date" id="ngayDi" class="form-control RoomDetail__booking__input" >
+                        </div>
+                        <div class="RoomDetail__booking__content">
+                            <div class="RoomDetail__booking__des">Người lớn</div>
+                            <select class="custom-select RoomDetail__booking__input" id="selectNguoiLon">
+                                <option selected>Choose...</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="RoomDetail__booking__content">
+                            <div class="RoomDetail__booking__des">Trẻ em</div>
+                            <select class="custom-select RoomDetail__booking__input" id="selectTreEm">
+                                <option selected>Choose...</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="btn RoomDetail__booking__btn js-btn-booking " {{#if (eqString Room.status 'Đã đặt')}}disabled{{/if}}>
+                        {{#if (eqString Room.status 'Đã đặt')}}Đang được sử dụng{{else}}Đặt phòng{{/if}}
+                    </button>     
+                          
+            </div>
+        </div>
+    </div> 
+    <div class=" row "> 
+        <p class="RoomDetail_title">Phòng liên quan</p>   
+        <p class="RoomDetail_title" style="margin-left: 525px;" >Hạng phòng khác</p>   
+    </div>
+    <div class=" row "> 
+        <div class="col-8 RoomDetail__relate" >
+            <div class="row RoomDetail__relate__body">
+                 {{#each RelatedRooms}}              
+                    <div class="card RoomDetail__relate__card">
+                        <div class="RoomDetail__relate__img" style="background:url({{this.img}}) center/cover no-repeat;">
+                            <p class="phu__room__img__price color__price_phong">{{money this.price}} VNĐ/ĐÊM</p>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title phu__room__type">{{this.roomType.name}}</h5>
+                            <p class="phu__room__name">Phòng: {{this.roomNumber}}</p>
+                            <p class="phu__room__title">
+                                <i class="fa-solid fa-bed"></i> {{this.bedType.name}} -
+                                <i class="bx bx-area Chinh_icon_area"></i> {{{m2 this.area}}}
+                            </p>
+                            <a href="/hangphong/room/{{this.roomNumber}}" class="btn phu__room__cart__btn">Chi tiết</a>
+                        </div>
+                    </div>             
+                {{/each}}
+            </div>
+           
+            <a href="/hangphong/{{Room.roomType._id}}/rooms" class="RoomDetail__relate__name" style="display: block;">Xem tất cả.....</a>
+        </div>
+        <div class="col-4">
+            <div class="RoomDetail__roomtype">
+                <ul class="RoomDetail__roomtype__list">
+                   {{#each RoomTypes}}
+                        {{#unless (eq this._id ../currentRoomTypeId)}}
+                            <li class="RoomDetail__roomtype__item">
+                                <a href="/hangphong/{{this._id}}/rooms" class="RoomDetail__roomtype__item__link">
+                                    <img class="RoomDetail__roomtype__item__img" src="{{this.img}}" alt="">
+                                    <div class="RoomDetail__roomtype__item__content">
+                                    <div class="RoomDetail__roomtype__item__title">{{this.name}}</div>
+                                    <div class="RoomDetail__roomtype__item__price">{{money this.price}} VNĐ</div>
+                                    </div>
+                                </a>
+                            </li>
+                        {{/unless}}
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <div class="RoomDetail__realte_"></div>
+</div>
+
+<div class="modal__booking js-modal__booking" >
+    <div class="modal__booking__container" style="overflow-y: auto; overflow-x: hidden">
+        <div class="modal__booking__close">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="modal__booking__header">BOOKING</div>
+        <input type="hidden" id="roomId" value="{{Room._id}}">
+        <div class="modal__booking__title">Phòng {{Room.roomNumber}}</div>
+        <div class="row modal__booking__contet">
+            <div class="col-6">
+                 <div class="modal__booking__body">
+                    <label for="" class="modal__booking__label">Nhận phòng</label>
+                    <input type="Date" id="checkInDate"  class="modal__booking__input" placeholder="">
+                </div>
+                <div class="modal__booking__body">
+                    <label for="" class="modal__booking__label">Người lớn</label>
+                    <select class="custom-select modal__booking__input" id="modalNguoiLon">
+                        <option selected>Choose...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="modal__booking__body">
+                    <label for=""  class="modal__booking__label">Trả phòng</label>
+                    <input type="Date" id="checkOutDate" class="modal__booking__input" placeholder="">
+                </div>
+                <div class="modal__booking__body">
+                    <label for="" class="modal__booking__label">Trẻ em</label>
+                    <select class="custom-select modal__booking__input" id="modalTreEm">
+                            <option selected>Choose...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal__booking__title">Thông tin khách hàng</div>
+        <div class="row modal__booking__contet">
+            <div class="col-6">
+                 <div class="modal__booking__body">
+                    <label for="" class="modal__booking__label">Họ tên</label>
+                    <input type="Text" id="fullName" class="modal__booking__input" placeholder="">
+                </div>
+                <div class="modal__booking__body">
+                    <label for="" class="modal__booking__label">Số điện thoại</label>
+                    <input type="Text" id="phone" class="modal__booking__input" placeholder="">
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="modal__booking__body">
+                    <label for="" class="modal__booking__label">Email</label>
+                    <input type="Text" id="email" class="modal__booking__input" placeholder="">
+                </div> 
+                <a class="btn modal__booking__chooseService" data-toggle="collapse" href="#serviceCollapse" role="button" aria-expanded="false" aria-controls="serviceCollapse">
+                Chọn dịch vụ
+                </a>              
+            </div>                 
+        </div>
+        <div class="modal__booking__title" style="display: inline;">Giá cả</div>
+        <div class="modal__booking__contet__des" style="display: inline;">
+            Tạm tính số tiền cần trả, thanh toán khi trả phòng (nếu không sử dụng thêm dịch vụ gì)
+        </div>
+        <div class="row modal__booking__contet" style="margin-top: 10px;">
+            <div class="col-6">  
+                <div class="modal__booking__label">Số ngày: <span class="color__price" id="soNgay">0</span></div>
+                <div class="modal__booking__label">Tiền phòng: <span class="color__price" id="tienPhong">0</span> VNĐ</div>
+                <div class="modal__booking__label">Tiền dịch vụ: <span class="color__price" id="tienDichVu">0</span> VNĐ</div>
+                <div class="modal__booking__label">Tổng tiền: <span class="color__price" id="tongTien">0</span> VNĐ</div>                 
+                <a class="btn btn_tamtinh">Tạm tính</a>   
+            </div>
+            
+        </div>
+        <div class="modal__booking__frame__btn">
+            <button type="button submit" class="btn modal__booking__btn">ĐẶT PHÒNG NGAY</button>   
+        </div>
+        
+             
+    </div>
+    <div class="collapse mt-2 modal__booking__service" id="serviceCollapse" style="overflow-y: auto; overflow-x: hidden">
+        {{#each Services}}
+        <div class="modal__booking__service__form" >
+            <label class="modal__booking__service__lable" style="min-width: 100px;">{{this.name}}:</label>
+            <div class="modal__booking__service__form1">
+                <input type="number" name="services[{{this._id}}]" min="0" value="0" class="form-control modal__booking__service__input"  data-price="{{this.price}}">
+                <span class="modal__booking__service__price ">{{money this.price}} VNĐ/&nbsp</span> 
+                <span style="font-size: 1.4rem;"> {{this.unit}}</span>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+<script>
+    const bookingBtn = document.querySelector('.js-btn-booking')
+    const modal = document.querySelector('.js-modal__booking')
+    const modalClose = document.querySelector('.modal__booking__close')
+
+
+    function showBookingModal(){
+
+        modal.classList.add('open')
+        document.body.classList.add('no-scroll');
+        //lay
+        const ngayDen = document.getElementById('ngayDen').value;
+        const ngayDi = document.getElementById('ngayDi').value;
+        const nguoiLon = document.getElementById('selectNguoiLon').value;
+        const treEm = document.getElementById('selectTreEm').value;
+
+        //gan
+        document.getElementById('checkInDate').value = ngayDen;
+        document.getElementById('checkOutDate').value = ngayDi;
+        document.getElementById('modalNguoiLon').value = nguoiLon;
+        document.getElementById('modalTreEm').value = treEm;
+    }
+
+    function removeBookingModal(){
+        modal.classList.remove('open')
+         document.body.classList.remove('no-scroll');
+    }
+
+    modalClose.addEventListener('click', removeBookingModal)
+
+    bookingBtn.addEventListener('click', showBookingModal)
+
+</script>
+
+<script>
+    const btnTinh = document.querySelector('.btn_tamtinh');
+    const inputServices = document.querySelectorAll('.modal__booking__service__input');
+    const ngaytra = document.getElementById('checkOutDate')
+
+    btnTinh.addEventListener('click', function () {
+        // Lấy ngày
+        const checkIn = new Date(document.getElementById('checkInDate').value);
+        const checkOut = new Date(document.getElementById('checkOutDate').value);
+
+        // Tính số ngày
+        let soNgay = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+        if (soNgay <= 0 || isNaN(soNgay)) soNgay = 0;
+
+        document.getElementById('soNgay').textContent = soNgay;
+
+        // Giá phòng
+        const roomPrice = {{Room.roomType.price}}; // Giả sử bạn render sẵn trong view Handlebars
+
+        const tienPhong = soNgay * roomPrice;
+        document.getElementById('tienPhong').textContent = tienPhong.toLocaleString();
+
+        // Tiền dịch vụ
+        let tienDichVu = 0;
+        inputServices.forEach(input => {
+            const sl = parseInt(input.value) || 0;
+            const price = parseInt(input.getAttribute('data-price')) || 0;
+            tienDichVu += sl * price;
+        });
+        document.getElementById('tienDichVu').textContent = tienDichVu.toLocaleString();
+
+        // Tổng tiền
+        const tong = tienPhong + tienDichVu;
+        document.getElementById('tongTien').textContent = tong.toLocaleString();
+    });
+</script>
+
+<script>
+    const btnDat = document.querySelector('.modal__booking__btn')
+
+    btnDat.addEventListener('click', () => {
+        const data = {
+            roomId: '{{Room._id}}', // hoặc lấy từ URL / attribute khác
+            checkInDate: document.getElementById('checkInDate').value,
+            checkOutDate: document.getElementById('checkOutDate').value,
+            fullName: document.getElementById('fullName').value,
+            phone: document.getElementById('phone').value,
+            email: document.getElementById('email').value,
+            nguoiLon: parseInt(document.getElementById('modalNguoiLon').value),
+            treEm: parseInt(document.getElementById('modalTreEm').value),
+            services: Array.from(document.querySelectorAll('.modal__booking__service__input')).map(input => {
+                return {
+                    id: input.name.match(/services\[(.*)\]/)[1],
+                    quantity: parseInt(input.value),
+                    price: parseInt(input.dataset.price)
+                };
+            })
+    };
+
+    fetch('/datphong', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res.message === 'success') {
+            alert('Đặt phòng thành công!');
+            window.location.reload(); // hoặc chuyển hướng
+        } else {
+            alert('Đặt phòng thất bại!');
+        }
+    })
+    .catch(err => {
+        console.error('Lỗi khi gửi booking:', err);
+    });
+});
+</script>
+
+
+
+

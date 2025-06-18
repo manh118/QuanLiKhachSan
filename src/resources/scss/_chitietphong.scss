@@ -1,0 +1,394 @@
+@use 'variables' as v;
+
+.RoomDetail_img{
+    width: 1110px;
+    height: 420px;
+    object-fit: cover;  
+     border-radius: 8px;
+}
+
+.RoomDetail_title{
+    font-size: 2.8rem;
+    margin: 25px 0;
+    padding: 0 10px ;
+    border-left: 5px solid v.$chudao;
+    line-height: 28px;
+    font-weight: 500;
+    display: block;
+}
+
+.RoomDetail_des{
+    font-size: 1.6rem;
+    text-align: justify;
+    color: v.$text;
+    line-height: 30px;
+}
+
+.RoomDetail__body__cot1{
+    padding: 0 20px 0 0;
+}
+
+.RoomDetail__tienich__list{
+    list-style: none;
+    display: flex;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.RoomDetail__tienich__item{
+    margin-right: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 20px;
+    border: 1px solid v.$chudao;
+    border-radius: 10px;
+    
+}
+
+.RoomDetail__tienich__icon{
+    margin-right: 8px;
+    font-size: 1.6rem;
+}
+
+.Libary_icon{
+    font-size: 1.8rem;
+}
+
+.RoomDetail__tienich__name{
+    font-size: 1.6rem;
+    margin: 0;
+    line-height: 13px;
+    display: inline;
+}
+
+
+// Booking
+.RoomDetail__booking{
+    margin-top: 25px;
+    background-color: v.$btn;
+    padding: 20px 30px;
+    border-radius: 3px;
+}
+
+.RoomDetail__booking_title{
+    font-size: 2.6rem;
+    color: #fab950;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #fff;
+    text-shadow: 0 1px 2px #f3d199;
+}
+
+.RoomDetail__booking__form{
+
+}
+
+.RoomDetail__booking__content{
+    margin-bottom: 15px;
+}
+
+.RoomDetail__booking__des{
+    font-size: 1.6rem;
+    color: v.$white-color;
+    margin-bottom: 7px;
+}
+
+.RoomDetail__booking__input{
+    width: 100%;
+}
+
+.RoomDetail__booking__btn{
+    background-color: v.$chudao;
+    font-size: 1.6rem;
+    width: 100%;
+    color: #fff;
+}
+
+.disabled-btn {
+  background-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed;
+  pointer-events: none;
+  border: none;
+}
+
+
+//Room lien quan
+.RoomDetail__relate{
+    border: 1px solid v.$chudao;
+    border-radius: 5px;
+    padding: 0 10px ;
+}
+
+.RoomDetail__relate__body{
+    padding: 15px 14px 0 14px ;
+    display: flex;
+}
+
+.RoomDetail__relate__img{
+    width: 100%;
+    height: 140px;
+    position: relative;
+}
+
+.RoomDetail__relate__card{
+    margin:  0 10px;
+    width: 220px;
+}
+
+.RoomDetail__relate__name{
+    font-size: 1.6rem;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    color: v.$chudao;
+
+}
+
+.RoomDetail__relate__name:hover{
+    text-decoration: none;
+}
+
+// Room type
+.RoomDetail__roomtype{
+    border: 1px solid v.$chudao;
+    border-radius: 5px;
+    height: 380px;
+}
+
+
+.RoomDetail__roomtype__list{
+    list-style: none;
+    height: 100%;
+    padding: 10px 20px 20px 20px;
+}
+
+.RoomDetail__roomtype__item{
+   border-bottom: 1px solid v.$chudao;
+}
+
+.RoomDetail__roomtype__item:last-child{
+   border-bottom: none;
+}
+
+.RoomDetail__roomtype__item__link{
+    display: flex;
+    padding: 10px 0;
+    
+}
+
+.RoomDetail__roomtype__item__link:hover{
+    text-decoration: none;
+}
+
+.RoomDetail__roomtype__item__img{
+    width: 155px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.RoomDetail__roomtype__item__content{
+    font-size: 1.4rem;
+    margin-left: 20px;
+    margin-top: 18px;
+}
+
+.RoomDetail__roomtype__item__title{
+    color: #000;
+    font-weight: 500;
+}
+
+.RoomDetail__roomtype__item__price{
+    margin-top: 10px;
+    color: #ca9a15;
+    text-shadow: 1px 1px 1px  rgba(0,0,0,0.1);
+
+}
+
+
+//Booking__modal
+.modal__booking{
+    position: fixed;
+    top:0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.color__price{
+    color: red;
+    font-weight: 400;
+}
+
+.color__price_phong{
+    color: #fcd058;;
+    font-weight: 400;
+    text-shadow: 0 1px 1px  rgba(255,255,255,0.5);
+}
+
+
+.modal__booking.open{
+    display: flex;
+}
+
+.modal__booking__container{
+    background-color: #fff;
+    width: 800px;
+    max-height: 600px;
+    position: relative;
+}
+
+.modal__booking__close{
+    font-size: 2rem;
+    display: flex;
+    position: absolute;
+    right: 0;
+}   
+
+.modal__booking__close i{
+    padding: 5px;
+    // color: #fff;
+    color: v.$btn;
+} 
+
+.modal__booking__close:hover i{
+    cursor: pointer;
+} 
+
+.modal__booking__header{
+    font-size: 3rem;
+    border-bottom: 3px solid v.$chudao;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // background-color: v.$btn;
+    color: v.$btn;
+    font-weight: 700;
+}
+
+.modal__booking__title{
+    font-weight: 500;
+    font-size: 2rem;
+    margin: 10px;
+    color: v.$chudao;
+}
+
+.modal__booking__contet{
+    padding: 0 50px;
+}
+.modal__booking__body{
+    padding: 10px 0 ;
+}
+
+.modal__booking__label{
+    font-size: 1.8rem;
+    display: block;
+    font-weight: 500;
+    color: v.$btn;
+}
+
+.modal__booking__input{
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1.6rem;
+    padding: 0 10px;
+}
+
+.modal__booking__chooseService{
+    font-size: 1.6rem;
+    color: #fff;
+    width: auto;
+    background-color: v.$btn;
+    padding: 5px;
+    border-radius: 3px;
+    margin-top: 50px;
+    margin-left: 120px;
+}
+
+.modal__booking__service{
+    background-color: #fff;
+    margin-left: 30px;
+    max-height: 500px;
+    width: 480px;
+}
+
+.modal__booking__service__form{
+    display: flex; 
+    padding: 10px 20px;
+    align-items: center;
+}
+
+.modal__booking__service__lable{
+    color: v.$btn;
+    font-size: 1.4rem;
+    width: 115px;
+    font-weight: 500;
+}
+
+.modal__booking__service__form1{
+    display: flex;
+    margin-left: 30px;
+    align-items: center;
+}
+
+.modal__booking__service__input{
+    width: 110px;
+}
+
+.modal__booking__service__price{
+    margin-left: 10px;
+    font-size: 1.4rem;
+    color: red;
+}
+
+.btn_tamtinh{
+    margin-bottom: 15px;
+    font-size: 1.6rem;
+    color: #fff;
+    background-color: v.$btn;
+    padding: 5px;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+
+.modal__booking__frame__btn{
+    background-color: v.$btn;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    
+}
+
+.modal__booking__contet__des{
+    font-size: 1.4rem;
+    color: rgba(0,0,0,0.4);
+}
+
+.modal__booking__btn{
+    background-color: v.$chudao;
+    font-size: 2rem;
+    color: #fff;
+    width: 30%;
+    height: 50px;
+    border-radius: 5px;
+}

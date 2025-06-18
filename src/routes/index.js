@@ -1,0 +1,39 @@
+const siteRouter = require('./site')
+const gioithieuRouter = require('./gioithieu')
+const hangphongRouter = require('./hangphong')
+const loginRouter = require('./login')
+const manageRouter = require('./manage')
+const serviceRouter = require('./service')
+const bookingRouter = require('./booking')
+
+const RoomType = require('../app/models/RoomType');
+
+
+function route(app) {
+
+  app.use((req, res, next) => {
+    res.locals.isHome = req.path === '/';
+    next();
+  });
+
+  app.use((req, res, next) => {
+  RoomType.find({})
+    .lean()
+    .then(RoomTypes => {
+      res.locals.RoomTypes = RoomTypes;
+      next();
+    })
+    .catch(next);
+});
+
+
+  app.use('/manage', manageRouter)
+  app.use('/login', loginRouter)
+  app.use('/dichvu', serviceRouter)
+  app.use('/hangphong', hangphongRouter)
+  app.use('/datphong', bookingRouter)
+  app.use('/gioi_thieu', gioithieuRouter)
+  app.use('/', siteRouter)
+}
+
+module.exports = route
