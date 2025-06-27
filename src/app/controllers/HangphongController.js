@@ -111,7 +111,8 @@ class HangphongController {
 
       Room.find({ 
         roomType: foundRoom.roomType._id,
-        roomNumber: { $ne: foundRoom.roomNumber }
+        roomNumber: { $ne: foundRoom.roomNumber },
+        status: { $in: 'Trống' }
       })
         .limit(3)
         .populate('bedType')
@@ -121,9 +122,7 @@ class HangphongController {
           RelatedRooms.forEach(room => {
             room.price = (room.bedType?.price || 0) * (room.roomType?.price || 0);
           });
-        
-
-          // ❗ THÊM RelatedRooms vào render
+      
           res.render('ChiTietPhong', {
             Room: foundRoom,
             Services,

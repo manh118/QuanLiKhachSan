@@ -5,6 +5,8 @@ const loginRouter = require('./login')
 const manageRouter = require('./manage')
 const serviceRouter = require('./service')
 const bookingRouter = require('./booking')
+const questionRouter = require('./question')
+
 
 const RoomType = require('../app/models/RoomType');
 
@@ -33,6 +35,7 @@ function route(app) {
   app.use('/hangphong', hangphongRouter)
   app.use('/datphong', bookingRouter)
   app.use('/gioi_thieu', gioithieuRouter)
+  app.use('/question', questionRouter)
   app.use('/', siteRouter)
 }
 

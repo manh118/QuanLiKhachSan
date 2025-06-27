@@ -10,6 +10,14 @@
               </option>
             {{/each}}
           </select>
+          <select name="Room" class="form-control Phu__room__form__sreach__select">
+            <option value="">Tình trạng</option>
+            {{#each Rooms}}
+              <option value="{{this._id}}" {{#if (eq ../selectedBedType this._id)}}selected{{/if}}>
+                {{this.status}}
+              </option>
+            {{/each}}
+          </select>
           <button class="btn btn-primary  Phu__room__form__sreach-btn">Lọc thông tin</button>       
     </form>
     <div class="row" id="content">

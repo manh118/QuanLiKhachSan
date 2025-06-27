@@ -90,7 +90,18 @@
                             </p>
                             <a href="/hangphong/room/{{this.roomNumber}}" class="btn phu__room__cart__btn">Chi tiết</a>
                         </div>
-                    </div>             
+                        {{#if (eqString this.status 'Đã đặt')}}
+                            <div class="phu__room__status phu__room__status--booked" style="font-size: 1.2rem;">
+                                <i class="fa-solid fa-xmark phu__room__status__icon" style="font-size: 1.2rem;"></i></i> {{this.status}}
+                            </div> 
+
+                        {{else}}
+                            <div class="phu__room__status phu__room__status" style="font-size: 1.2rem;">
+                                <i class="fa-light fa-check phu__room__status__icon" style="font-size: 1.2rem;"></i></i> {{this.status}}
+                            </div>
+                        {{/if}}  
+                    </div>  
+                           
                 {{/each}}
             </div>
            
