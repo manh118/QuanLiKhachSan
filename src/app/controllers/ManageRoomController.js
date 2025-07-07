@@ -48,7 +48,7 @@ class ManageRoomController {
 
   update(req, res, next) {
     const updatedData = {
-      roomBumber: req.body.roomBumber,
+      roomNumber: req.body.roomNumber,
       bedType: req.body.bedType,
       roomType: req.body.roomType,
       status: req.body.status,

@@ -4,7 +4,7 @@ class LoginController {
   //[Get] home
   index(req, res, next) {
     res.render('login', {
-      isLogin: true,
+      layout: 'login_layout'
     })
   }
 

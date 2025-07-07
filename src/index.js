@@ -15,18 +15,20 @@ db.connect()
 
 app.use(express.static(path.join(__dirname, 'public')))
 
+
 app.use(session({
-  secret: 'mySecretKey',         // Bạn đặt bí mật bất kỳ
+  secret: 'mySecretKey',
   resave: false,
   saveUninitialized: false,
-    store: MongoStore.create({
-    mongoUrl: 'mongodb://localhost:27017/QuanLyKhachSan', // sửa đúng tên DB
-    ttl: 24 * 60 * 60 // session tồn tại 1 ngày
+  store: MongoStore.create({
+    mongoUrl: 'mongodb://localhost:27017/QuanLyKhachSan',
+    ttl: 24 * 60 * 60
   }),
   cookie: {
-    maxAge: 24 * 60 * 60 * 1000  // Giữ đăng nhập 24h (tính bằng ms)
+    maxAge: 24 * 60 * 60 * 1000
   }
-}))
+}));
+
 
 app.use((req, res, next) => {
   res.locals.username = req.session.user?.username || null;
@@ -72,6 +74,12 @@ app.engine(
           result.push(i);
         }
         return result;
+      },
+
+      isoDate: function (date) {
+        if (!date) return '';
+          const d = new Date(date);
+          return d.toISOString().slice(0, 10);   // ví dụ 2025-07-01
       },
 
       // Date chuẩn

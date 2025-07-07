@@ -3,7 +3,7 @@
   <!-- Số phòng -->
   <div class='form-group'>
     <label class="Mangage_label" for='roomBumber'>Phòng số</label>
-    <input type='number' class='form-control Mangage_input' id='roomBumber' name="roomBumber" value="{{room.roomBumber}}" required />
+    <input type='number' class='form-control Mangage_input' id='roomBumber' name="roomNumber" value="{{room.roomNumber}}" required />
   </div>
 
   <!-- Số giường -->
@@ -29,9 +29,9 @@
   <!-- Trạng thái -->
   <div class='form-group'>
     <label class="Mangage_label" for='status'>Trạng thái</label>
-    <select class="form-control Mangage_input" id="status" name="status">
-      <option value="trống" {{isSelected room.status "trống"}}>Trống</option>
-      <option value="đã đặt" {{isSelected room.status "đã đặt"}}>Đã đặt</option>
+    <select class="form-control Mangage_input" id="status" name="status" >
+      <option value="Trống" {{isSelected room.status "Trống"}}>Trống</option>
+      <option value="Đã đặt" {{isSelected room.status "Đã đặt"}}>Đã đặt</option>
     </select>
   </div>
   <div class="div_Mangage_btn">

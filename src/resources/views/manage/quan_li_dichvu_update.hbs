@@ -1,0 +1,41 @@
+<div class='mt-4 manage_crud'>
+  <h3 class="Mangage_title">Cập nhập dịch vụ</h3>
+
+  <form method="POST" class="form_CreateRoom" action="/manage/quan_li_dichvu/crud/{{service._id}}/update?_method=PUT">
+    
+    <!-- Số phòng -->
+    <div class='form-group '>
+      <label class="Mangage_label" for='roomBumber'>Mã dịch vụ</label>
+      <input type='text' class='form-control Mangage_input' id='roomBumber' name="idService" value="{{service.idService}}" required />
+    </div>
+
+    <!-- Số giường -->
+    <div class='form-group'>
+      <label class="Mangage_label" for='bedType'>Tên dịch vụ</label>
+      <input type='text' class='form-control Mangage_input' id='bedType' name="name" value="{{service.name}}" required />
+    </div>
+
+    <!-- Hạng phòng -->
+    <div class='form-group'>
+      <label class="Mangage_label" for='roomType'>Giá</label>
+      <input type='text' class='form-control Mangage_input' id='roomType' name="price" value="{{service.price}}" required />
+
+    </div>
+
+    <!-- Trạng thái -->
+    <div class='form-group'>
+      <label class="Mangage_label" for='status'>Đơn vị</label>
+      <select class="form-control Mangage_input" id="status" name="unit">
+        <option value="Lần" {{isSelected service.unit "lần"}}>Lần</option>
+        <option value="Người" {{isSelected service.unit "người"}}>Người</option>
+        <option value="Chai" {{isSelected service.unit "chai"}}>Chai</option>
+        <option value="Giờ" {{isSelected service.unit "giờ"}}>Giờ</option>
+      </select>
+    </div>
+    <div class="div_Mangage_btn">
+          <button type='submit' class='btn btn-primary mt-3 Mangage_btn'>Cập nhập</button>
+    </div>
+  </form>
+</div>
+
+

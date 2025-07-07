@@ -7,6 +7,18 @@
   min-height: 100vh;
 }
 
+.Tb_thanhcong {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 9999;
+}
+
 .Pagination {
   display: flex;
   list-style: none;
@@ -1785,6 +1797,15 @@ html {
 
 .chinh {
   margin-right: 400px;
+}
+
+.total-label {
+  color: rgb(0, 112, 244);
+}
+
+.PhuongThuc {
+  margin-left: 20px;
+  font-size: 20px;
 }
 
 /*# sourceMappingURL=main.css.map */

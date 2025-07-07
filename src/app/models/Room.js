@@ -10,7 +10,7 @@ const Room = new Schema({
     roomNumber: { type: String, required: true },
     bedType: { type: mongoose.Schema.Types.ObjectId, ref: 'BedType',required: true },                            // Ví dụ: "VIP", "Standard"
     roomType: { type: mongoose.Schema.Types.ObjectId, ref: 'RoomType',  required: true},    // available, booked, maintenance
-    status: { type: String,  enum: ['Trống', 'Đã đặt'], default: 'Trống' },
+    status: { type: String,  enum: ['trống', 'đã đặt'], default: 'Trống' },
     img: { type: String },
     description: {type: String},
     area: {type: String},

@@ -6,6 +6,7 @@ const manageRouter = require('./manage')
 const serviceRouter = require('./service')
 const bookingRouter = require('./booking')
 const questionRouter = require('./question')
+const manageLayout = require('../middleware/manage_layout')
 
 
 const RoomType = require('../app/models/RoomType');
@@ -29,7 +30,7 @@ function route(app) {
 });
 
 
-  app.use('/manage', manageRouter)
+  app.use('/manage',manageLayout, manageRouter)
   app.use('/login', loginRouter)
   app.use('/dichvu', serviceRouter)
   app.use('/hangphong', hangphongRouter)

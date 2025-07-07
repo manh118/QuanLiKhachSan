@@ -55,7 +55,7 @@ class BookingController {
       // ✅ cập nhật trạng thái phòng
       return Room.findByIdAndUpdate(
         roomId,
-        { status: 'đã đặt' }
+        { status: 'Đã đặt' }
         ).then(() => savedBooking);
       })
       .then(savedBooking => {
@@ -65,6 +65,22 @@ class BookingController {
         console.error('Lỗi lưu booking:', err);
         res.status(500).json({ message: 'fail' });
       });
+  }
+
+   delete(req, res, next) {
+      Booking.findByIdAndDelete(req.params.id)
+      .then((deletedBooking) => {
+      
+        // Cập nhật trạng thái phòng
+        return Room.findOneAndUpdate(
+          { roomNumber: deletedBooking.roomNumber },
+          { status: 'Trống' }
+        );
+      })
+      .then(() => {
+        res.redirect('/manage/quan_li_phieuthue');
+      })
+      .catch(next);
   }
 }
 

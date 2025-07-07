@@ -5,6 +5,7 @@ const Service = require('../models/Service')
 const Employee = require('../models/Employee')
 const Position = require('../models/Position')
 const Booking = require('../models/Booking')
+const Bill = require('../models/Bill')
 
 
 class ManageController {
@@ -73,7 +74,7 @@ class ManageController {
     Service.find(query)
       .lean()
       .then((Services) => {
-        res.render('manage/quan_li_dichvu', { Services, selected })
+        res.render('manage/quan_li_dichvu', { Services, selected, success: req.query.success === '1'  })
       })
       .catch(next)
   }
@@ -128,6 +129,17 @@ class ManageController {
       })
       .catch(next)
   }
+
+  dsHoaDon(req, res, next) {
+    
+    Bill.find()
+      .lean()
+      .then((bills) => {
+        res.render('manage/quan_li_hoadon', { bills})
+      })
+      .catch(next)
+  }
+
 }
 
 module.exports = new ManageController()

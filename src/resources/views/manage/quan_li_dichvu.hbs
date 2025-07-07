@@ -60,7 +60,7 @@
                         <td>{{this.name}}</td>
                         <td>{{this.price}}</td>
                         <td>{{this.unit}}</td>
-                        <td><a href="/manage/quan_li_phong/crud/{{this._id}}/show_update" class="btn btn-link">Sửa</a></td>
+                        <td><a href="/manage/quan_li_dichvu/crud/{{this._id}}/show_update" class="btn btn-link">Sửa</a></td>
                         <td><a href="" class="btn btn-link"  data-toggle="modal" data-id="{{this._id}}" data-target="#exampleModal">Xóa</a></td>              
                     </tr>
 
@@ -76,7 +76,7 @@
             </table>
         </form> 
     </div>
-  </div>  
+</div>  
 
 
   <!-- Modal -->
@@ -100,9 +100,22 @@
     </div>
   </div>
 
-  
+
 
 <form name="delete-course-form" method="POST" ></form>
+
+{{#if success}}
+  <div id="success-alert" class="Tb_thanhcong">
+    Cập nhật dịch vụ thành công!
+  </div>
+{{/if}}
+
+<script>
+  setTimeout(() => {
+    const alert = document.getElementById('success-alert');
+    if (alert) alert.remove();
+  }, 1000);
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function(){
@@ -121,7 +134,7 @@
         })
 
         btnDeleteCourse.onclick = function(){
-            deleteForm.action = '/manage/quan_li_phong/crud/' + courseId + '/delete?_method=DELETE';
+            deleteForm.action = '/manage/quan_li_dichvu/crud/' + courseId + '/delete?_method=DELETE';
             deleteForm.submit()
         }
         

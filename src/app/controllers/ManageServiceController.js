@@ -14,32 +14,32 @@ class ManageServiceController {
   }
 
   showUpdate(req, res, next) {
-    Promise.all([
-      Room.findById(req.params.id).lean(),
-      RoomType.find({}).lean(),
-      BedType.find({}).lean(),
-    ])
-      .then(([room, roomTypes, bedTypes]) => {
-        res.render('manage/quan_li_dichvu_update', { room, roomTypes, bedTypes })
+    
+      Service.findById(req.params.id)
+      .lean()
+      .then(service => {
+        res.render('manage/quan_li_dichvu_update', {service} )
       })
       .catch(next)
   }
 
   update(req, res, next) {
     const updatedData = {
-      roomBumber: req.body.roomBumber,
-      bedType: req.body.bedType,
-      roomType: req.body.roomType,
-      status: req.body.status,
+      idService: req.body.idService,
+      name: req.body.name,
+      price: req.body.price,
+      unit: req.body.unit,
     }
 
-    Room.updateOne({ _id: req.params.id }, updatedData)
-      .then(() => res.redirect('/manage/quan_li_dichvu'))
+    Service.updateOne({ _id: req.params.id }, updatedData)
+      .then(() => {
+        res.redirect('/manage/quan_li_dichvu?success=1');
+      })
       .catch(next)
   }
 
    delete(req, res, next) {
-      Room.deleteOne({ _id: req.params.id})
+      Service.deleteOne({ _id: req.params.id})
         .then(() => res.redirect('/manage/quan_li_dichvu'))
         .catch(next)
     }

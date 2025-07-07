@@ -1,0 +1,122 @@
+  <div class="row manage_body">
+    <div class="col-2" style="padding-right: 0;margin-top: 118px;">
+         <form class="form__sreach" method="GET" action="/manage/quan_li_phieuthue">
+            <p class="lable__search">Tìm kiếm</p>  
+            <input class="input__serach" name="q" type="search" placeholder="Nhập tên khách hàng" value="{{searchQuery}}">
+            <input class="input__serach" name="q1" type="search" placeholder="Nhập số điện thoại" value="{{searchPhone}}">
+            <button class="btn btn-primary  form__sreach__btn" style="margin-top: 0;">Lọc thông tin</button>       
+        </form>
+    </div>
+    <div class="col-10">
+        <form class="form_quanliphong" name="submit_request_delete" method="POST" action="/courses/handle-form-actions">
+
+            <h2>Danh sách phiếu thuê</h2>
+            
+            <div style="overflow-x: auto; white-space: nowrap;"> 
+                <table class="table mt-4" style="min-width: 1200px;">
+                    <thead>
+                        <tr> 
+                            
+                            <th scope="col">STT</th>
+                            <th scope="col">Mã hóa đơn</th>
+                            <th scope="col">Phòng</th>
+                            <th scope="col">Khách hàng</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Ngày đặt</th> 
+                            <th scope="col">Ngày trả</th>   
+                            <th scope="col">Tổng tiền</th>     
+                                                 
+                            <th  colspan="3"></th>         
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each bills}}
+                        <tr>                         
+                            <th scope="row">{{sum @index 1}}</th>
+                            <td>{{this.idBill}}</td>
+                            <td>{{this.roomNumber}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.phone}}</td>
+                            <td>{{Date this.checkIn}}</td>
+                            <td>{{Date this.checkOut}}</td>
+                            <td>{{money this.totalPrice}} VNĐ</td>
+                          
+                            <td><a href="/manage/quan_li_phong/crud/{{this._id}}/show_update" class="btn btn-link">Xóa</a></td>
+                                        
+                        </tr>  
+  
+                        <tr class="collapse" id="collapse-{{@index}}">
+                            <td colspan="100%">
+                                <div class="p-3 text-left" style="background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 0.25rem;">
+                                <p><strong>Người lớn:</strong> {{this.nguoiLon}}</p>
+                                <p><strong>Trẻ em:</strong> {{this.treEm}}</p>
+                                 <p><strong>Dịch vụ đã sử dụng:</strong></p>
+                                 <ul>
+                                        {{#each this.services}}
+                                        <li>{{this.service.name}} (SL: {{this.quantity}} × {{money this.price}} VNĐ)</li>
+                                        {{/each}}
+                                 </ul>
+                                
+                                <p><strong>Tiền dịch vụ:</strong> {{money this.totalServiceCost}} VNĐ</p>
+                                <p><strong>Tiền phòng:</strong> {{money this.totalRoomCost}} VNĐ</p>
+                                <ul>                                   
+                                    <li>Số ngày: {{this.soNgay}} × {{money this.roomPrice}} VNĐ</li>                                   
+                                </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    
+                        {{else}}
+                        <tr>
+                            <td colspan="100%" class="text-center">
+                            Bạn chưa có phiếu thuê nào.
+                           
+                            </td>
+                        </tr>
+                        {{/each}}
+                    
+                    </tbody>
+                </table>
+            </div>
+            
+        </form> 
+    </div>
+  </div>  
+
+
+
+<form name="delete-course-form" method="POST" ></form>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.querySelector('.js-modal__booking');
+  const modalClose = document.querySelector('.modal__booking__close');
+
+  // Đóng modal
+  modalClose.addEventListener('click', () => {
+    modal.classList.remove('open');
+    document.body.classList.remove('no-scroll');
+  });
+
+  // Mở modal và gán dữ liệu
+  document.querySelectorAll('.js-TraPhong').forEach(btn => {
+    btn.addEventListener('click', function () {
+      modal.classList.add('open');
+      document.body.classList.add('no-scroll');
+
+      // Lấy dữ liệu từ data-*
+      const dataset = this.dataset;
+
+      document.getElementById('modalRoom').innerText = 'Phòng ' + dataset.room;
+      document.getElementById('fullName').value = dataset.fullname;
+      document.getElementById('phone').value = dataset.phone;
+      document.getElementById('checkInDate').value = dataset.checkin;
+      document.getElementById('checkOutDate').value = dataset.checkout;
+      document.getElementById('modalTotal').innerHTML = `<span class="total-label">Tổng tiền:&nbsp;</span>  ${dataset.total} VNĐ`;
+    });
+  });
+});
+</script>
+
+
+
