@@ -7,9 +7,8 @@
             <button class="btn btn-primary  form__sreach__btn" style="margin-top: 0;">Lọc thông tin</button>       
         </form>
     </div>
-    <div class="col-10">
-        <form class="form_quanliphong" name="submit_request_delete" method="POST" action="/courses/handle-form-actions">
-
+    <div class="col-10 ">
+      <div class="form_quanliphong">
             <h2>Danh sách phiếu thuê</h2>
             {{!-- {{#if deletedCount}} 
              <a href="/me/trash/courses">Thùng rác ({{deletedCount}})</a> 
@@ -75,7 +74,7 @@
                               </a>
                             </td> 
                             <td>
-                              <a  class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#exampleModal" >                     
+                              <a  class="btn btn-link js_btnTraPhong"  data-id="{{this._id}}" >                     
                                 Trả phòng
                               </a>
                             </td>             
@@ -110,39 +109,16 @@
                             </td>
                         </tr>
                         {{/each}}
-                    
+                   
                     </tbody>
                 </table>
             </div>
             
-        </form> 
+      </div>
     </div>
   </div>  
 
-<form name="delete-course-form" method="POST" ></form>
-
-
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Xóa Phòng</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-              <h5 class="modal-title" id="exampleModalLabel">Bạn xác nhận muốn xóa chứ ?</h5>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-          <button id="btn-id-delete" type="button" class="btn btn-danger" >Xóa</button>       
-        </div>
-      </div>
-    </div>
-  </div>
-  
+ 
   <div class="modal__booking js-modal__booking" >
     <div class="modal__booking__container" style="overflow-y: auto; overflow-x: hidden">
         <div class="modal__booking__close">
@@ -193,8 +169,6 @@
 </div>
 
 
-<form name="delete-course-form" method="POST" ></form>
-
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.querySelector('.js-modal__booking');
@@ -230,10 +204,10 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
-    const btnDat = document.querySelector('.modal__booking__btn')
-    const btnTra = document.querySelector('.btn_traphong')
+    const btnLuu = document.querySelector('.modal__booking__btn')
+    const btnTraPhong = document.querySelector('.js_btnTraPhong')
 
-    btnDat.addEventListener('click', () => {
+    btnLuu.addEventListener('click', () => {
         const data = {
              
           idBill: document.getElementById('maHoaDon').value.trim(),
@@ -268,74 +242,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+    document.querySelectorAll('.js_btnTraPhong').forEach(btn => {
+      btn.addEventListener('click', function(){
+        const id = this.dataset.id;
+
+        fetch(`/manage/quan_li_phieuthue/crud/${id}/delete`, {
+            method: 'DELETE',
+        })
+        .then(res => res.json())
+        .then(res => {
+            if (res.message === 'success') {
+                alert('Trả Phòng thành công!');
+                window.location.reload(); 
+            } else {
+                alert('Trả Phòng thất bại!');
+            }
+        })
+        .catch(err => {
+            console.error('Lỗi khi gửi booking:', err);
+        });
+      })
+     
+    });
+
 
 </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function(){
-        var courseId;
-        var deleteForm = document.forms['delete-course-form']
-        var btnDeleteCourse = document.getElementById('btn-id-delete')
-        var submitForm = document.forms['submit_request_delete']
-        var checkBoxAll = $('#checkbox-all')
-        var courseItemCheckbox = $('input[name="courseIds[]"]')
-        var bthExec = $('.btn-exec')
-
-
-        $('#exampleModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) 
-            courseId = button.data('id') 
-        })
-
-        btnDeleteCourse.onclick = function(){
-            deleteForm.action = '/manage/quan_li_phieuthue/crud/' + courseId + '/delete?_method=DELETE';
-            deleteForm.submit()
-        }
-        
-        //check box all change
-        checkBoxAll.change(function(){
-          var isChecked = $(this).prop('checked');
-
-          if(isChecked){
-            courseItemCheckbox.prop('checked', true)
-          }else{
-            courseItemCheckbox.prop('checked', false)
-          }
-          renderCheckAllSubmitBtn()
-        })
-
-        //Course item checkbox
-        courseItemCheckbox.change(function(){
-          var isCheckedAll = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length
-          if(isCheckedAll){
-            checkBoxAll.prop('checked', true)
-          }else{
-             checkBoxAll.prop('checked', false)
-          }
-          renderCheckAllSubmitBtn()
-        })
-
-        //check btn submit click
-
-        bthExec.on('submit', function(e){
-          var isSubmitable = !$(this).hasClass('disabled')
-          if(!isSubmitable){
-             e.preventDefault();
-          }
-        })
-
-        function renderCheckAllSubmitBtn() {
-          var checkedCount = $('input[name="courseIds[]"]:checked').length;
-        
-         if(checkedCount > 0){
-              bthExec.removeClass('disabled')
-          }else{
-              bthExec.addClass('disabled')
-          }
-          
-        }
-    })
-   
-</script>
 
 

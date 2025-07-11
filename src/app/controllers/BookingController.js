@@ -78,7 +78,7 @@ class BookingController {
         );
       })
       .then(() => {
-        res.redirect('/manage/quan_li_phieuthue');
+        res.json({message: 'success'})
       })
       .catch(next);
   }

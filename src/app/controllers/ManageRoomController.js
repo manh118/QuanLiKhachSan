@@ -27,10 +27,10 @@ class ManageRoomController {
     })
     room
       .save()
-      .then(() => res.redirect('/manage/quan_li_phong'))
+      .then(() => res.json({ success: true, message: 'Thêm phòng thành công!' }))
       .catch((err) => {
         console.error(err)
-        res.status(500).send('Lỗi khi tạo phòng')
+        res.status(500).json({ success: false, message: 'Lỗi khi thêm phòng', error: err });
       })
   }
 

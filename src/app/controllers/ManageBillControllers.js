@@ -38,7 +38,7 @@ class ManageBillController {
       Bill.deleteOne({ _id: req.params.id})
         .then(() => {
           res.redirect('/manage/quan_li_hoadon');
-          alert('Trả phòng thành công!');
+          
         })
         .catch(next)
     }

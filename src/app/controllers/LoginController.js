@@ -9,35 +9,46 @@ class LoginController {
   }
 
   login(req, res) {
-    User.findOne(req.body)
-      .then((user) => {
-        if (!user) {
-          return res.render('login', {
-            isLogin: true,
-            error: 'Tên đăng nhập hoặc mật khẩu không đúng',
-          })
-        }
+  User.findOne(req.body)
+    .then((user) => {
+      if (!user) {
+        return res.status(401).json({
+          success: false,
+          message: 'Tên đăng nhập hoặc mật khẩu không đúng',
+        });
+      }
 
-        if (user.role === 'quanli') {
-          req.session.user = {
-            username: user.name,
-            role: user.role,
-          }
+      if (user.role !== 'quanli') {
+        return res.status(403).json({
+          success: false,
+          message: 'Bạn không có quyền truy cập trang quản lý',
+        });
+      }
+      req.session.user = {
+        username: user.name,
+        role: user.role,
+      };
 
-          return res.redirect('/manage')
-        } else {
-          // Đúng tài khoản nhưng không phải quản lý
-          return res.render('login', {
-            isLogin: true,
-            error: 'Bạn không có quyền truy cập trang quản lý',
-          })
+      // Đăng nhập thành công
+      return res.json({
+        success: true,
+        message: 'Đăng nhập thành công',
+        redirect: '/manage',
+        user: {
+          username: user.name,
+          role: user.role,
         }
-      })
-      .catch((error) => {
-        console.error(error)
-        res.status(500).send('Lỗi máy chủ')
-      })
-  }
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        message: 'Lỗi máy chủ',
+      });
+    });
+}
+
 }
 
 module.exports = new LoginController()

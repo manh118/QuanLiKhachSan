@@ -7,7 +7,7 @@ class ServiceController {
     res.render('Dichvu/tiec')
   }
 
-  Hienthi2(req, res, next) {
+  amthuc(req, res, next) {
     const grouped = {
       STEAK: [], SOUP: [], SEAFOOD: [], PIZZA: [], SALAD: [], RICE: [],
     };
@@ -30,20 +30,7 @@ class ServiceController {
       .catch(next);
   }
 
-  Hienthi3(req, res, next) {
-    Promise.all([
-        Service.find({}).lean(), 
-        ServiceMonAn.find({}).lean()
-    ])
-      .then(([Services,ServiceMonAn]) => {
-        res.render('amthuc', {
-          layout: 'service_layout',
-          Services,
-          ServiceMonAn,
-        })
-      })
-      .catch(next)
-  }
+
 }
 
 module.exports = new ServiceController()

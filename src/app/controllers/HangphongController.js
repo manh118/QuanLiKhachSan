@@ -65,34 +65,6 @@ class HangphongController {
 }
 
 
-
-
-  // ShowDetail(req, res, next) {
-  //   Room.findOne({ roomNumber: req.params.roomNumber})
-  //       .populate('roomType')
-  //       .lean()
-  //       .then((Room) =>{
-  //           res.render('ChiTietPhong',{Room})
-  //       })
-  //       .catch(next)
-  // }
-
-  // ShowDetail(req, res, next) {
-  //   Promise.all([
-  //     Room.findOne({ roomNumber: req.params.roomNumber})
-  //       .populate('bedType')
-  //       .populate('roomType')
-  //       .lean(),
-  //     Service.find({}).lean()
-  //   ])
-  //       .then(([Room,Services]) =>{
-  //           Room.price = (Room.bedType?.price || 0) * (Room.roomType?.price || 0);
-            
-  //           res.render('ChiTietPhong',{Room,Services})
-  //       })
-  //       .catch(next)
-  // }
-
   ShowDetail(req, res, next) {
   Promise.all([
     Room.findOne({ roomNumber: req.params.roomNumber })

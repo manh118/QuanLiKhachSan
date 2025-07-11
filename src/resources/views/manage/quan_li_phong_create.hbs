@@ -48,3 +48,33 @@
     </div>
   </form>
 </div>
+
+<script>
+  document.querySelector('.form_CreateRoom').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('/api/rooms', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert('✅ Thêm phòng thành công!');
+        window.location.href = '/manage/quan_li_phong';
+      } else {
+        alert('❌ Thêm phòng thất bại!');
+        console.error(data);
+      }
+    } catch (error) {
+      console.error('Lỗi khi gửi yêu cầu:', error);
+      alert('⚠️ Lỗi mạng hoặc server');
+    }
+  });
+</script>
+
