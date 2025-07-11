@@ -1,4 +1,4 @@
-<form class="manage_crud" method="POST" action="/manage/quan_li_phong/crud/{{room._id}}/update?_method=PUT">
+<form class="manage_crud" data-id="{{room._id}}" >
   <h3 class="Mangage_title">Cập Nhập Phòng</h3>
   <!-- Số phòng -->
   <div class='form-group'>
@@ -38,3 +38,43 @@
       <button type='submit' class='btn btn-primary mt-3 Mangage_btn'>Cập nhật</button>
   </div>
 </form>
+
+<script>
+  document.querySelector('.manage_crud').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const roomId = form.dataset.id;
+    const formData = new FormData(form);
+
+    // Chuyển formData thành JSON
+    const data = {
+      roomNumber: formData.get('roomNumber'),
+      bedType: formData.get('bedType'),
+      roomType: formData.get('roomType'),
+      status: formData.get('status'),
+    };
+
+    try {
+      const response = await fetch(`/manage/quan_li_phong/crud/${roomId}/update`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert('Cập nhật phòng thành công!');
+        window.location.href = '/manage/quan_li_phong';
+      } else {
+        alert('Cập nhật phòng thất bại!');
+        console.error(result.message || result);
+      }
+    } catch (err) {
+      console.error('Lỗi khi gửi request:', err);
+    }
+  });
+</script>

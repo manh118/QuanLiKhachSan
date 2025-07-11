@@ -1,3 +1,8 @@
+<div class="slide_hbs_phu">
+    <div class="slide__content_phu">
+        <div class="text__des">DANH SÁCH PHÒNG</div> 
+    </div>
+</div>
 <div class="body_phu" >
     <h3 class="Phu__room__heading ">{{roomTypes.name}}</h3>
     <form class="Phu__room__form__sreach" method="GET" action="/hangphong/{{roomTypeId}}/rooms">
@@ -10,13 +15,10 @@
               </option>
             {{/each}}
           </select>
-          <select name="Room" class="form-control Phu__room__form__sreach__select">
+          <select name="status" class="form-control Phu__room__form__sreach__select">
             <option value="">Tình trạng</option>
-            {{#each Rooms}}
-              <option value="{{this._id}}" {{#if (eq ../selectedBedType this._id)}}selected{{/if}}>
-                {{this.status}}
-              </option>
-            {{/each}}
+            <option value="Trống" {{#if (eq selectedStatus "Trống")}}selected{{/if}}>Trống</option>
+            <option value="Đã đặt" {{#if (eq selectedStatus "Đã đặt")}}selected{{/if}}>Đã đặt</option>
           </select>
           <button class="btn btn-primary  Phu__room__form__sreach-btn">Lọc thông tin</button>       
     </form>

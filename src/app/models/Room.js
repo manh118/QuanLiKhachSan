@@ -14,21 +14,13 @@ const Room = new Schema({
     img: { type: String },
     description: {type: String},
     area: {type: String},
-    // slug: { type: String, slug: 'roomBumber', unique: true } 
+    
   },{
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
   })
 
-  // Room.virtual('price').get(function(){
-  //     if (this.bedType?.price && this.roomType?.price) {
-  //   return this.bedType.price * this.roomType.price;
-  // }
-  //   return 0;
-  // })
-
-// Xóa mềm
 Room.plugin(mongooseDelete, { deletedAt: true, overrideMethods: 'all' })
 
 module.exports = mongoose.model('Room', Room)

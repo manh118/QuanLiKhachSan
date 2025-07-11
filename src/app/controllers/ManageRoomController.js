@@ -55,8 +55,11 @@ class ManageRoomController {
     }
 
     Room.updateOne({ _id: req.params.id }, updatedData)
-      .then(() => res.redirect('/manage/quan_li_phong'))
-      .catch(next)
+      .then(() => res.json({ success: true, message: 'Cập nhật thành công' }))
+      .catch(err => {
+        console.error(err);
+        res.status(500).json({ success: false, message: 'Lỗi khi cập nhật', error: err });
+      })
   }
 
    delete(req, res, next) {

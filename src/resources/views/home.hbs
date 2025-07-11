@@ -35,71 +35,32 @@
       <div class="PhongNghi__slide">       
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
-            <div class="carousel-item active">
+            {{#each rooms}}
+              <div class="carousel-item {{#if @first}}active{{/if}}">
                 <div class="row">
-                    <div class="col-6 text-center phongnghi-mt">
-                        <div class="PhongNghi__title_mini">Phòng Connecting</div>
-                        <div class="PhongNghi__title">35 m2 - 1 giường đôi - 3 người</div>
-                        <div class="PhongNghi__description">                   
-                        Putan Hotel tự hào có 6 phòng Thông nhau qua cửa nối mang lại cảm giác thư giãn và trang nhã của Phong cách Tân Cổ điển. 
-                        Mỗi phòng trong khách sạn Camia là sự kết hợp của vẻ đẹp, thẩm mỹ và nghệ thuật.                   
-                        </div>
-                        <button type="button" class="btn btn-info PhongNghi__btn">Chi tiết</button>
-                    </div>
-                    <div class="col-6"><img src="/img/phong1.jpg" class="d-block w-100 PhongNghi__img" alt="..."></div>
-                </div>
-            </div>
-            <div class="carousel-item">
-              <div class="row">
                   <div class="col-6 text-center phongnghi-mt">
-                      <div class="PhongNghi__title_mini">Balcony famili suite</div>
-                      <div class="PhongNghi__title">35 m2 - 1 giường đôi - 3 người</div>
-                      <div class="PhongNghi__description">                   
-                        Putan Hotel tự hào có 6 phòng Thông nhau qua cửa nối mang lại cảm giác thư giãn và trang nhã của Phong cách Tân Cổ điển. 
-                        Mỗi phòng trong khách sạn Camia là sự kết hợp của vẻ đẹp, thẩm mỹ và nghệ thuật.                   
-                      </div>
+                    <div class="PhongNghi__title_mini">{{this.roomType.name}}</div>
+                    <div class="PhongNghi__title">{{{m2 this.area}}} - {{this.bedType.name}}</div>
+                    <div class="PhongNghi__description">{{this.roomType.description}}</div>
+                    <a href="/hangphong/room/{{this.roomNumber}}">
                       <button type="button" class="btn btn-info PhongNghi__btn">Chi tiết</button>
-                    </div>
-                    <div class="col-6"><img src="/img/phong2.jpg" class="d-block w-100 PhongNghi__img" alt="..."></div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="row">
-                <div class="col-6 text-center phongnghi-mt">
-                  <div class="PhongNghi__title_mini">Deluce city view</div>
-                  <div class="PhongNghi__title">35 m2 - 1 giường đôi - 3 người</div>
-                  <div class="PhongNghi__description">                   
-                    Putan Hotel tự hào có 6 phòng Thông nhau qua cửa nối mang lại cảm giác thư giãn và trang nhã của Phong cách Tân Cổ điển. 
-                    Mỗi phòng trong khách sạn Camia là sự kết hợp của vẻ đẹp, thẩm mỹ và nghệ thuật.                   
+                    </a>
                   </div>
-                  <button type="button" class="btn btn-info PhongNghi__btn">Chi tiết</button>
-                </div>
-                <div class="col-6"><img src="/img/phong3.jpg" class="d-block w-100 PhongNghi__img" alt="..."></div>
-              </div>
-            </div>
-            <div class="carousel-item ">
-                <div class="row">
-                  <div class="col-6 text-center phongnghi-mt">
-                    <div class="PhongNghi__title_mini">Senior .de city view</div>
-                    <div class="PhongNghi__title">35 m2 - 1 giường đôi - 3 người</div>
-                    <div class="PhongNghi__description">                   
-                      Putan Hotel tự hào có 6 phòng Thông nhau qua cửa nối mang lại cảm giác thư giãn và trang nhã của Phong cách Tân Cổ điển. 
-                      Mỗi phòng trong khách sạn Camia là sự kết hợp của vẻ đẹp, thẩm mỹ và nghệ thuật.                   
-                    </div>
-                    <button type="button" class="btn btn-info PhongNghi__btn">Chi tiết</button>
+                  <div class="col-6">
+                    <img src="{{this.img}}" class="d-block w-100 PhongNghi__img" alt="{{this.roomType.name}}">
                   </div>
-                  <div class="col-6"><img src="/img/phong4.jpg" class="d-block w-100 PhongNghi__img" alt="..."></div>
                 </div>
               </div>
+            {{/each}}
           </div>
           <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
               <span class="PhongNghi__slide__icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
               <span class="sr-only">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
+          </button>
+          <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
               <span class="PhongNghi__slide__icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
               <span class="sr-only">Next</span>
-            </button>
+          </button>
         </div>
       </div>
     </div>

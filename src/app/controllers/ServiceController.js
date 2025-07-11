@@ -3,7 +3,7 @@ const ServiceMonAn = require('../models/ServiceMonAn')
 
 class ServiceController {
   //[Get] home
-  Hienthi1(req, res, next) {
+  tiec(req, res, next) {
     res.render('Dichvu/tiec')
   }
 
@@ -11,7 +11,7 @@ class ServiceController {
     const grouped = {
       STEAK: [], SOUP: [], SEAFOOD: [], PIZZA: [], SALAD: [], RICE: [],
     };
-
+    
     ServiceMonAn.find({}).lean()
       .then((dishes) => {
         dishes.forEach((dish) => {
