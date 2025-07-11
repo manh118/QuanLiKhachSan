@@ -25,6 +25,7 @@ router.use('/quan_li_dichvu/crud', manageServiceRouter);
 router.use('/quan_li_nhanvien/crud', manageEmployeeRouter);
 router.use('/quan_li_hoadon/crud', manageBillRouter);
 router.use('/quan_li_phieuthue/crud', manageBookingRouter);
+router.use('/quan_li_hangphong/crud', manageRoomTypeRouter);
 
 // Các route quản lý
 router.get('/quan_li_nhanvien', manageController.dsNhanVien);
