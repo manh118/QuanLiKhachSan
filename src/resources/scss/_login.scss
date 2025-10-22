@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin:  100px 100px;
+    margin: 50px 100px;
 }
 
 .form__login__lable{
@@ -17,11 +17,10 @@
     color: #fff;
     padding: 5px 20px;
     border-radius: 20px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .form__login__body{
-    // background-color: ;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,3 +47,48 @@
     border-radius: 8px;
     border: 1px solid #ccc;
 }
+
+.form__login .regis{
+    margin-top: 30px;
+    font-size: 1.2rem;
+    color: rgba(0,0,0,0.6);
+}
+
+.form__login .regis a{
+    color: v.$btn;
+    font-weight: 600;
+
+}
+
+.form__login .regis a:hover{
+    color: v.$btn;
+    cursor: pointer;
+}
+
+.form__regis__body { // Dành cho form ĐĂNG KÝ
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px;
+    border: 1px solid #ccc;
+    height: auto;
+    padding-bottom: 30px; 
+}
+
+#regis-error {
+    color: red;
+    height: 10px; /* Dành sẵn 20px chiều cao để layout không bị "nhảy" */
+    font-size: 1.4rem;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.form__regis__btn{ 
+    font-size:1.6rem;
+    background-color: v.$btn;
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+

@@ -39,16 +39,16 @@ class HangphongController {
     }    
     
 
-    Promise.all([                   // giúp thực hiện song song nhiều truy vấn MongoDB để lấy dữ liệu cần thiết trước khi render ra trang view
-      Room.countDocuments(query),   // Đếm tổng số phòng thỏa điều kiện (để tính tổng số trang)
-      Room.find(query)              // Lấy danh sách phòng trang hiện tại
+    Promise.all([                   
+      Room.countDocuments(query),   
+      Room.find(query)             
         .populate('roomType', 'name description utilities price')
         .populate('bedType', 'name price')
         .skip(skip)
         .limit(Page_size)
         .lean({ virtuals: true }),
-      BedType.find().lean(),     // Lấy danh sách giường
-      RoomType.findById(roomTypeId).lean(),   // Lấy thôn tin hạng phòng đang xem
+      BedType.find().lean(),     
+      RoomType.findById(roomTypeId).lean(),   
       ])
         .then(([totalRooms, Rooms, bedTypes, roomTypes]) => {
           const totalPages = Math.ceil(totalRooms / Page_size);
@@ -91,8 +91,8 @@ class HangphongController {
 
             Room.find({ 
               roomType: foundRoom.roomType._id,
-              roomNumber: { $ne: foundRoom.roomNumber },
-              status: { $in: 'Trống' }
+              roomNumber: { $ne: foundRoom.roomNumber }, // Khác mã phòng hiện tại
+              status: { $in: 'Trống' }                  // Chỉ chọn phòng trống
             })
               .limit(3)
               .populate('bedType')

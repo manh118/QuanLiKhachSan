@@ -1,0 +1,132 @@
+<table class="table">
+    <tbody>
+       <tr>
+            <td class="floor">Tầng 2</td>
+            <td class="room-container"> {{!-- Nên bọc các phòng trong container --}}
+                {{#each Rooms}}
+                    {{#if (eq this.floor "2")}}
+                        <div class="room-card {{#if booking}} room-card--booked {{else}} room-card--available {{/if}}">
+                            <h2 class="room-card__number">{{this.roomNumber}}</h2>
+                            {{#if booking}}
+                                {{!-- Thông tin phòng đã đặt --}}
+                                <p>{{this.roomType.name}}</p>
+                                <p><i class="fa-regular fa-user"></i> {{booking.customer.fullName}}</p>
+                                <p><i class="fa-light fa-phone"></i> {{booking.customer.phone}} </p>
+                            {{else}}
+                                {{!-- Thông tin phòng trống --}}
+                                <p>{{this.roomType.name}}</p>
+                                <p>Giá: {{money price}} VNĐ</p>
+                                <p>{{this.bedType.name}}</p>
+                                
+                                {{!-- THÊM NÚT NÀY VÀO --}}
+                                <button class="btn btn-sm btn-light js-manual-book-btn"
+                                        data-room-id="{{this._id}}"
+                                        data-room-number="{{this.roomNumber}}"
+                                        style="position: absolute; bottom: 5px; right: 5px;">
+                                    <i class="fa-solid fa-plus"></i> Đặt
+                                </button>
+                                {{!-- HẾT PHẦN THÊM --}}
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </td>
+        </tr>
+        <tr>
+            <td class="floor">Tầng 3</td>
+            <td class="room-container"> {{!-- Nên bọc các phòng trong container --}}
+                {{#each Rooms}}
+                    {{#if (eq this.floor "3")}}
+                        <div class="room-card {{#if booking}} room-card--booked {{else}} room-card--available {{/if}}">
+                            <h2 class="room-card__number">{{this.roomNumber}}</h2>
+                            {{#if booking}}
+                                {{!-- Thông tin phòng đã đặt --}}
+                                <p>{{this.roomType.name}}</p>
+                                <p><i class="fa-regular fa-user"></i> {{booking.customer.fullName}}</p>
+                                <p><i class="fa-light fa-phone"></i> {{booking.customer.phone}} </p>
+                            {{else}}
+                                {{!-- Thông tin phòng trống --}}
+                                <p>{{this.roomType.name}}</p>
+                                <p>Giá: {{money price}} VNĐ</p>
+                                <p>{{this.bedType.name}}</p>
+                                
+                                {{!-- THÊM NÚT NÀY VÀO --}}
+                                <button class="btn btn-sm btn-light js-manual-book-btn"
+                                        data-room-id="{{this._id}}"
+                                        data-room-number="{{this.roomNumber}}"
+                                        style="position: absolute; bottom: 5px; right: 5px;">
+                                    <i class="fa-solid fa-plus"></i> Đặt
+                                </button>
+                                {{!-- HẾT PHẦN THÊM --}}
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </td>
+        </tr>
+        <tr>
+            <td class="floor">Tầng 4</td>
+            <td class="room-container"> {{!-- Nên bọc các phòng trong container --}}
+                {{#each Rooms}}
+                    {{#if (eq this.floor "4")}}
+                        <div class="room-card {{#if booking}} room-card--booked {{else}} room-card--available {{/if}}">
+                            <h2 class="room-card__number">{{this.roomNumber}}</h2>
+                            {{#if booking}}
+                                {{!-- Thông tin phòng đã đặt --}}
+                                <p>{{this.roomType.name}}</p>
+                                <p><i class="fa-regular fa-user"></i> {{booking.customer.fullName}}</p>
+                                <p><i class="fa-light fa-phone"></i> {{booking.customer.phone}} </p>
+                            {{else}}
+                                {{!-- Thông tin phòng trống --}}
+                                <p>{{this.roomType.name}}</p>
+                                <p>Giá: {{money price}} VNĐ</p>
+                                <p>{{this.bedType.name}}</p>
+                                
+                                {{!-- THÊM NÚT NÀY VÀO --}}
+                                <button class="btn btn-sm btn-light js-manual-book-btn"
+                                        data-room-id="{{this._id}}"
+                                        data-room-number="{{this.roomNumber}}"
+                                        style="position: absolute; bottom: 5px; right: 5px;">
+                                    <i class="fa-solid fa-plus"></i> Đặt
+                                </button>
+                                {{!-- HẾT PHẦN THÊM --}}
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </td>
+        </tr>
+        <tr>
+            <td class="floor">Tầng 5</td>
+            <td class="room-container"> {{!-- Nên bọc các phòng trong container --}}
+                {{#each Rooms}}
+                    {{#if (eq this.floor "5")}}
+                        <div class="room-card {{#if booking}} room-card--booked {{else}} room-card--available {{/if}}">
+                            <h2 class="room-card__number">{{this.roomNumber}}</h2>
+                            {{#if booking}}
+                                {{!-- Thông tin phòng đã đặt --}}
+                                <p>{{this.roomType.name}}</p>
+                                <p><i class="fa-regular fa-user"></i> {{booking.customer.fullName}}</p>
+                                <p><i class="fa-light fa-phone"></i> {{booking.customer.phone}} </p>
+                            {{else}}
+                                {{!-- Thông tin phòng trống --}}
+                                <p>{{this.roomType.name}}</p>
+                                <p>Giá: {{money price}} VNĐ</p>
+                                <p>{{this.bedType.name}}</p>
+                                
+                                {{!-- THÊM NÚT NÀY VÀO --}}
+                                <button class="btn btn-sm btn-light js-manual-book-btn"
+                                        data-room-id="{{this._id}}"
+                                        data-room-number="{{this.roomNumber}}"
+                                        style="position: absolute; bottom: 5px; right: 5px;">
+                                    <i class="fa-solid fa-plus"></i> Đặt
+                                </button>
+                                {{!-- HẾT PHẦN THÊM --}}
+                            {{/if}}
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </td>
+        </tr>
+    </tbody>
+</table>

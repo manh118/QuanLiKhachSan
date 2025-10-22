@@ -10,7 +10,8 @@ router.post('/create',uploadRoom.single('img'),manageRoomController.CreateRoom);
 // router.post('/create', uploadRoom.array('img', 10), manageRoomController.CreateRoom);
 router.get('/:id/show_update', manageRoomController.showUpdate);
 router.put('/:id/update', manageRoomController.update);
-router.delete('/:id/delete', manageRoomController.delete)
+router.delete('/:id/delete', manageRoomController.delete);
+router.put('/:id/clean', manageRoomController.Clean);
 
 
 module.exports = router;

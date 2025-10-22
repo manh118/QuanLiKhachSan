@@ -64,8 +64,7 @@ html {
 .logo {
   width: 15rem;
   position: relative;
-  top: -7px;
-  left: -20px;
+  left: -10px;
 }
 
 .header-1 {
@@ -181,7 +180,7 @@ html {
 
 .navbar__hangphong__list {
   position: absolute;
-  top: calc(100% + 15px);
+  top: 100%;
   left: -5px;
   width: 170px;
   padding: 0;
@@ -200,7 +199,7 @@ html {
   width: 200px;
   padding: 0;
   background-color: #fff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
   z-index: 1;
   display: none;
   animation: hangphong ease-in 0.15s;
@@ -221,9 +220,9 @@ html {
   display: block;
   position: absolute;
   width: 130px;
-  height: 35px;
+  height: 15px;
   background-color: transparent;
-  bottom: -32px;
+  bottom: 0;
   left: 10px;
 }
 
@@ -262,6 +261,27 @@ html {
 }
 
 .navbar__dichvu:hover .navbar__dichvu__list {
+  display: block;
+}
+
+.navbar__taikhoan {
+  position: relative;
+}
+
+/* 2. Ẩn và định vị cho menu dropdown (ul con) */
+.navbar__taikhoan .navbar__hangphong__list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  background-color: #fff;
+  border: 1px solid #eee;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  width: 200px;
+}
+
+.navbar__taikhoan:hover .navbar__hangphong__list {
   display: block;
 }
 
@@ -763,7 +783,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 100px 100px;
+  margin: 50px 100px;
 }
 
 .form__login__lable {
@@ -776,7 +796,7 @@ footer {
   color: #fff;
   padding: 5px 20px;
   border-radius: 20px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .form__login__body {
@@ -807,10 +827,54 @@ footer {
   border: 1px solid #ccc;
 }
 
+.form__login .regis {
+  margin-top: 30px;
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.form__login .regis a {
+  color: #046056;
+  font-weight: 600;
+}
+
+.form__login .regis a:hover {
+  color: #046056;
+  cursor: pointer;
+}
+
+.form__regis__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 360px;
+  border: 1px solid #ccc;
+  height: auto;
+  padding-bottom: 30px;
+}
+
+#regis-error {
+  color: red;
+  height: 10px; /* Dành sẵn 20px chiều cao để layout không bị "nhảy" */
+  font-size: 1.4rem;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.form__regis__btn {
+  font-size: 1.6rem;
+  background-color: #046056;
+  color: #fff;
+  padding: 5px 20px;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
 .slide_hbs {
   position: relative;
-  padding-top: 50%;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url("/img/slide.jpg") top center/cover no-repeat;
+  height: 80vh;
+  width: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url("/img/slide.jpg") top center/cover no-repeat;
 }
 
 .slide_hbs .slide__content {
@@ -826,10 +890,12 @@ footer {
 
 .text__heading {
   font-size: 2rem;
+  text-shadow: 2px 2px 5px rgb(0, 0, 0);
 }
 
 .text__des {
   font-size: 7rem;
+  text-shadow: 2px 2px 10px rgb(0, 0, 0);
 }
 
 .header__booking {
@@ -1119,8 +1185,8 @@ footer {
 }
 
 .color__price {
-  color: red;
-  font-weight: 400;
+  color: red !important;
+  font-weight: 600;
 }
 
 .color__price_phong {
@@ -1474,6 +1540,14 @@ footer {
   text-align: justify;
 }
 
+.myBooking__heading {
+  font-size: 3rem;
+}
+
+.no_booking {
+  font-size: 1.6rem;
+}
+
 * {
   box-sizing: inherit;
 }
@@ -1806,6 +1880,83 @@ html {
 .PhuongThuc {
   margin-left: 20px;
   font-size: 20px;
+}
+
+.floor {
+  width: 100px;
+  border-right: 1px solid #ccc;
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.table tr {
+  border: 1px solid #ccc;
+}
+
+.table__room__heading {
+  font-size: 3rem;
+}
+
+.table__room {
+  width: 271px;
+  height: 180px;
+  display: inline-block;
+  margin: 3px;
+  color: #fff;
+}
+
+.table__room.booked {
+  background-color: #dc1313;
+}
+
+.table__room.available {
+  background-color: green;
+}
+
+.table__room.cleaning {
+  background-color: rgb(173, 175, 28);
+}
+
+.table__room__heading {
+  text-align: center;
+  font-weight: 600;
+}
+
+.row__room {
+  border-bottom: 1px solid #ccc;
+  width: auto;
+}
+
+/* Thêm vào file manage.scss của bạn */
+.report-card {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.report-card__title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+.report-card__value {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+.report-card__subtext {
+  font-size: 1.4rem;
+  color: #555;
+}
+
+.report .time .btn_find {
+  margin-top: 32px;
+}
+
+.form_quanliphong button {
+  font-size: 1.2rem;
 }
 
 /*# sourceMappingURL=main.css.map */

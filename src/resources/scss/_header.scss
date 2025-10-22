@@ -14,8 +14,7 @@ html {
 .logo{
     width: 15rem;
     position: relative;
-    top: -7px;
-    left: -20px;
+    left: -10px;
 }
 
 .header-1{
@@ -133,7 +132,8 @@ html {
 
 .navbar__hangphong__list{
     position: absolute;
-    top: calc(100% + 15px);
+    // top: calc(100% + 15px);
+    top:100%;
     left: -5px;
     width: 170px;
     padding: 0;
@@ -152,7 +152,7 @@ html {
     width: 200px;
     padding: 0;
     background-color: v.$white-color;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.6);
     z-index: 1;
     display: none;
     animation: hangphong ease-in 0.15s;
@@ -173,9 +173,9 @@ html {
     display: block;
     position: absolute;
     width: 130px;
-    height: 35px;
+    height: 15px;
     background-color: transparent;
-    bottom: -32px;
+    bottom: 0;
     left: 10px;
 }
 
@@ -217,6 +217,27 @@ html {
 
 .navbar__dichvu:hover .navbar__dichvu__list{
     display: block;
+}
+
+.navbar__taikhoan {
+  position: relative; 
+}
+
+/* 2. Ẩn và định vị cho menu dropdown (ul con) */
+.navbar__taikhoan .navbar__hangphong__list {
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  display: none; 
+  background-color: #fff;
+  border: 1px solid #eee;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+  z-index: 10;
+  width: 200px; 
+}
+
+.navbar__taikhoan:hover .navbar__hangphong__list {
+  display: block; 
 }
 
 

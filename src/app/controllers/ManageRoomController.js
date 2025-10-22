@@ -67,6 +67,30 @@ class ManageRoomController {
         .then(() => res.redirect('/manage/quan_li_phong'))
         .catch(next)
     }
+
+  async Clean(req, res, next) {
+          try {
+              const room = await Room.findById(req.params.id);
+              if (!room) {
+                  return res.status(404).json({ success: false, message: 'Không tìm thấy phòng' });
+              }
+
+              // Chỉ nên đánh dấu sạch nếu phòng đang ở trạng thái 'Dọn dẹp'
+              if (room.status !== 'Dọn dẹp') {
+                  return res.status(400).json({ success: false, message: 'Phòng không ở trạng thái cần dọn dẹp' });
+              }
+
+              // Cập nhật trạng thái thành 'Trống'
+              await Room.updateOne({ _id: req.params.id }, { status: 'Trống' });
+
+              res.json({ success: true, message: 'Đã cập nhật trạng thái phòng thành Trống' });
+
+          } catch (error) {
+              console.error('Lỗi khi đánh dấu phòng sạch:', error);
+              res.status(500).json({ success: false, message: 'Lỗi server' });
+              next(error); // Tùy chọn: chuyển lỗi cho middleware xử lý chung
+          }
+      }
 }
 
 module.exports = new ManageRoomController()

@@ -3,82 +3,84 @@
         <div class="text__des">DANH SÁCH PHÒNG</div> 
     </div>
 </div>
-<div class="body_phu" >
-    <h3 class="Phu__room__heading ">{{roomTypes.name}}</h3>
-    <form class="Phu__room__form__sreach" method="GET" action="/hangphong/{{roomTypeId}}/rooms">
-          {{!-- <input class="input__serach" name="q" type="search" placeholder="Tìm kiếm hạng phòng" aria-label="Search" value="{{searchQuery}}"> --}}
-          <select name="bedType" class="form-control Phu__room__form__sreach__select">
-            <option value="">Tất cả loại giường</option>
-            {{#each bedTypes}}
-              <option value="{{this._id}}" {{#if (eq ../selectedBedType this._id)}}selected{{/if}}>
-                {{this.name}}
-              </option>
-            {{/each}}
-          </select>
-          <select name="status" class="form-control Phu__room__form__sreach__select">
-            <option value="">Tình trạng</option>
-            <option value="Trống" {{#if (eq selectedStatus "Trống")}}selected{{/if}}>Trống</option>
-            <option value="Đã đặt" {{#if (eq selectedStatus "Đã đặt")}}selected{{/if}}>Đã đặt</option>
-          </select>
-          <button class="btn btn-primary  Phu__room__form__sreach-btn">Lọc thông tin</button>       
-    </form>
-    <div class="row" id="content">
-        {{#each Rooms}}
-        <div class="col-4">
-            <div class="card phu__room__card" style="width: 100%;">
-                <div class="phu__room__img" style="background:url({{this.img}}) top center / cover no-repeat;">
-                    <p class="phu__room__img__price color__price_phong">{{money this.price}} VNĐ/ĐÊM</p>
-                </div>
-                <div class="card-body">
-                    <div class="card-body__content">
-                        <h5 class="card-title phu__room__type">{{this.roomType.name}}</h5>
-                        <p class="phu__room__name">Phòng: {{this.roomNumber}}</p>
-                        <p class="phu__room__title"><i class="fa-solid fa-bed"></i> {{this.bedType.name}} - <i class="bx  bx-area Chinh_icon_area"></i> {{{m2 this.area}}} </p> 
-                    </div>
-                    <p class="card-text phu__room__cart__des">
-                       {{this.roomType.description}}
-                    </p>
-                    <a href="/hangphong/room/{{this.roomNumber}}" class="btn phu__room__cart__btn"> Xem Chi Tiết</a>
-                </div>
-                {{#if (eqString this.status 'Đã đặt')}}
-                <div class="phu__room__status phu__room__status--booked">
-                   <i class="fa-solid fa-xmark phu__room__status__icon"></i></i> {{this.status}}
-                </div> 
-
-                {{else}}
-                <div class="phu__room__status phu__room__status">
-                   <i class="fa-light fa-check phu__room__status__icon"></i></i> {{this.status}}
-                </div>
-                {{/if}}
-            </div>
-        </div>
-        {{/each}}
-        
-    </div>
-    <div class="Pagination">
-        {{#if (gt currentPage 1)}}
-            <li class="pagination-item">
-            <a href="?page={{subtract currentPage 1}}" class="pagination-item__link">
-                <i class="pagination-item__icon fa-solid fa-angle-left"></i>
-            </a>
-            </li>
-        {{/if}}
-
-        {{#each (range 1 totalPages)}}
-            <li class="pagination-item {{#if (eq this ../currentPage)}}pagination-item--active{{/if}}">
-            <a href="?page={{this}}" class="pagination-item__link">{{this}}</a>
-            </li>
-        {{/each}}
-
-        {{#if (lt currentPage totalPages)}}
-            <li class="pagination-item">
-            <a href="?page={{add currentPage 1}}" class="pagination-item__link">
-                <i class="pagination-item__icon fa-solid fa-angle-right"></i>
-            </a>
-            </li>
-        {{/if}}
-    </div>
-
+<div class="container">
+  <div class="body_phu" >
+      <h3 class="Phu__room__heading ">{{roomTypes.name}}</h3>
+      <form class="Phu__room__form__sreach" method="GET" action="/hangphong/{{roomTypeId}}/rooms">
+            {{!-- <input class="input__serach" name="q" type="search" placeholder="Tìm kiếm hạng phòng" aria-label="Search" value="{{searchQuery}}"> --}}
+            <select name="bedType" class="form-control Phu__room__form__sreach__select">
+              <option value="">Tất cả loại giường</option>
+              {{#each bedTypes}}
+                <option value="{{this._id}}" {{#if (eq ../selectedBedType this._id)}}selected{{/if}}>
+                  {{this.name}}
+                </option>
+              {{/each}}
+            </select>
+            <select name="status" class="form-control Phu__room__form__sreach__select">
+              <option value="">Tình trạng</option>
+              <option value="Trống" {{#if (eq selectedStatus "Trống")}}selected{{/if}}>Trống</option>
+              <option value="Đã đặt" {{#if (eq selectedStatus "Đã đặt")}}selected{{/if}}>Đã đặt</option>
+            </select>
+            <button class="btn btn-primary  Phu__room__form__sreach-btn">Lọc thông tin</button>       
+      </form>
+      <div class="row" id="content">
+          {{#each Rooms}}
+          <div class="col-4">
+              <div class="card phu__room__card" style="width: 100%;">
+                  <div class="phu__room__img" style="background:url({{this.img}}) top center / cover no-repeat;">
+                      <p class="phu__room__img__price color__price_phong">{{money this.price}} VNĐ/ĐÊM</p>
+                  </div>
+                  <div class="card-body">
+                      <div class="card-body__content">
+                          <h5 class="card-title phu__room__type">{{this.roomType.name}}</h5>
+                          <p class="phu__room__name">Phòng: {{this.roomNumber}}</p>
+                          <p class="phu__room__title"><i class="fa-solid fa-bed"></i> {{this.bedType.name}} - <i class="bx  bx-area Chinh_icon_area"></i> {{{m2 this.area}}} </p> 
+                      </div>
+                      <p class="card-text phu__room__cart__des">
+                         {{this.roomType.description}}
+                      </p>
+                      <a href="/hangphong/room/{{this.roomNumber}}" class="btn phu__room__cart__btn"> Xem Chi Tiết</a>
+                  </div>
+                  {{#if (eqString this.status 'Đã đặt')}}
+                  <div class="phu__room__status phu__room__status--booked">
+                     <i class="fa-solid fa-xmark phu__room__status__icon"></i></i> {{this.status}}
+                  </div> 
+  
+                  {{else}}
+                  <div class="phu__room__status phu__room__status">
+                     <i class="fa-light fa-check phu__room__status__icon"></i></i> {{this.status}}
+                  </div>
+                  {{/if}}
+              </div>
+          </div>
+          {{/each}}
+          
+      </div>
+      <div class="Pagination">
+          {{#if (gt currentPage 1)}}
+              <li class="pagination-item">
+              <a href="?page={{subtract currentPage 1}}" class="pagination-item__link">
+                  <i class="pagination-item__icon fa-solid fa-angle-left"></i>
+              </a>
+              </li>
+          {{/if}}
+  
+          {{#each (range 1 totalPages)}}
+              <li class="pagination-item {{#if (eq this ../currentPage)}}pagination-item--active{{/if}}">
+              <a href="?page={{this}}" class="pagination-item__link">{{this}}</a>
+              </li>
+          {{/each}}
+  
+          {{#if (lt currentPage totalPages)}}
+              <li class="pagination-item">
+              <a href="?page={{add currentPage 1}}" class="pagination-item__link">
+                  <i class="pagination-item__icon fa-solid fa-angle-right"></i>
+              </a>
+              </li>
+          {{/if}}
+      </div>
+  
+  </div>
 </div>
 
 <script>

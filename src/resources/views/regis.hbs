@@ -1,0 +1,66 @@
+<div class="form__login">
+    <form class="form__regis__body">
+        <p class="form__login__title">Đăng ký tài khoản</p>
+        <div class="form__login__input">
+            <input type="text" class="form__login__input-1" name="name" placeholder="Tên đăng nhập" required>
+        </div>
+        <div class="form__login__input">
+            <input type="number" class="form__login__input-1" name="phone" placeholder="Số điện thoại " required>
+        </div>
+        <div class="form__login__input">
+            <input type="email" class="form__login__input-1" name="email" placeholder="Email (ví dụ: email@gmail.com)" >
+        </div>
+        <div class="form__login__input">
+            <input type="password" class="form__login__input-1" id="password" name="password" placeholder="Mật khẩu" required>
+        </div>
+        <div class="form__login__input">
+            <input type="password" class="form__login__input-1" id="password_confirm" name="password_confirm" placeholder="Xác nhận mật khẩu" required>
+        </div>
+        <p id="regis-error"></p>
+        <button type="submit" class="btn form__regis__btn">Đăng ký</button>
+        <p class="regis">Bạn đã có tài khoản? <a href="/account/login">Đăng nhập</a></p>
+    </form>
+</div>
+
+<script>
+document.querySelector('.form__regis__body').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+  const password = formData.get('password');
+  const passwordConfirm = formData.get('password_confirm');
+  const errorElement = document.getElementById('regis-error');
+
+  // --- Kiểm tra xác nhận mật khẩu ---
+  if (password !== passwordConfirm) {
+    errorElement.textContent = 'Mật khẩu xác nhận không khớp!';
+    return; // Dừng việc gửi form
+  }
+  // Xóa lỗi nếu đã khớp
+  errorElement.textContent = ''; 
+
+  const data = Object.fromEntries(formData.entries());
+  delete data.password_confirm; // Không cần gửi "xác nhận mk" lên server
+
+  fetch('/account/regis', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(result => {
+    if (result.success) {
+      alert(result.message); // Thông báo đăng ký thành công
+      window.location.href = result.redirect; // Chuyển về trang login
+    } else {
+      errorElement.textContent = result.message;
+    }
+  })
+  .catch(err => {
+    console.error('Lỗi:', err);
+    errorElement.textContent = 'Có lỗi xảy ra, vui lòng thử lại.';
+  });
+});
+</script>

@@ -15,9 +15,11 @@
         <form class="form_quanliphong" name="submit_request_delete" method="POST" action="/courses/handle-form-actions">
 
             <h2>Danh sách Dịch vụ</h2>
-            {{!-- {{#if deletedCount}} --}}
-            <a href="/me/trash/courses">Thùng rác ({{deletedCount}})</a>
-            {{!-- {{/if}} --}}
+            {{#if deletedCount}}
+              <a href="/me/trash/courses">Thùng rác ({{deletedCount}})</a>
+            {{else}}
+              <a href="/me/trash/courses">Thùng rác (0)</a>
+            {{/if}}
             <div class="mt-4 d-flex form_ChonXoa">
                 <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="checkbox-all">

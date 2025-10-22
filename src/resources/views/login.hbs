@@ -11,6 +11,7 @@
         <p>{{error}}</p>
         {{/if}}
         <button type="submit" class="btn form__login__btn">Đăng nhập</button>
+        <p class="regis">Bạn mới biết đến Nhà nghỉ An Bình? <a href="/account/regis">Đăng ký</a></p>
     </form>
 </div>
 
@@ -21,7 +22,7 @@ document.querySelector('.form__login__body').addEventListener('submit', function
   const formData = new FormData(this);
   const data = Object.fromEntries(formData.entries());
 
-  fetch('/login', {
+  fetch('/account/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

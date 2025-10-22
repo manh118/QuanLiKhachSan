@@ -1,0 +1,84 @@
+{{!-- Form được bọc trong một thẻ div để có thể dùng chung CSS với các trang CRUD khác --}}
+<div>
+    <form class="manage_crud" data-id="{{customer._id}}" style="height: auto; margin-top: 20px;">
+        <h3 class="Mangage_title">Cập Nhật Thông Tin Khách Hàng</h3>
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='name'>Tên đăng nhập</label>
+            <input type='text' class='form-control Mangage_input' id='name' name="name" value="{{customer.name}}" readonly />
+        </div>
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='fullName'>Họ và Tên</label>
+            <input type='text' class='form-control Mangage_input' id='fullName' name="fullName" value="{{customer.fullName}}" />
+        </div>
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='phone'>Số điện thoại</label>
+            <input type='text' class='form-control Mangage_input' id='phone' name="phone" value="{{customer.phone}}" required />
+        </div>
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='email'>Email</label>
+            <input type='email' class='form-control Mangage_input' id='email' name="email" value="{{customer.email}}" />
+        </div>
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='dob'>Ngày sinh</label>
+            {{!-- Dùng helper 'isoDate' để định dạng ngày cho input type="date" --}}
+            <input type='date' class='form-control Mangage_input' id='dob' name="dob" value="{{isoDate customer.dob}}" />
+        </div>
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='idCard'>CMND/CCCD</label>
+            <input type='text' class='form-control Mangage_input' id='idCard' name="idCard" value="{{customer.idCard}}" />
+        </div>
+
+        <div class="div_Mangage_btn">
+            <button type='submit' class='btn btn-primary mt-3 Mangage_btn'>Lưu thay đổi</button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    document.querySelector('.manage_crud').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const customerId = form.dataset.id;
+        const formData = new FormData(form);
+
+        // Chuyển formData thành đối tượng JSON
+        const data = {};
+        formData.forEach((value, key) => {
+            // Xử lý trường hợp input rỗng để không gửi chuỗi rỗng "" mà gửi null
+            data[key] = value.trim() === '' ? null : value;
+        });
+
+        try {
+            const response = await fetch(`/manage/quan_li_khachhang/crud/${customerId}/update`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('Cập nhật thông tin thành công!');
+                // Chuyển hướng về trang danh sách khách hàng
+                window.location.href = '/manage/quan_li_khachhang';
+            } else {
+                // Hiển thị thông báo lỗi từ server (ví dụ: lỗi trùng SĐT)
+                alert('Cập nhật thất bại: ' + result.message);
+                console.error(result);
+            }
+        } catch (err) {
+            console.error('Lỗi khi gửi yêu cầu:', err);
+            alert('Đã có lỗi xảy ra phía client.');
+        }
+    });
+</script>

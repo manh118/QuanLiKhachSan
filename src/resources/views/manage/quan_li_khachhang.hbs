@@ -1,0 +1,99 @@
+<div class="row manage_body">
+    {{!-- Cột tìm kiếm bên trái --}}
+    <div class="col-2" style="padding-right: 0; margin-top: 118px;">
+        <form class="form__sreach" method="GET" action="/manage/quan_li_khachhang">
+            <p class="lable__search">Tìm kiếm khách hàng</p>
+            <input class="input__serach" name="q" type="search" placeholder="Nhập tên hoặc SĐT" value="{{searchQuery}}">
+            <button class="btn btn-primary form__sreach__btn" style="margin-top: 0;">Lọc</button>
+        </form>
+    </div>
+
+    {{!-- Bảng danh sách khách hàng bên phải --}}
+    <div class="col-10">
+        <div class="form_quanliphong">
+            <h2>Danh sách khách hàng</h2>
+             {{#if deletedCount}}
+              <a href="/me/trash/courses">Thùng rác ({{deletedCount}})</a>
+            {{else}}
+              <a href="/me/trash/courses">Thùng rác (0)</a>
+            {{/if}}
+            <div class="mt-4 d-flex form_ChonXoa">
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+                <label class="form-check-label" for="checkbox-all">
+                Chọn tất cả
+                </label>
+                </div> 
+
+                <select class="form-control checkbox_all" name="action" required>
+                    <option value="">-- Chọn hành động --</option>
+                    <option value="delete">Xóa</option>  
+                </select>
+
+                <button class="btn btn-primary btn-exec disabled">Thực hiện</button>
+                {{!-- <a class="btn form_quanliphong__btn__them" href="/manage/quan_li_dichvu/crud/show_create">Thêm khách hàng</a> --}}
+            </div>
+            <div style="overflow-x: auto; white-space: nowrap;">
+                <table class="table mt-4" style="min-width: 1200px;">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên đăng nhập</th>
+                            <th scope="col">Họ và Tên</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Ngày sinh</th>
+                            <th scope="col">CMND/CCCD</th>
+                            <th scope="col">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each Customers}}
+                        <tr>
+                            <th scope="row">{{sum @index 1}}</th>
+                            <td>{{this.name}}</td>
+                            <td>
+                                {{#if this.fullName}}
+                                    {{this.fullName}}
+                                {{else}}
+                                    <span class="text-muted"><em>Chưa cập nhật</em></span>
+                                {{/if}}
+                            </td>
+                            <td>{{this.phone}}</td>
+                            <td>
+                                {{#if this.email}}
+                                    {{this.email}}
+                                {{else}}
+                                    <span class="text-muted"><em>Không có</em></span>
+                                {{/if}}
+                            </td>
+                            <td>
+                                {{#if this.dob}}
+                                    {{Date this.dob}}
+                                {{else}}
+                                    <span class="text-muted"><em>Chưa cập nhật</em></span>
+                                {{/if}}
+                            </td>
+                            <td>
+                                {{#if this.idCard}}
+                                    {{this.idCard}}
+                                {{else}}
+                                    <span class="text-muted"><em>Chưa cập nhật</em></span>
+                                {{/if}}
+                            </td>
+                            <td>
+                                <a href="/manage/quan_li_khachhang/crud/{{this._id}}/update" class="btn btn-primary btn-sm">Cập nhật</a>
+                                <a href="/manage/quan_li_khachhang/crud/{{this._id}}/history" class="btn btn-info btn-sm">Lịch sử</a>
+                            </td>
+                        </tr>
+                        {{else}}
+                        <tr>
+                            <td colspan="8" class="text-center">Chưa có khách hàng nào.</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

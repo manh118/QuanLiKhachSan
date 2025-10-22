@@ -7,14 +7,20 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo');
 const app = express()
 const port = 3000
+const http = require('http'); // Import module http gốc của Node.js
+const { Server } = require("socket.io");
 
 const route = require('./routes')
 const db = require('./config/db')
+
+const server = http.createServer(app); // Tạo server HTTP từ app Express
+const io = new Server(server, { /* Tùy chọn cấu hình nếu cần */ });
 
 db.connect()
 
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.set('socketio', io);
 
 app.use(session({
   secret: 'mySecretKey',
@@ -31,8 +37,10 @@ app.use(session({
 
 
 app.use((req, res, next) => {
+  res.locals.user = req.session.user || null; 
   res.locals.username = req.session.user?.username || null;
-  next();
+  res.locals.userRole = req.session.user?.role || null;
+  next();
 });
 
 app.use(
@@ -76,6 +84,16 @@ app.engine(
         return result;
       },
 
+      toFixed: function (value, digits) {
+        const numValue = Number(value);
+        const numDigits = parseInt(digits, 10) || 0;
+        
+        if (isNaN(numValue)) {
+            return value; // Trả về nguyên bản nếu không phải là số
+        }
+        return numValue.toFixed(numDigits);
+      },
+
       isoDate: function (date) {
         if (!date) return '';
           const d = new Date(date);
@@ -112,8 +130,17 @@ app.engine(
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'resources/views'))
 
+io.on('connection', (socket) => {
+    console.log('Một người dùng đã kết nối WebSocket:', socket.id);
+
+    socket.on('disconnect', () => {
+        console.log('Đã Ngắt');
+    });
+
+});
+
 route(app)
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+server.listen(port, () => {
+    console.log(`🚀 App đang chạy tại http://localhost:${port}`);
+});

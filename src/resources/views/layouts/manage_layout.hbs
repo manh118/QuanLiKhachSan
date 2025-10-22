@@ -1,33 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-        <link rel="stylesheet" href="/css/main.css">
-        <script src="https://kit.fontawesome.com/f678b155b8.js" crossorigin="anonymous"></script>
-        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-
-    </head>
-    <body>
-
-        <div class="app">
-            
-            {{>manage_header}}
-                
-
-            {{{body}}}
-           
+     <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+          <title>Quản Lý - An Bình</title> 
+          <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">    
+          <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+          <link rel="manifest" href="/favicon/manifest.json">
+          <meta name="msapplication-TileColor" content="#ffffff">
+          <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+          <meta name="theme-color" content="#ffffff">
+      
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+          <link rel="stylesheet" href="/css/main.css"> 
+          <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css"> 
+          <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
 
-        </div>
-        
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
-    </body>
+          {{!-- Ví dụ: <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> --}}
+
+     </head>
+     <body>
+
+          <div class="app">
+
+               {{> manage_header}} {{!-- Partial header của trang quản lý --}}
+
+               {{{body}}} {{!-- Nội dung chính của từng trang quản lý --}}
+
+          </div>
+
+          {{!-- jQuery and Bootstrap JS (Giữ nguyên) --}}
+          <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+
+          {{!-- === BẮT ĐẦU: THÊM CODE SOCKET.IO === --}}
+
+          {{!-- 1. Script của Socket.IO client --}}
+          <script src="/socket.io/socket.io.js"></script>
+
+          {{!-- 2. Thẻ audio để phát âm thanh --}}
+          <audio id="bookingNotificationSound" src="/sounds/notification.mp3" preload="auto"></audio>
+
+          {{!-- (Tùy chọn) Thêm thư viện thông báo pop-up đẹp hơn alert --}}
+          {{!-- Ví dụ: <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> --}}
+
+          {{!-- 3. Script lắng nghe sự kiện từ server --}}
+          <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                  // Kết nối tới server WebSocket
+                  const socket = io();
+                  const notificationSound = document.getElementById('bookingNotificationSound');
+
+                  // (Tùy chọn) Cấu hình thư viện thông báo (ví dụ Toastr)
+                  // if (typeof toastr !== 'undefined') {
+                  //     toastr.options = {
+                  //         "closeButton": true,
+                  //         "progressBar": true,
+                  //         "positionClass": "toast-top-right",
+                  //         "timeOut": "10000", // Hiển thị 10 giây
+                  //     };
+                  // }
+
+                  // Lắng nghe sự kiện 'new_booking' từ server
+                  socket.on('new_booking', (data) => {
+                      console.log('🔔 Nhận được booking mới:', data);
+
+                      // 1. Phát âm thanh
+                      if (notificationSound) {
+                          notificationSound.play().catch(e => console.error("Lỗi phát âm thanh:", e));
+                      } else {
+                          console.warn("Không tìm thấy thẻ audio 'bookingNotificationSound'");
+                      }
+
+                      // 2. Hiển thị Pop-up
+                      const popupMessage = `Phòng ${data.bookingDetails.roomNumber} vừa được đặt bởi ${data.bookingDetails.customerName}!`;
+                      alert("🔔 Đặt Phòng Mới!\n" + popupMessage); // Dùng alert đơn giản
+
+                      // Hoặc dùng thư viện thông báo (ví dụ Toastr)
+                      // if (typeof toastr !== 'undefined') {
+                      //     toastr.info(popupMessage, 'Thông Báo Đặt Phòng Mới');
+                      // } else {
+                      //     alert("🔔 Đặt Phòng Mới!\n" + popupMessage); // Fallback về alert
+                      // }
+
+
+                      // 3. (Tùy chọn) Cập nhật giao diện động
+                      // Nếu muốn tự động làm mới trang tổng quan khi có booking mới:
+                       if (window.location.pathname === '/manage') {
+                           console.log('Đang ở trang tổng quan, xem xét tải lại...');
+                           // Bạn có thể thêm độ trễ nhỏ trước khi tải lại
+                           // setTimeout(() => { window.location.reload(); }, 1000);
+                       }
+                  });
+
+                  socket.on('connect', () => { console.log('🔌 WebSocket đã kết nối.'); });
+                  socket.on('disconnect', () => { console.warn('🔌 WebSocket đã mất kết nối.'); });
+                  socket.on('connect_error', (err) => { console.error(' Lỗi kết nối WebSocket:', err); });
+              });
+          </script>
+
+          
+
+     </body>
 </html>
-
-
-

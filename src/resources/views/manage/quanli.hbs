@@ -1,0 +1,428 @@
+<table class="table">
+    <tbody>
+        <tr>
+            <td class="floor">Tầng 2</td>
+            {{#each Rooms}}
+                {{#if (eq this.floor "2")}}
+                    <td class="table__room
+                            {{#if booking}} booked {{!-- Đang ở (hoặc Đã đặt) --}}
+                            {{else if (eq this.status 'Dọn dẹp')}} cleaning {{!-- Đang dọn --}}
+                            {{else}} available {{!-- Trống --}}
+                            {{/if}}"
+                        style="position: relative;">
+
+                        <h2 class="table__room__heading">{{this.roomNumber}}</h2>
+                        {{#if booking}}
+                            <p>{{this.roomType.name}}</p>
+                            <p><i class="fa-regular fa-user"></i> {{booking.customer.fullName}}</p>
+                            <p><i class="fa-light fa-phone"></i> {{booking.customer.phone}} </p>
+                        {{else if (eq this.status 'Dọn dẹp')}}
+                            <p>{{this.roomType.name}}</p>
+                            <p>Đang chờ dọn</p> 
+                        {{else}}
+                            <p>{{this.roomType.name}}</p>
+                            <p>Giá: {{money price}} VNĐ</p>
+                            <p>{{this.bedType.name}}</p>
+                        {{/if}}
+
+                        {{!-- Nút Đánh dấu sạch --}}
+                        {{#if (eq this.status 'Dọn dẹp')}}
+                            <button class="btn btn-sm btn-warning js-mark-clean-btn"
+                                    data-room-id="{{this._id}}"
+                                    style="position: absolute; bottom: 5px; right: 5px; color: #fff; background-color: #ffc107; border-color: #ffc107;">
+                                <i class="fa-solid fa-broom"></i> Sạch
+                            </button>
+                        {{/if}}
+
+                        {{#unless booking}} 
+                            {{#if (eq this.status 'Trống')}} 
+                                <button class="btn btn-sm btn-light js-manual-book-btn"
+                                        data-room-id="{{this._id}}"
+                                        data-room-number="{{this.roomNumber}}"
+                                        style="position: absolute; bottom: 5px; right: 5px;">
+                                    <i class="fa-solid fa-plus"></i> Đặt
+                                </button>
+                            {{/if}}
+                        {{/unless}}
+                    </td>
+                {{/if}}
+            {{/each}}
+        </tr>
+
+        {{!-- Hàng cho Tầng 2 --}}
+        <tr>
+            <td class="floor">Tầng 3</td>
+            {{#each Rooms}}
+                {{#if (eq this.floor "3")}}
+                    <td class="table__room
+                            {{#if booking}} booked {{!-- Đang ở (hoặc Đã đặt) --}}
+                            {{else if (eq this.status 'Dọn dẹp')}} cleaning {{!-- Đang dọn --}}
+                            {{else}} available {{!-- Trống --}}
+                            {{/if}}"
+                        style="position: relative;">
+
+                        <h2 class="table__room__heading">{{this.roomNumber}}</h2>
+
+                        {{!-- Thông tin hiển thị --}}
+                        {{#if booking}}
+                            {{!-- Nếu có booking (Đã đặt/Đang ở) --}}
+                            <p>{{this.roomType.name}}</p>
+                            <p><i class="fa-regular fa-user"></i> {{booking.customer.fullName}}</p>
+                            <p><i class="fa-light fa-phone"></i> {{booking.customer.phone}} </p>
+                        {{else if (eq this.status 'Dọn dẹp')}}
+                            <p>{{this.roomType.name}}</p>
+                            <p>Đang chờ dọn</p> 
+                        {{else}}
+                            {{!-- Nếu trạng thái là Trống (available) --}}
+                            <p>{{this.roomType.name}}</p>
+                            <p>Giá: {{money price}} VNĐ</p>
+                            <p>{{this.bedType.name}}</p>
+                        {{/if}}
+
+                        {{!-- Nút Đánh dấu sạch --}}
+                        {{#if (eq this.status 'Dọn dẹp')}}
+                            <button class="btn btn-sm btn-warning js-mark-clean-btn"
+                                    data-room-id="{{this._id}}"
+                                    style="position: absolute; bottom: 5px; left: 5px; color: #fff; background-color: #ffc107; border-color: #ffc107;">
+                                <i class="fa-solid fa-broom"></i> Sạch
+                            </button>
+                        {{/if}}
+
+                        {{!-- Nút Đặt phòng thủ công (Chỉ hiện khi phòng Trống) --}}
+                        {{#unless booking}} {{!-- Nếu không có booking --}}
+                            {{#if (eq this.status 'Trống')}} {{!-- Và trạng thái là Trống --}}
+                                <button class="btn btn-sm btn-light js-manual-book-btn"
+                                        data-room-id="{{this._id}}"
+                                        data-room-number="{{this.roomNumber}}"
+                                        style="position: absolute; bottom: 5px; right: 5px;">
+                                    <i class="fa-solid fa-plus"></i> Đặt
+                                </button>
+                            {{/if}}
+                        {{/unless}}
+                    </td>
+                {{/if}}
+            {{/each}}
+        </tr>
+
+        {{!-- Hàng cho Tầng 3 --}}
+        <tr>
+            <td class="floor">Tầng 4</td>
+             {{#each Rooms}}
+                {{#if (eq this.floor "4")}}
+                    <td class="table__room
+                            {{#if booking}} booked {{!-- Đang ở (hoặc Đã đặt) --}}
+                            {{else if (eq this.status 'Dọn dẹp')}} cleaning {{!-- Đang dọn --}}
+                            {{else}} available {{!-- Trống --}}
+                            {{/if}}"
+                        style="position: relative;">
+
+                        <h2 class="table__room__heading">{{this.roomNumber}}</h2>
+
+                        {{!-- Thông tin hiển thị --}}
+                        {{#if booking}}
+                            {{!-- Nếu có booking (Đã đặt/Đang ở) --}}
+                            <p>{{this.roomType.name}}</p>
+                            <p><i class="fa-regular fa-user"></i> {{booking.customer.fullName}}</p>
+                            <p><i class="fa-light fa-phone"></i> {{booking.customer.phone}} </p>
+                       {{else if (eq this.status 'Dọn dẹp')}}
+                            <p>{{this.roomType.name}}</p>
+                            <p>Đang chờ dọn</p> 
+                        {{else}}
+                            {{!-- Nếu trạng thái là Trống (available) --}}
+                            <p>{{this.roomType.name}}</p>
+                            <p>Giá: {{money price}} VNĐ</p>
+                            <p>{{this.bedType.name}}</p>
+                        {{/if}}
+
+                        {{!-- Nút Đánh dấu sạch --}}
+                        {{#if (eq this.status 'Dọn dẹp')}}
+                            <button class="btn btn-sm btn-warning js-mark-clean-btn"
+                                    data-room-id="{{this._id}}"
+                                    style="position: absolute; bottom: 5px; left: 5px; color: #fff; background-color: #ffc107; border-color: #ffc107;">
+                                <i class="fa-solid fa-broom"></i> Sạch
+                            </button>
+                        {{/if}}
+
+                        {{!-- Nút Đặt phòng thủ công (Chỉ hiện khi phòng Trống) --}}
+                        {{#unless booking}} {{!-- Nếu không có booking --}}
+                            {{#if (eq this.status 'Trống')}} {{!-- Và trạng thái là Trống --}}
+                                <button class="btn btn-sm btn-light js-manual-book-btn"
+                                        data-room-id="{{this._id}}"
+                                        data-room-number="{{this.roomNumber}}"
+                                        style="position: absolute; bottom: 5px; right: 5px;">
+                                    <i class="fa-solid fa-plus"></i> Đặt
+                                </button>
+                            {{/if}}
+                        {{/unless}}
+                    </td>
+                {{/if}}
+            {{/each}}
+        </tr>
+         <tr>
+            <td class="floor">Tầng 5</td>
+             {{#each Rooms}}
+                {{#if (eq this.floor "5")}}
+                    <td class="table__room
+                            {{#if booking}} booked {{!-- Đang ở (hoặc Đã đặt) --}}
+                            {{else if (eq this.status 'Dọn dẹp')}} cleaning {{!-- Đang dọn --}}
+                            {{else}} available {{!-- Trống --}}
+                            {{/if}}"
+                        style="position: relative;">
+
+                        <h2 class="table__room__heading">{{this.roomNumber}}</h2>
+
+                        {{!-- Thông tin hiển thị --}}
+                        {{#if booking}}
+                            {{!-- Nếu có booking (Đã đặt/Đang ở) --}}
+                            <p>{{this.roomType.name}}</p>
+                            <p><i class="fa-regular fa-user"></i> {{booking.customer.fullName}}</p>
+                            <p><i class="fa-light fa-phone"></i> {{booking.customer.phone}} </p>
+                        {{else if (eq this.status 'Dọn dẹp')}}
+                            <p>{{this.roomType.name}}</p>
+                            <p>Đang chờ dọn</p> 
+                        {{else}}
+                            {{!-- Nếu trạng thái là Trống (available) --}}
+                            <p>{{this.roomType.name}}</p>
+                            <p>Giá: {{money price}} VNĐ</p>
+                            <p>{{this.bedType.name}}</p>
+                        {{/if}}
+
+                        {{!-- Nút Đánh dấu sạch --}}
+                        {{#if (eq this.status 'Dọn dẹp')}}
+                            <button class="btn btn-sm btn-warning js-mark-clean-btn"
+                                    data-room-id="{{this._id}}"
+                                    style="position: absolute; bottom: 5px; left: 5px; color: #fff; background-color: #ffc107; border-color: #ffc107;">
+                                <i class="fa-solid fa-broom"></i> Sạch
+                            </button>
+                        {{/if}}
+
+                        {{#unless booking}} {{!-- Nếu không có booking --}}
+                            {{#if (eq this.status 'Trống')}} {{!-- Và trạng thái là Trống --}}
+                                <button class="btn btn-sm btn-light js-manual-book-btn"
+                                        data-room-id="{{this._id}}"
+                                        data-room-number="{{this.roomNumber}}"
+                                        style="position: absolute; bottom: 5px; right: 5px;">
+                                    <i class="fa-solid fa-plus"></i> Đặt
+                                </button>
+                            {{/if}}
+                        {{/unless}}
+                    </td>
+                {{/if}}
+            {{/each}}
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal__booking js-admin-modal-booking" id="adminBookingModalContainer"> 
+    <div class="modal__booking__container"> {{!-- Giữ container gốc --}}
+        <div class="modal__booking__close js-admin-modal-close"> 
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="modal__booking__header">
+            Tạo Phiếu Thuê Mới - Phòng&nbsp;<span id="modalRoomNumberAdmin"> </span> 
+        </div>
+        
+        <form id="adminBookingFormManual"> 
+            <input type="hidden" id="modalRoomIdAdmin" name="roomId"> 
+
+            {{!-- Phần body của modal --}}
+            <div style="padding: 0 20px; max-height: 400px; overflow-y: auto;"> 
+                <div class="row modal__booking__contet">
+                    {{!-- Cột trái: Thông tin đặt phòng --}}
+                    <div class="col-6">
+                        <div class="modal__booking__title">Thông tin đặt phòng</div>
+                        <div class="modal__booking__body">
+                            <label class="modal__booking__label" for="checkInDateAdminManual">Nhận phòng *</label> {{!-- Đổi id --}}
+                            <input type="date" class="modal__booking__input" id="checkInDateAdminManual" name="checkInDate" required>
+                        </div>
+                        <div class="modal__booking__body">
+                            <label class="modal__booking__label" for="checkOutDateAdminManual">Trả phòng *</label> {{!-- Đổi id --}}
+                            <input type="date" class="modal__booking__input" id="checkOutDateAdminManual" name="checkOutDate" required>
+                        </div>
+                       
+                    </div>
+
+                    {{!-- Cột phải: Thông tin khách hàng --}}
+                    <div class="col-6">
+                        <div class="modal__booking__title">Thông tin khách hàng</div>
+                        <div class="modal__booking__body">
+                            <label class="modal__booking__label" for="fullNameAdminManual">Họ và Tên *</label> {{!-- Đổi id --}}
+                            <input type="text" class="modal__booking__input" id="fullNameAdminManual" name="fullName" required>
+                        </div>
+                        <div class="modal__booking__body">
+                            <label class="modal__booking__label" for="phoneAdminManual">Số điện thoại *</label> {{!-- Đổi id --}}
+                            <input type="tel" class="modal__booking__input" id="phoneAdminManual" name="phone" required>
+                        </div>
+                         <div class="modal__booking__body">
+                            <label class="modal__booking__label" for="emailAdminManual">Email</label> {{!-- Đổi id --}}
+                            <input type="email" class="modal__booking__input" id="emailAdminManual" name="email">
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- Phần chọn dịch vụ (Tùy chọn) --}}
+                {{#if allServices}}
+                <a class="btn modal__booking__chooseService mt-3" data-toggle="collapse" href="#serviceCollapseAdmin" role="button" aria-expanded="false" aria-controls="serviceCollapseAdmin">
+                    Chọn dịch vụ
+                </a>
+                <div class="collapse mt-2 modal__booking__service" id="serviceCollapseAdmin" style="margin-left: 0; width: 100%;">
+                     {{#each allServices}}
+                        <div class="modal__booking__service__form" >
+                            <label class="modal__booking__service__lable" style="min-width: 150px;">{{this.name}}:</label>
+                            <div class="modal__booking__service__form1">
+                                <input type="number" name="{{this._id}}" min="0" value="0"
+                                       class="form-control modal__booking__service__input service-input-admin" {{!-- Thêm class service-input-admin --}}
+                                       data-price="{{this.price}}" data-id="{{this._id}}">
+                                <span class="modal__booking__service__price ">{{money this.price}} VNĐ/&nbsp;</span>
+                                <span style="font-size: 1.4rem;"> {{this.unit}}</span>
+                            </div>
+                        </div>
+                     {{/each}}
+                </div>
+                {{/if}}
+            </div> {{!-- Hết phần body scroll --}}
+
+            {{!-- Footer với nút bấm --}}
+            <div class="modal__booking__frame__btn">
+                <button type="submit" class="btn modal__booking__btn">Lưu Phiếu Thuê</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Modal Đặt phòng Thủ công ---
+    const adminModalContainer = document.getElementById('adminBookingModalContainer');
+    const adminModalCloseBtn = adminModalContainer.querySelector('.js-admin-modal-close');
+    const adminBookingForm = document.getElementById('adminBookingFormManual');
+
+    // Mở Modal
+    document.querySelectorAll('.js-manual-book-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const roomId = this.dataset.roomId;
+            const roomNumber = this.dataset.roomNumber;
+
+            // Điền thông tin vào modal
+            adminModalContainer.querySelector('#modalRoomIdAdmin').value = roomId;
+            adminModalContainer.querySelector('#modalRoomNumberAdmin').textContent = roomNumber;
+
+            // Reset form
+            adminBookingForm.reset();
+             // Reset dịch vụ (nếu có)
+            adminModalContainer.querySelectorAll('.service-input-admin').forEach(input => input.value = 0);
+
+            // Hiện modal
+            adminModalContainer.style.display = 'flex';
+            document.body.classList.add('no-scroll');
+        });
+    });
+
+    // Đóng Modal
+    adminModalCloseBtn.addEventListener('click', function() {
+        adminModalContainer.style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    });
+    // Đóng khi click bên ngoài (tùy chọn)
+    adminModalContainer.addEventListener('click', function(event) {
+         if (event.target === adminModalContainer) {
+             adminModalContainer.style.display = 'none';
+             document.body.classList.remove('no-scroll');
+         }
+    });
+
+    // Submit Form Modal
+    adminBookingForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(adminBookingForm);
+
+        // Chuyển FormData thành JSON object
+        const data = {};
+        formData.forEach((value, key) => {
+             data[key] = value;
+        });
+
+
+        // Xử lý dịch vụ (Nếu có)
+        const services = [];
+         adminModalContainer.querySelectorAll('.service-input-admin').forEach(input => {
+            const quantity = parseInt(input.value, 10) || 0;
+            if (quantity > 0) {
+                 services.push({
+                    id: input.dataset.id,
+                    quantity: quantity,
+                    price: parseInt(input.dataset.price, 10) || 0
+                });
+            }
+        });
+        data.services = services;
+
+        // Đánh dấu là booking thủ công
+        data.source = 'manual';
+
+        try {
+            const response = await fetch('/datphong', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (result.message === 'success') {
+                alert('Tạo phiếu thuê thành công!');
+                adminModalContainer.style.display = 'none'; // Đóng modal
+                document.body.classList.remove('no-scroll');
+                window.location.reload(); // Tải lại trang
+            } else {
+                 // Hiển thị lỗi chi tiết hơn từ server
+                alert('Lỗi: ' + (result.message || 'Không thể tạo phiếu thuê.'));
+            }
+        } catch (error) {
+            console.error('Lỗi khi gửi yêu cầu đặt phòng:', error);
+            alert('Đã có lỗi xảy ra phía client.');
+        }
+    });
+
+    $('.service-checkbox-admin').on('change', function() {
+         const serviceId = $(this).val();
+         const quantityInput = $(`.service-quantity-admin[data-service-id="${serviceId}"]`);
+         if ($(this).is(':checked')) {
+             quantityInput.prop('disabled', false).val(1); // Mặc định là 1 khi chọn
+         } else {
+             quantityInput.prop('disabled', true).val(0);
+         }
+    });
+
+    document.querySelectorAll('.js-mark-clean-btn').forEach(button => {
+        button.addEventListener('click', async function() {
+            const roomId = this.dataset.roomId; // Lấy ID phòng từ data-room-id
+            if (!confirm('Xác nhận phòng [' + this.closest('.table__room').querySelector('.table__room__heading').textContent + '] đã được dọn sạch?')) {
+                return; // Ngừng nếu người dùng không xác nhận
+            }
+
+            try {
+                // Gọi API để cập nhật trạng thái
+                const response = await fetch(`/manage/quan_li_phong/crud/${roomId}/clean`, {
+                    method: 'PUT', 
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('Đã cập nhật trạng thái phòng thành Trống!');
+                    window.location.reload(); // Tải lại trang để cập nhật giao diện
+                } else {
+                    alert('Lỗi: ' + (result.message || 'Không thể cập nhật trạng thái.'));
+                }
+            } catch (error) {
+                console.error('Lỗi khi gọi API mark-clean:', error);
+                alert('Đã có lỗi xảy ra phía client khi cập nhật trạng thái.');
+            }
+        });
+    });
+});
+</script>

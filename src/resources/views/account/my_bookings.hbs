@@ -1,0 +1,32 @@
+<div class="container myBooking" style="margin-top: 50px;">
+    <h2 class="myBooking__heading">Lịch sử đặt phòng của bạn</h2>
+    <hr>
+    {{#if bookings}}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Mã đơn</th>
+                    <th scope="col">Phòng</th>
+                    <th scope="col">Ngày nhận</th>
+                    <th scope="col">Ngày trả</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each bookings}}
+                <tr>
+                    <td>...{{this._id}}</td> 
+                    
+                    <td>{{this.room.roomNumber}}</td> 
+                    
+                    <td>{{Date this.checkInDate}}</td> <td>{{Date this.checkOutDate}}</td>
+                    <td>{{money this.totalAmount}} VNĐ</td>
+                    <td>{{this.bookingStatus}}</td> </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    {{else}}
+        <p class="no_booking">Bạn chưa có lịch sử đặt phòng nào.</p>
+    {{/if}}
+</div>

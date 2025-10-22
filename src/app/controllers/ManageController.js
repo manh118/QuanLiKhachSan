@@ -6,20 +6,44 @@ const Employee = require('../models/Employee')
 const Position = require('../models/Position')
 const Booking = require('../models/Booking')
 const Bill = require('../models/Bill')
+const User = require('../models/User')
+
 
 
 class ManageController {
   //[Get] home
   index(req, res, next) {
-    res.render('manage/quanli', {
-      username: req.session.user.username,
-      isManage: true,
+
+   Promise.all([
+        Room.find().populate('roomType').populate('bedType').lean(),
+        // Chỉ lấy các booking đang thực sự chiếm phòng (đã xác nhận hoặc đang ở)
+        Booking.find({ 
+            bookingStatus: { $in: ['Confirmed', 'Checked In'] } 
+        }).lean()
+    ])
+    .then(([rooms, activeBookings]) => { // Đổi tên biến cho rõ ràng
+        const roomsWithBooking = rooms.map(room => {
+            // Bây giờ, mảng activeBookings chỉ chứa các phiếu thuê đang hoạt động
+            const booking = activeBookings.find(b => b.room.toString() === room._id.toString());
+            return {
+                ...room,
+                booking, // Nếu không tìm thấy, booking sẽ là 'undefined'
+                price: (room.bedType?.price || 0) + (room.roomType?.price || 0) // Sửa thành dấu + để tính tổng giá
+            };
+        });
+
+        res.render('manage/quanli', {
+            isHome: true,
+            Rooms: roomsWithBooking
+        });
     })
+    .catch(next);
+    
   }
 
   logout(req, res, next) {
     req.session.destroy(() => {
-      res.redirect('/login')
+      res.redirect('/account/login')
     })
   }
 
@@ -123,9 +147,14 @@ class ManageController {
 
     Booking.find(query)
       .populate('services.service')
+      .sort({ createdAt: -1 })
       .lean()
       .then((Bookings) => {
-        res.render('manage/quan_li_phieuthue', { Bookings })
+        res.render('manage/quan_li_phieuthue', {
+           Bookings,
+           searchQuery: searchName, 
+          searchPhone: searchPhone 
+          })
       })
       .catch(next)
   }
@@ -139,6 +168,30 @@ class ManageController {
       })
       .catch(next)
   }
+
+   async dsKhachHang(req, res, next) {
+   try {
+        const searchQuery = req.query.q || '';
+        let query = { role: 'user' }; 
+        if (searchQuery) {
+            query.$or = [
+                { name: { $regex: searchQuery, $options: 'i' } },     
+                { phone: { $regex: searchQuery, $options: 'i' } },    
+                { fullName: { $regex: searchQuery, $options: 'i' } }  
+            ];
+        }
+        const customers = await User.find(query).sort({ createdAt: -1 }).lean();
+
+        res.render('manage/quan_li_khachhang', {
+            Customers: customers,
+            searchQuery: searchQuery // 
+        });
+
+    } catch (error) {
+        next(error);
+    }
+  }
+
 
 }
 

@@ -1,0 +1,63 @@
+<div class="form_quanliphong report" style="background-color: #fff; padding: 20px; border-radius: 8px;">
+    
+    <h2 class="Mangage_title" style="margin-bottom: 20px;">Báo Cáo Thống Kê</h2>
+
+    <form method="GET" action="/manage/bao_cao" class="mb-4">
+        <div class="row time">
+            <div class="col-2">
+                <div class="form-group">
+                    <label class="Mangage_label" for="startDate">Từ ngày</label>
+                    <input type="date" class="form-control" id="startDate" name="startDate" value="{{startDate}}">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label class="Mangage_label" for="endDate">Đến ngày</label>
+                    <input type="date" class="form-control" id="endDate" name="endDate" value="{{endDate}}">
+                </div>
+            </div>
+            <div class="col-2 btn_find">
+                <button type="submit" class="btn btn-primary Mangage_btn" style="width: 100%;">Lọc</button>
+            </div>
+        </div>
+    </form>
+    
+    <hr>
+
+    {{!-- 2. Hiển thị các chỉ số --}}
+    <div class="row mt-4">
+        
+        <div class="col-md-6 col-lg-3 mb-3">
+            <div class="report-card" style="background-color: #d1ecf1;">
+                <h4 class="report-card__title">Tổng Doanh Thu</h4>
+                <p class="report-card__value">{{money totalRevenue}} VNĐ</p>
+                <span class="report-card__subtext">từ {{totalBills}} hóa đơn</span>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-3">
+            <div class="report-card" style="background-color: #d4edda;">
+                <h4 class="report-card__title">Công Suất Phòng</h4>
+                <p class="report-card__value">{{toFixed occupancyRate 2}} %</p>
+                <span class="report-card__subtext">{{totalNightsBooked}} đêm phòng</span>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3 mb-3">
+            <div class="report-card" style="background-color: #fff3cd;">
+                <h4 class="report-card__title">Booking (Website)</h4>
+                <p class="report-card__value">{{websiteBookings}}</p>
+                <span class="report-card__subtext">đặt phòng trực tuyến</span>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3 mb-3">
+            <div class="report-card" style="background-color: #f5c6cb;">
+                <h4 class="report-card__title">Booking (Thủ công)</h4>
+                <p class="report-card__value">{{manualBookings}}</p>
+                <span class="report-card__subtext">lễ tân nhập tay</span>
+            </div>
+        </div>
+        
+    </div>
+</div>

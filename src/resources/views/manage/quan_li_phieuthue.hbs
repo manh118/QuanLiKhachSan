@@ -10,9 +10,11 @@
     <div class="col-10 ">
       <div class="form_quanliphong">
             <h2>Danh sách phiếu thuê</h2>
-            {{!-- {{#if deletedCount}} 
-             <a href="/me/trash/courses">Thùng rác ({{deletedCount}})</a> 
-             {{/if}} --}}
+            {{#if deletedCount}}
+                <a href="/me/trash/courses">Thùng rác ({{deletedCount}})</a>
+            {{else}}
+                <a href="/me/trash/courses">Thùng rác (0)</a>
+            {{/if}}
             <div class="mt-4 d-flex form_ChonXoa">
                 <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
@@ -29,54 +31,105 @@
                 <button class="btn btn-primary btn-exec disabled">Thực hiện</button>
             </div>
             <div style="overflow-x: auto; white-space: nowrap;"> 
-                <table class="table mt-4" style="min-width: 1200px;">
+                <table class="table mt-4" style="min-width: 1400px;">
                     <thead>
                         <tr> 
-                            
+                            <th scope="col">#</th>
                             <th scope="col">STT</th>
                             <th scope="col">Phòng</th>
                             <th scope="col">Khách hàng</th>
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Ngày đặt</th> 
                             <th scope="col">Ngày trả</th>   
-                            <th scope="col">Tổng tiền</th>     
-                                                 
+                            <th scope="col">Tiền cọc</th>
+                            <th scope="col">Còn lại</th>
+                            <th scope="col">Tổng tiền</th>
+                            <th scope="col">Trạng thái</th>                          
                             <th  colspan="3"></th>         
                         </tr>
                     </thead>
                     <tbody>
                         {{#each Bookings}}
-                        <tr>                         
+                        <tr>           
+                             <td>
+                                <div class="form-check">
+                                <input class="form-check-input" name="courseIds[]" type="checkbox" value="{{this._id}}" >
+                                </div> 
+                            </td>              
                             <th scope="row">{{sum @index 1}}</th>
                             <td>{{this.roomNumber}}</td>
                             <td>{{this.customer.fullName}}</td>
                             <td>{{this.customer.phone}}</td>
-                            <td>{{Date this.checkInDate}}</td>
+                            <td>{{Date this.checkInDate}}</td>  
                             <td>{{Date this.checkOutDate}}</td>
+                            <td>{{money this.depositAmount}}</td>
+                            <td style="color: red;">{{money this.remainingAmount}}</td>
                             <td>{{money this.totalAmount}} VNĐ</td>
-
                             <td>
-                                <button class="btn btn-link p-0" type="button" data-toggle="collapse" data-target="#collapse-{{@index}}" aria-expanded="false" aria-controls="collapse-{{@index}}">
+                                {{!-- Hiển thị trạng thái với màu sắc --}}
+                                {{#if (eqString this.bookingStatus 'Pending Deposit')}}
+                                    <span class="badge badge-warning">{{this.bookingStatus}}</span>
+                                {{else if (eqString this.bookingStatus 'Confirmed')}}
+                                    <span class="badge badge-success">{{this.bookingStatus}}</span>
+                                {{else if (eqString this.bookingStatus 'Checked In')}}
+                                    <span class="badge badge-info">{{this.bookingStatus}}</span>
+                                {{else if (eqString this.bookingStatus 'Checked Out')}}
+                                    <span class="badge badge-secondary">{{this.bookingStatus}}</span>
+                                {{else}}
+                                    <span class="badge badge-danger">{{this.bookingStatus}}</span>
+                                {{/if}}
+                            </td>
+                            <td style="display: flex; border-width: 0;">
+                                {{#if (eqString this.bookingStatus 'Pending Deposit')}}
+                                    {{!-- Nếu đang chờ cọc, hiển thị nút Xác nhận --}}
+                                    <form method="POST" action="/manage/quan_li_phieuthue/crud/{{this._id}}/confirm-deposit">
+                                        <button type="submit" class="btn btn-success btn-sm">Xác nhận cọc</button>
+                                    </form>
+                                {{else if (eqString this.bookingStatus 'Confirmed')}}
+                                    {{!-- Nếu đã xác nhận, có thể cho Check-in (tính năng sau) --}}
+                                    <form method="POST" action="/manage/quan_li_phieuthue/crud/{{this._id}}/check-in">
+                                        <button type="submit" class="btn btn-info btn-sm">Check-in</button>
+                                    </form>
+                                {{else if (eqString this.bookingStatus 'Checked In')}}
+                                    {{!-- Nếu đã Check-in, hiển thị nút Thanh toán (mở modal) --}}
+                                    <a class="btn btn-primary btn-sm js-TraPhong"  style="font-size: 1.2rem;"
+                                    data-id="{{this._id}}" {{!-- ĐẢM BẢO CÓ DÒNG NÀY --}}
+                                    data-room="{{this.roomNumber}}"
+                                    data-fullname="{{this.customer.fullName}}"
+                                    data-phone="{{this.customer.phone}}"
+                                    data-checkin="{{isoDate this.checkInDate }}"
+                                    data-checkout="{{isoDate this.checkOutDate }}"
+                                   data-total="{{money this.totalAmount}}" 
+                                   data-deposit="{{money this.depositAmount}}" 
+                                   data-remaining="{{money this.remainingAmount}}"> 
+                                    Thanh toán
+                                    </a>
+                                {{else}}
+                                    {{!-- Các trạng thái khác (Checked Out, Cancelled) có thể không cần nút --}}
+                                {{/if}}
+
+                               
+                            </td>
+                            <td class="btn_huy">
+                                 {{#if (or (eqString this.bookingStatus 'Pending Deposit') (eqString this.bookingStatus 'Confirmed'))}}
+                                    <form method="POST" action="/manage/quan_li_phieuthue/crud/{{this._id}}/cancel?_method=PUT" style="display: inline-block;" class="form-cancel-booking"> 
+                                        <button type="submit" class="btn btn-danger btn-sm">Hủy</button>
+                                    </form>
+                                {{/if}}
+                            </td>
+                             <td>
+                                <button class="btn btn-link p-0" type="button" data-toggle="collapse" data-target="#collapse-{{@index}}" aria-expanded="false" aria-controls="collapse-{{@index}}" style="font-size: 1.6rem;">
                                     Chi tiết
                                 </button>                                                             
                             </td>
-                            <td><a href="/manage/quan_li_phong/crud/{{this._id}}/show_update" class="btn btn-link">Cập nhập</a></td>
                             <td>
-                              <a class="btn btn-link js-TraPhong" 
-                                data-room="{{this.roomNumber}}"
-                                data-fullname="{{this.customer.fullName}}"
-                                data-phone="{{this.customer.phone}}"
-                                data-checkin="{{isoDate this.checkInDate }}"
-                                data-checkout="{{isoDate this.checkOutDate }}"
-                                data-total="{{money this.totalAmount}}">
-                                Thanh toán
-                              </a>
-                            </td> 
-                            <td>
+                                <a href="/manage/quan_li_phong/crud/{{this._id}}/show_update" class="btn btn-link">Cập nhập</a>
+                            </td>   
+                            {{!-- <td>
                               <a  class="btn btn-link js_btnTraPhong"  data-id="{{this._id}}" >                     
                                 Trả phòng
                               </a>
-                            </td>             
+                            </td>              --}}
                         </tr>  
   
                         <tr class="collapse" id="collapse-{{@index}}">
@@ -118,53 +171,52 @@
   </div>  
 
  
-  <div class="modal__booking js-modal__booking" >
+ <div class="modal__booking js-modal__booking">
     <div class="modal__booking__container" style="overflow-y: auto; overflow-x: hidden">
         <div class="modal__booking__close">
             <i class="fa-solid fa-xmark"></i>
         </div>
         <div class="modal__booking__header" style="color: rgb(3, 98, 206);border-bottom: 3px solid rgb(0, 112, 244);">Hóa Đơn</div>
-        <input type="hidden" id="roomId" value="{{Room._id}}">
+        
+        <input type="hidden" id="bookingIdForCheckout">
         <input type="hidden" id="roomNumber">
+
         <div class="modal__booking__title" id="modalRoom" style="color:rgb(0, 112, 244) ;"></div>
         <div class="row modal__booking__contet">
             <div class="col-6">
                 <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label " style="color:rgb(0, 112, 244) ;">Mã hóa đơn</label>
-                    <input type="Text" id="maHoaDon" class="modal__booking__input" placeholder="">
+                    <label class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Mã hóa đơn</label>
+                    <input type="text" id="maHoaDon" class="modal__booking__input" readonly>
                 </div>
                 <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label " style="color:rgb(0, 112, 244) ;">Họ tên</label>
-                    <input type="Text" id="fullName" class="modal__booking__input" placeholder="">
+                    <label class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Họ tên</label>
+                    <input type="text" id="fullName" class="modal__booking__input" readonly>
                 </div>
-                 <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Nhận phòng</label>
-                    <input type="Date" id="checkInDate"  class="modal__booking__input" placeholder="">
+                <div class="modal__booking__body">
+                    <label class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Nhận phòng</label>
+                    <input type="date" id="checkInDate" class="modal__booking__input" readonly>
                 </div>
-               
             </div>
             <div class="col-6">
                 <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Số điện thoại</label>
-                    <input type="Text" id="phone" class="modal__booking__input" placeholder="">
+                    <label class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Số điện thoại</label>
+                    <input type="text" id="phone" class="modal__booking__input" readonly>
                 </div>
                 <div class="modal__booking__body">
-                    <label for=""  class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Trả phòng</label>
-                    <input type="Date" id="checkOutDate" class="modal__booking__input" placeholder="">
+                    <label class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Trả phòng</label>
+                    <input type="date" id="checkOutDate" class="modal__booking__input" readonly>
                 </div>
-                
             </div>
         </div>
-        <input type="hidden" id="totalAmount">
-        <div class="modal__booking__title" style=" margin-top: 30px; color: rgb(250, 0, 0) " id="modalTotal"></div>
-         
-        <div class="modal__booking__frame__btn" style="background-color: rgb(3, 98, 206);">
-            <button  type="button" class="btn modal__booking__btn" style="background-color:rgb(34, 136, 253) ;">Lưu hóa đơn</button>   
-        </div>
+
+        <div class="modal__booking__title" style="margin-top: 20px; color: red;" id="modalTotalAmount"></div>
+        <div class="modal__booking__title" style="margin-top: 10px; color: red;" id="modalDepositAmount"></div>
+        <div class="modal__booking__title" style="margin-top: 10px; color: rgb(250, 0, 0); font-weight: bold;" id="modalRemainingAmount"></div>
         
-             
+        <div class="modal__booking__frame__btn" style="background-color: rgb(3, 98, 206);">
+            <button type="button" class="btn modal__booking__btn" style="background-color:rgb(34, 136, 253) ;">Lưu hóa đơn</button>
+        </div>
     </div>
-   
 </div>
 
 
@@ -172,6 +224,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.querySelector('.js-modal__booking');
   const modalClose = document.querySelector('.modal__booking__close');
+  const maHoaDonInput = document.getElementById('maHoaDon'); 
 
   // Đóng modal
   modalClose.addEventListener('click', () => {
@@ -181,90 +234,190 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Mở modal và gán dữ liệu
   document.querySelectorAll('.js-TraPhong').forEach(btn => {
-    btn.addEventListener('click', function () {
+     btn.addEventListener('click', async function () {
       modal.classList.add('open');
       document.body.classList.add('no-scroll');
 
+    try {
+        maHoaDonInput.value = 'Đang tải...';
+        maHoaDonInput.disabled = true;
+
+        const response = await fetch('/manage/quan_li_hoadon/crud/get-next-id');
+        if (!response.ok) {
+            throw new Error('Không thể lấy mã hóa đơn');
+        }
+        const data = await response.json();
+
+        maHoaDonInput.value = data.nextBillId;
+      } catch (error) {
+          console.error(error);
+          maHoaDonInput.value = 'Lỗi!'; // Báo lỗi nếu không lấy được
+      }
       // Lấy dữ liệu từ data-*
       const dataset = this.dataset;
 
-      document.getElementById('modalRoom').innerText = 'Phòng ' + dataset.room;
-      document.getElementById('fullName').value = dataset.fullname;
-      document.getElementById('phone').value = dataset.phone;
-      document.getElementById('checkInDate').value = dataset.checkin;
-      document.getElementById('checkOutDate').value = dataset.checkout;
-      document.getElementById('modalTotal').innerHTML = `<span class="total-label">Tổng tiền:&nbsp;</span>  ${dataset.total} VNĐ`;
+        document.getElementById('modalRoom').innerText = 'Phòng ' + dataset.room;
+        document.getElementById('fullName').value = dataset.fullname;
+        document.getElementById('phone').value = dataset.phone;
+        document.getElementById('checkInDate').value = dataset.checkin;
+        document.getElementById('checkOutDate').value = dataset.checkout;
+        document.getElementById('bookingIdForCheckout').value = dataset.id;
 
-      document.getElementById('roomNumber').value = dataset.room;
-      document.getElementById('totalAmount').value = dataset.total.replace(/[^\d]/g, ''); // bỏ ký tự không phải số
+        // **THAY ĐỔI QUAN TRỌNG: Điền thông tin tài chính chi tiết**
+        document.getElementById('modalTotalAmount').innerHTML = `<span>Tổng tiền:</span> ${dataset.total} VNĐ`;
+        document.getElementById('modalDepositAmount').innerHTML = `<span>Đã cọc:</span> ${dataset.deposit} VNĐ`;
+        document.getElementById('modalRemainingAmount').innerHTML = `<span>Cần thanh toán:</span> ${dataset.remaining} VNĐ`;
     });
   });
 });
 </script>
 
 <script>
-    const btnLuu = document.querySelector('.modal__booking__btn')
-    const btnTraPhong = document.querySelector('.js_btnTraPhong')
+  document.addEventListener('DOMContentLoaded', () => {
+    const btnLuu = document.querySelector('.modal__booking__btn');
 
     btnLuu.addEventListener('click', () => {
-        const data = {
-             
-          idBill: document.getElementById('maHoaDon').value.trim(),
-          name: document.getElementById('fullName').value.trim(),
-          phone: document.getElementById('phone').value.trim(),
-          checkIn: document.getElementById('checkInDate').value,
-          checkOut: document.getElementById('checkOutDate').value,
-          roomNumber: document.getElementById('roomNumber').value,
-          totalPrice: parseInt(document.getElementById('totalAmount').value, 10) || 0,
-            
-    };
-
-    fetch('/manage/quan_li_hoadon/crud/create', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(res => {
-        if (res.message === 'success') {
-            alert('Lưu hóa đơn thành công!');
-            document.querySelector('.js-modal__booking').classList.remove('open');
-            window.location.reload(); // hoặc chuyển hướng
-        } else {
-            alert('Lưu hóa đơn thất bại!');
+        // 1. Dữ liệu gửi đi giờ rất đơn giản và an toàn
+        const billData = {
+            idBill: document.getElementById('maHoaDon').value.trim(),
+            bookingId: document.getElementById('bookingIdForCheckout').value
+        };
+        
+        // Kiểm tra nếu chưa có bookingId thì không làm gì cả
+        if (!billData.bookingId) {
+            alert('Lỗi: Không tìm thấy thông tin phiếu thuê.');
+            return;
         }
-    })
-    .catch(err => {
-        console.error('Lỗi khi gửi booking:', err);
-    });
-});
 
-    document.querySelectorAll('.js_btnTraPhong').forEach(btn => {
-      btn.addEventListener('click', function(){
-        const id = this.dataset.id;
-
-        fetch(`/manage/quan_li_phieuthue/crud/${id}/delete`, {
-            method: 'DELETE',
+        // 2. Gọi API Lưu hóa đơn (bước đầu tiên trong chuỗi xử lý của bạn)
+        fetch('/manage/quan_li_hoadon/crud/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(billData)
         })
-        .then(res => res.json())
         .then(res => {
-            if (res.message === 'success') {
-                alert('Trả Phòng thành công!');
-                window.location.reload(); 
+            if (!res.ok) throw new Error('Bước 1: Lưu hóa đơn thất bại');
+            return res.json();
+        })
+        .then(billRes => {
+            if (billRes.message === 'success') {
+                // 3. LƯU HÓA ĐƠN THÀNH CÔNG -> Gọi API Checkout Booking
+                return fetch(`/manage/quan_li_phieuthue/crud/${billData.bookingId}/checkout`, {
+                    method: 'POST'
+                })
+                .then(checkoutRes => {
+                    if (!checkoutRes.ok) throw new Error('Bước 2: Cập nhật trạng thái booking thất bại');
+                    return checkoutRes.json();
+                });
             } else {
-                alert('Trả Phòng thất bại!');
+                throw new Error(billRes.message || 'Lưu hóa đơn thất bại!');
+            }
+        })
+        .then(checkoutBookingRes => {
+            if (checkoutBookingRes.message === 'success') {
+                // 4. MỌI THỨ THÀNH CÔNG -> Thông báo và tải lại trang
+                alert('Thanh toán và trả phòng thành công!');
+                window.location.reload();
+            } else {
+                throw new Error(checkoutBookingRes.message || 'Cập nhật trạng thái booking thất bại!');
             }
         })
         .catch(err => {
-            console.error('Lỗi khi gửi booking:', err);
+            // 5. Bắt tất cả lỗi từ chuỗi API và hiển thị
+            console.error('Lỗi trong quá trình thanh toán:', err);
+            alert('Có lỗi xảy ra: ' + err.message);
         });
-      })
-     
     });
 
+    const cancelForms = document.querySelectorAll('.form-cancel-booking');
+    cancelForms.forEach(form => {
+        form.addEventListener('submit', function(event) {
+            // Ngăn form submit ngay lập tức
+            event.preventDefault();
 
+            // Lấy thông tin để hiển thị xác nhận (tùy chọn)
+            const row = form.closest('tr'); // Lấy hàng chứa form
+            const roomNumber = row.querySelector('td:nth-child(3)').textContent; // Lấy số phòng từ cột thứ 3
+            const customerName = row.querySelector('td:nth-child(4)').textContent; // Lấy tên khách từ cột thứ 4
+
+            // Hiển thị hộp thoại xác nhận
+            const confirmed = confirm(`Bạn có chắc chắn muốn hủy phiếu thuê phòng ${roomNumber} của khách ${customerName} không?`);
+
+            // Nếu người dùng xác nhận => Submit form
+            if (confirmed) {
+                form.submit(); // Gửi request POST với _method=PUT
+            }
+            // Nếu không xác nhận, không làm gì cả
+        });
+    });
+});
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var courseId;
+        var deleteForm = document.forms['delete-course-form']
+        var btnDeleteCourse = document.getElementById('btn-id-delete')
+        var submitForm = document.forms['submit_request_delete']
+        var checkBoxAll = $('#checkbox-all')
+        var courseItemCheckbox = $('input[name="courseIds[]"]')
+        var bthExec = $('.btn-exec')
+
+
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            courseId = button.data('id') 
+        })
+
+        btnDeleteCourse.onclick = function(){
+            deleteForm.action = '/manage/quan_li_dichvu/crud/' + courseId + '/delete?_method=DELETE';
+            deleteForm.submit()
+        }
+        
+        //check box all change
+        checkBoxAll.change(function(){
+          var isChecked = $(this).prop('checked');
+
+          if(isChecked){
+            courseItemCheckbox.prop('checked', true)
+          }else{
+            courseItemCheckbox.prop('checked', false)
+          }
+          renderCheckAllSubmitBtn()
+        })
+
+        //Course item checkbox
+        courseItemCheckbox.change(function(){
+          var isCheckedAll = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length
+          if(isCheckedAll){
+            checkBoxAll.prop('checked', true)
+          }else{
+             checkBoxAll.prop('checked', false)
+          }
+          renderCheckAllSubmitBtn()
+        })
+
+        //check btn submit click
+
+        bthExec.on('submit', function(e){
+          var isSubmitable = !$(this).hasClass('disabled')
+          if(!isSubmitable){
+             e.preventDefault();
+          }
+        })
+
+        function renderCheckAllSubmitBtn() {
+          var checkedCount = $('input[name="courseIds[]"]:checked').length;
+        
+         if(checkedCount > 0){
+              bthExec.removeClass('disabled')
+          }else{
+              bthExec.addClass('disabled')
+          }
+          
+        }
+    })
+   
 </script>
 
 

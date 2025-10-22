@@ -170,3 +170,87 @@
     font-size: 20px;
 }
 
+.floor{
+    width: 100px;
+    border-right: 1px solid #ccc;
+    text-align: center;
+    vertical-align: middle !important; 
+}
+
+.table tr{
+     border: 1px solid #ccc;
+}
+
+.table__room__heading{
+    font-size: 3rem;
+}
+
+.table__room{
+    width: 271px;
+    height: 180px;
+    display: inline-block;
+    margin: 3px;
+    color: #fff;
+}
+
+.table__room.booked{
+    background-color: #dc1313;
+
+}
+
+.table__room.available{
+    background-color: green;
+}
+
+.table__room.cleaning{
+    background-color: rgb(173, 175, 28);
+
+}
+
+
+
+.table__room__heading{
+    text-align: center;
+    font-weight: 600;
+}
+
+.row__room{
+    border-bottom: 1px solid #ccc;
+    width: auto;
+}
+
+/* Thêm vào file manage.scss của bạn */
+.report-card {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+    &__title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    &__value {
+        font-size: 3.2rem;
+        font-weight: 700;
+        color: #000;
+        margin-bottom: 5px;
+        line-height: 1.2;
+    }
+
+    &__subtext {
+        font-size: 1.4rem;
+        color: #555;
+    }
+}
+
+.report .time .btn_find{
+    margin-top: 32px;
+    // margin-left: auto;
+}
+
+.form_quanliphong button{
+    font-size: 1.2rem;
+}
