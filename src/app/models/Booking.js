@@ -27,8 +27,8 @@ const BookingSchema = new Schema({
   totalAmount: Number,
   createdAt: { type: Date, default: Date.now },
   userId: { 
-        type: Schema.Types.ObjectId, // Liên kết tới _id của User
-        ref: 'User', // Tên Model 'User'
+        type: Schema.Types.ObjectId, 
+        ref: 'User', 
         default: null // Cho phép khách vãng lai (không đăng nhập) đặt phòng
     },
     depositAmount: { type: Number, default: 0 },
@@ -36,13 +36,19 @@ const BookingSchema = new Schema({
     bookingStatus: { 
         type: String,
         enum: ['Pending Deposit', 'Confirmed', 'Checked In', 'Checked Out', 'Cancelled'],
-        default: 'Pending Deposit' // Mặc định là chờ xác nhận cọc
+        default: 'Pending Deposit' 
     },
     source: {
         type: String,
-        enum: ['website', 'manual'], // 'website' (khách tự đặt), 'manual' (lễ tân nhập tay)
-        default: 'website' // Mặc định là 'website'
-    }
+        enum: ['website', 'manual'], 
+        default: 'website' 
+    },
+    discountCode: { type: String },
+    discountAmount: { type: Number, default: 0 },
+    extraAdultSurcharge: { type: Number, default: 0 },
+    lateCheckOutFee: { type: Number, default: 0 },
+    actualCheckInTime: { type: Date }, // Thời gian check-in thực tế
+    actualCheckOutTime: { type: Date } // Thời gian check-out thực tế
 });
 
 module.exports = mongoose.model('Booking', BookingSchema);

@@ -32,7 +32,7 @@ class LoginController {
 
         // 2. Quyết định điều hướng dựa trên role
         let redirectPath = '/'; // Mặc định về trang chủ cho 'user'
-        if (user.role === 'quanli' || user.role === 'admin') {
+        if (user.role === 'staff' || user.role === 'admin') {
             redirectPath = '/manage'; // 'quanli' hoặc 'admin' thì vào trang quản lý
         }
 

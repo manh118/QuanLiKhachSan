@@ -1,0 +1,96 @@
+<div class='mt-4 manage_crud'>
+    <h3 class="Mangage_title">Thêm Tài Khoản Quản Trị Mới</h3>
+
+    {{!-- Flash Messages --}}
+    {{#if messages.success_msg}}
+        <div class="alert alert-success mt-3">{{messages.success_msg}}</div>
+    {{/if}}
+    {{#if messages.error_msg}}
+        <div class="alert alert-danger mt-3">{{messages.error_msg}}</div>
+    {{/if}}
+    {{#if messages.error}}
+        <div class="alert alert-danger mt-3">
+            <ul>
+                {{#each messages.error}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/if}}
+
+    <form class="form_CreateAccount" action="/manage/quan_li_taikhoan/create" method="POST">
+        
+        <div class='form-group '>
+            <label class="Mangage_label" for='name'>Tên đăng nhập <span class="text-danger">*</span></label>
+            <input type='text' class='form-control Mangage_input' id='name' name="name" value="{{name}}" required />
+        </div>
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='password'>Mật khẩu <span class="text-danger">*</span></label>
+            <input type='password' class="form-control Mangage_input" id='password' name="password" required minlength="1" />
+            <small class="form-text text-muted" style="margin-left: 5px;">Mật khẩu tối thiểu 1 ký tự.</small>
+        </div>
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='confirmPassword'>Xác nhận mật khẩu <span class="text-danger">*</span></label>
+            <input type='password' class="form-control Mangage_input" id='confirmPassword' name="confirmPassword" required />
+        </div>
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='role'>Vai trò <span class="text-danger">*</span></label>
+            <select class="form-control Mangage_input" id="role" name="role" required>
+                <option value="">-- Chọn vai trò --</option>
+                <option value="staff" {{#if (eqString role 'staff')}}selected{{/if}}>Staff</option>
+                <option value="admin" {{#if (eqString role 'admin')}}selected{{/if}}>Admin</option>
+            </select>
+        </div>
+        
+        <div class="div_Mangage_btn">
+            <button type='submit' class='btn btn-primary mt-3 Mangage_btn'>Thêm mới</button>
+            <a href="/manage/quan_li_taikhoan" class="btn btn-secondary mt-3 Mangage_btn">Hủy</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.querySelector('.form_CreateAccount').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries()); 
+        
+        delete data.confirmPassword; 
+
+        try {
+            const response = await fetch('/manage/quan_li_taikhoan/create', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json(); 
+
+            if (result.success) {
+                alert(result.message); // Sử dụng result.message
+                if (result.redirect) {
+                    window.location.href = result.redirect; // Redirect nếu server gửi
+                } else {
+                    window.location.href = '/manage/quan_li_taikhoan'; // Mặc định redirect
+                }
+            } else {
+                alert(result.message || 'Thêm tài khoản thất bại!'); // Sử dụng result.message
+                console.error(result.message);
+                // Không cần reload nếu chỉ muốn hiển thị alert
+                // Nếu bạn muốn hiển thị flash message, thì server phải trả về HTML
+                // window.location.reload(); 
+            }
+        } catch (error) {
+            console.error('Lỗi khi gửi yêu cầu:', error);
+            alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+            // window.location.reload(); 
+        }
+    });
+</script>

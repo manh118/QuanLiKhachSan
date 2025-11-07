@@ -9,15 +9,18 @@ const manageBillRouter = require('./manageBill')
 const manageBookingRouter = require('./manageBooking')
 const manageCustomerRouter = require('./manageCustomer')
 const reportRouter = require('./manageReport')
+const discountRouter = require('./manageDiscount')
+const manageAdminRouter = require('./manageAdmin')
 
 
 // Áp dụng middleware cho tất cả các route trong /manage
 router.use((req, res, next) => {
-  if (req.session.user?.role === 'admin') {
+  if (req.session.user && (req.session.user.role === 'admin' || req.session.user.role === 'staff')) {
     res.locals.isManage = true;
     next();
   } else {
-    res.redirect('/account/login');
+    req.flash('error_msg', 'Bạn không có quyền truy cập trang quản lý.');
+        res.redirect('/account/login');
   }
 });
 
@@ -28,7 +31,9 @@ router.use('/quan_li_hoadon/crud', manageBillRouter);
 router.use('/quan_li_phieuthue/crud', manageBookingRouter);
 router.use('/quan_li_hangphong/crud', manageRoomTypeRouter);
 router.use('/quan_li_khachhang/crud', manageCustomerRouter);
+router.use('/quan_li_taikhoan/crud', manageAdminRouter);
 router.use('/bao_cao', reportRouter);
+router.use('/quan_li_khuyenmai/crud', discountRouter);
 
 // Các route quản lý
 router.get('/quan_li_nhanvien', manageController.dsNhanVien);
@@ -38,6 +43,9 @@ router.get('/quan_li_hangphong', manageController.dsHangPhong);
 router.get('/quan_li_phieuthue', manageController.dsPhieuThue);
 router.get('/quan_li_hoadon', manageController.dsHoaDon);
 router.get('/quan_li_khachhang', manageController.dsKhachHang);
+router.get('/quan_li_khuyenmai', manageController.dsMaGiamGia);
+router.get('/quan_li_taikhoan', manageController.dsTaiKhoanQuanTri);
+router.get('/lich_dat_phong', manageController.showBookingCalendar);
 router.get('/logout', manageController.logout);
 router.get('/', manageController.index);
 

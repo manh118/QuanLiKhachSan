@@ -16,11 +16,7 @@
                 </option>
               {{/each}}
             </select>
-            <select name="status" class="form-control Phu__room__form__sreach__select">
-              <option value="">Tình trạng</option>
-              <option value="Trống" {{#if (eq selectedStatus "Trống")}}selected{{/if}}>Trống</option>
-              <option value="Đã đặt" {{#if (eq selectedStatus "Đã đặt")}}selected{{/if}}>Đã đặt</option>
-            </select>
+            
             <button class="btn btn-primary  Phu__room__form__sreach-btn">Lọc thông tin</button>       
       </form>
       <div class="row" id="content">
@@ -28,29 +24,19 @@
           <div class="col-4">
               <div class="card phu__room__card" style="width: 100%;">
                   <div class="phu__room__img" style="background:url({{this.img}}) top center / cover no-repeat;">
-                      <p class="phu__room__img__price color__price_phong">{{money this.price}} VNĐ/ĐÊM</p>
+                      <p class="phu__room__img__price color__price_phong">{{money this.roomType.price}} VNĐ/ĐÊM</p>
                   </div>
                   <div class="card-body">
                       <div class="card-body__content">
                           <h5 class="card-title phu__room__type">{{this.roomType.name}}</h5>
-                          <p class="phu__room__name">Phòng: {{this.roomNumber}}</p>
+                          <p class="phu__room__name">Phòng: {{this.roomNumber}} - Tầng {{this.floor}}</p>
                           <p class="phu__room__title"><i class="fa-solid fa-bed"></i> {{this.bedType.name}} - <i class="bx  bx-area Chinh_icon_area"></i> {{{m2 this.area}}} </p> 
                       </div>
-                      <p class="card-text phu__room__cart__des">
+                      <p class="card-text phu__room__cart__des" style="-webkit-line-clamp: 3;">
                          {{this.roomType.description}}
                       </p>
                       <a href="/hangphong/room/{{this.roomNumber}}" class="btn phu__room__cart__btn"> Xem Chi Tiết</a>
                   </div>
-                  {{#if (eqString this.status 'Đã đặt')}}
-                  <div class="phu__room__status phu__room__status--booked">
-                     <i class="fa-solid fa-xmark phu__room__status__icon"></i></i> {{this.status}}
-                  </div> 
-  
-                  {{else}}
-                  <div class="phu__room__status phu__room__status">
-                     <i class="fa-light fa-check phu__room__status__icon"></i></i> {{this.status}}
-                  </div>
-                  {{/if}}
               </div>
           </div>
           {{/each}}

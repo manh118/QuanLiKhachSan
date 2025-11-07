@@ -12,58 +12,71 @@
         </form>
     </div>
     <div class="col-10">
-        <form class="form_quanliphong" name="submit_request_delete" method="POST" action="/courses/handle-form-actions">
+        <div class="form_quanliphong" >
 
             <h2>Danh sách Dịch vụ</h2>
-            {{#if deletedCount}}
-              <a href="/me/trash/courses">Thùng rác ({{deletedCount}})</a>
-            {{else}}
-              <a href="/me/trash/courses">Thùng rác (0)</a>
-            {{/if}}
-            <div class="mt-4 d-flex form_ChonXoa">
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
-                <label class="form-check-label" for="checkbox-all">
-                Chọn tất cả
-                </label>
-                </div> 
-
-                <select class="form-control checkbox_all" name="action" required>
-                    <option value="">-- Chọn hành động --</option>
-                    <option value="delete">Xóa</option>  
-                </select>
-
-                <button class="btn btn-primary btn-exec disabled">Thực hiện</button>
-                <a class="btn form_quanliphong__btn__them" href="/manage/quan_li_dichvu/crud/show_create">Thêm dịch vụ</a>
-            </div>
             
+            <div style="display: flex; justify-content: end;" ><a class="btn form_quanliphong__btn__them" href="/manage/quan_li_dichvu/crud/show_create">Thêm dịch vụ</a></div>
+            {{#if query.success}}
+                <div class="alert alert-success auto-dismiss-alert"> 
+                    {{#if (eq query.success 'activated')}}Dịch vụ đã được mở lại.{{/if}}
+                    {{#if (eq query.success 'deactivated')}}Dịch vụ đã được tạm ngưng.{{/if}}
+                    {{#if (eq query.success 'serviceDeleted')}}Đã xóa dịch vụ thành công.{{/if}}
+                    {{!-- Các thông báo thành công khác --}}
+                </div>
+            {{/if}}
+
+            {{!-- Hiển thị thông báo lỗi --}}
+            {{#if query.error}}
+                <div class="alert alert-danger auto-dismiss-alert"> 
+                    {{#if (eq query.error 'serviceInUse')}}
+                        <strong>Không thể xóa!</strong> Dịch vụ này đang được sử dụng bởi ít nhất một phiếu thuê đang hoạt động. Vui lòng kiểm tra lại.
+                    {{else}}
+                        Đã có lỗi không xác định xảy ra.
+                    {{/if}}
+                </div>
+            {{/if}}
             <table class="table mt-4">
                 <thead>
                     <tr> 
-                        <th scope="col">#</th>
                         <th scope="col">STT</th>
                         <th scope="col">Mã dịch vụ</th>
                         <th scope="col">Dịch vụ</th>
                         <th class="haha" scope="col">Giá</th>        
-                        <th class="haha" scope="col">Loại</th>        
+                        <th class="haha" scope="col">Đơn vị</th> 
+                        <th scope="col">Trạng thái</th> {{!-- Thêm cột trạng thái --}}
+                        <th scope="col" colspan="2" style="text-align: center;">Thao tác</th>       
                         <th scope="col" colspan="2"></th>         
                     </tr>
                 </thead>
                 <tbody>
                     {{#each Services}}
                     <tr>
-                        <td>
-                            <div class="form-check">
-                            <input class="form-check-input" name="courseIds[]" type="checkbox" value="{{this._id}}" >
-                            </div> 
-                        </td>
+                    
                         <th scope="row">{{sum @index 1}}</th>
                         <td>{{this.idService}}</td>
                         <td>{{this.name}}</td>
                         <td>{{this.price}}</td>
                         <td>{{this.unit}}</td>
-                        <td><a href="/manage/quan_li_dichvu/crud/{{this._id}}/show_update" class="btn btn-link">Sửa</a></td>
-                        <td><a href="" class="btn btn-link"  data-toggle="modal" data-id="{{this._id}}" data-target="#exampleModal">Xóa</a></td>              
+                        <td>
+                             {{#if this.isActive}}
+                                <span class="badge badge-success">Đang hoạt động</span>
+                            {{else}}
+                                <span class="badge badge-secondary">Tạm ngưng</span>
+                            {{/if}}
+                        </td>
+                        <td>
+                             {{!-- Form để Tạm ngưng / Mở lại --}}
+                            <form action="/manage/quan_li_dichvu/crud/{{this._id}}/toggle-status?_method=PUT" method="POST" onsubmit="return confirm('Bạn có chắc muốn {{#if this.isActive}}tạm ngưng{{else}}mở lại{{/if}} dịch vụ {{this.name}} không?');">
+                                 {{#if this.isActive}}
+                                    <button type="submit" class="btn btn-sm btn-primary">Tạm ngưng</button>
+                                {{else}}
+                                     <button type="submit" class="btn btn-sm btn-success">Mở lại</button>
+                                {{/if}}
+                            </form>
+                        </td>
+                        <td><a href="/manage/quan_li_dichvu/crud/{{this._id}}/show_update" class="btn btn-sm btn-primary" style="font-size: 1.4rem;">Sửa</a></td> 
+                        <td><a href="#" class="btn btn-danger"  data-toggle="modal" data-id="{{this._id}}" data-target="#exampleModal">Xóa</a></td>              
                     </tr>
 
                     {{else}}
@@ -76,7 +89,7 @@
                     {{/each}}
                 </tbody>
             </table>
-        </form> 
+        </div> 
     </div>
 </div>  
 
@@ -104,8 +117,7 @@
 
 
 
-<form name="delete-course-form" method="POST" ></form>
-
+<form name="delete-service-form" method="POST"></form>
 {{#if success}}
   <div id="success-alert" class="Tb_thanhcong">
     Cập nhật dịch vụ thành công!
@@ -121,67 +133,37 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function(){
-        var courseId;
-        var deleteForm = document.forms['delete-course-form']
-        var btnDeleteCourse = document.getElementById('btn-id-delete')
-        var submitForm = document.forms['submit_request_delete']
-        var checkBoxAll = $('#checkbox-all')
-        var courseItemCheckbox = $('input[name="courseIds[]"]')
-        var bthExec = $('.btn-exec')
-
+        var serviceId; 
+        var deleteForm = document.forms['delete-service-form']; 
+        var btnDeleteService = document.getElementById('btn-id-delete');
 
         $('#exampleModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) 
-            courseId = button.data('id') 
-        })
+            var button = $(event.relatedTarget);
+            serviceId = button.data('id'); // Lấy ID dịch vụ
+        });
 
-        btnDeleteCourse.onclick = function(){
-            deleteForm.action = '/manage/quan_li_dichvu/crud/' + courseId + '/delete?_method=DELETE';
-            deleteForm.submit()
+        // Khi nhấn nút "Xóa bỏ" trong modal
+        btnDeleteService.onclick = function(){
+            // Đặt action cho form ẩn, trỏ đến đúng route DELETE
+            deleteForm.action = '/manage/quan_li_dichvu/crud/' + serviceId + '/delete?_method=DELETE';
+            deleteForm.submit(); // Submit form ẩn
         }
-        
-        //check box all change
-        checkBoxAll.change(function(){
-          var isChecked = $(this).prop('checked');
 
-          if(isChecked){
-            courseItemCheckbox.prop('checked', true)
-          }else{
-            courseItemCheckbox.prop('checked', false)
-          }
-          renderCheckAllSubmitBtn()
-        })
 
-        //Course item checkbox
-        courseItemCheckbox.change(function(){
-          var isCheckedAll = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length
-          if(isCheckedAll){
-            checkBoxAll.prop('checked', true)
-          }else{
-             checkBoxAll.prop('checked', false)
-          }
-          renderCheckAllSubmitBtn()
-        })
-
-        //check btn submit click
-
-        bthExec.on('submit', function(e){
-          var isSubmitable = !$(this).hasClass('disabled')
-          if(!isSubmitable){
-             e.preventDefault();
-          }
-        })
-
-        function renderCheckAllSubmitBtn() {
-          var checkedCount = $('input[name="courseIds[]"]:checked').length;
-        
-         if(checkedCount > 0){
-              bthExec.removeClass('disabled')
-          }else{
-              bthExec.addClass('disabled')
-          }
-          
-        }
-    })
-   
+    });
 </script>
+
+<script>
+    // Tự động ẩn thông báo sau 3 giây (3000ms)
+    setTimeout(() => {
+        const alerts = document.querySelectorAll('.auto-dismiss-alert'); // Tìm tất cả alert cần ẩn
+        alerts.forEach(alert => {
+            if (alert) {
+                alert.style.transition = 'opacity 0.5s ease'; // Thêm hiệu ứng mờ dần (tùy chọn)
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500); // Xóa hẳn sau khi mờ
+            }
+        });
+    }, 3000); // Thời gian hiển thị (3000ms = 3 giây)
+</script>
+

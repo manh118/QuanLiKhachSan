@@ -44,20 +44,9 @@
             {{/each}}
           </ul>
         </li>
-        <li class="navbar__dichvu">
-          <a class="navbar_item" >dịch vụ</a>
-          <ul class="navbar__dichvu__list">
-            <li class="navbar__hangphong__item__link">
-              <a href="/dichvu/amthuc">Ẩm thực & Ăn uống</a>
-            </li>
-            <li class="navbar__hangphong__item__link">
-              <a href="/dichvu/tiec">Tiệc cưới & Hội nghị</a>
-            </li>
-            <li class="navbar__hangphong__item__link">
-              <a href="">Giải trí & Thư giãn</a>
-            </li>            
-          </ul>
-        </li>
+        {{!-- <li class="navbar__dichvu">
+          <a class="navbar_item" href="/dichvu/amthuc">dịch vụ</a>
+        </li> --}}
         <li><a class="navbar_item" href="/question">Liên hệ</a></li>
         <li><a class="navbar_item" href="">Thư viện ảnh</a></li>
       </ul>
@@ -76,6 +65,9 @@
                     <li class="navbar__hangphong__item__link">
                         <a href="/account/bookings">Lịch sử đặt phòng</a>
                     </li>
+                    <li class="navbar__hangphong__item__link">
+                    <a href="">Đổi mật khẩu</a>
+                </li>
                 {{/if}}
 
                 {{#if (eq userRole 'admin')}}

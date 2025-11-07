@@ -1,0 +1,69 @@
+<div class="row manage_body">
+    <div class="col-12">
+        <div class="form_quanliphong">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Quản Lý Tài Khoản Quản Trị</h2>
+                {{!-- Nút Thêm tài khoản mới (sẽ dẫn đến form tạo bạn làm sau) --}}
+                <a href="/manage/quan_li_taikhoan/crud/showCreate" class="btn btn-success form_quanliphong__btn__them">
+                    <i class="fa-solid fa-user-plus"></i> Thêm Tài Khoản
+                </a>
+            </div>
+
+            {{!-- (Tùy chọn) Thêm bộ lọc/tìm kiếm nếu cần --}}
+
+            <div style="overflow-x: auto;">
+                <table class="table mt-4 table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên đăng nhập</th>
+                            <th scope="col">Họ và Tên</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Vai trò</th>
+                            <th scope="col">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each accounts}}
+                        <tr>
+                            <th scope="row">{{sum @index 1}}</th>
+                            <td>{{this.name}}</td>
+                            <td>{{this.fullName}}</td>
+                            <td>{{this.phone}}</td>
+                            <td>{{this.email}}</td>
+                            <td>
+                                {{!-- Hiển thị vai trò đẹp hơn --}}
+                                {{#if (eqString this.role 'admin')}}
+                                    <span class="badge badge-danger">Admin</span>
+                                {{else if (eqString this.role 'quanli')}}
+                                     <span class="badge badge-warning">Quản lý/Lễ tân</span>
+                                {{else}}
+                                    <span class="badge badge-secondary">{{this.role}}</span>
+                                {{/if}}
+                            </td>
+                            <td>
+                                {{!-- Nút Sửa (sẽ dẫn đến form sửa bạn làm sau) --}}
+                                <a href="/manage/tai_khoan_quan_tri/{{this._id}}/edit" class="btn btn-sm btn-primary mr-1" title="Sửa thông tin"><i class="fa fa-edit"></i></a>
+
+                                {{!-- Nút Đặt lại mật khẩu (làm sau) --}}
+                                {{!-- <button class="btn btn-sm btn-info mr-1" title="Đặt lại mật khẩu"><i class="fa fa-key"></i></button> --}}
+
+                                {{!-- Nút Xóa (cần form và xác nhận) --}}
+                                {{!-- Chỉ cho xóa nếu không phải tài khoản admin cuối cùng --}}
+                                <form action="/manage/tai_khoan_quan_tri/{{this._id}}?_method=DELETE" method="POST" style="display: inline-block;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản {{this.name}} không?');">
+                                     <button type="submit" class="btn btn-sm btn-danger" title="Xóa tài khoản"><i class="fa fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        {{else}}
+                        <tr>
+                            <td colspan="7" class="text-center">Chưa có tài khoản quản trị nào.</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

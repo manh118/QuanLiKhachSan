@@ -1,0 +1,73 @@
+<div class="row manage_body">
+    <div class="col-12"> {{!-- Dùng col-12 cho rộng --}}
+        <div class="form_quanliphong">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Quản Lý Mã Giảm Giá</h2>
+                <a href="/manage/quan_li_khuyenmai/crud/create" class="btn btn-success form_quanliphong__btn__them">
+                    <i class="fa-solid fa-plus"></i> Thêm Mã Mới
+                </a>
+            </div>
+
+            {{!-- Thông báo thành công/lỗi (tùy chọn) --}}
+            {{#if success}}
+                <div class="alert alert-success">Thao tác thành công!</div>
+            {{/if}}
+            {{#if error}}
+                 <div class="alert alert-danger">{{error}}</div>
+            {{/if}}
+
+
+            <div style="overflow-x: auto;">
+                <table class="table mt-4 table-bordered table-hover"> 
+                    <thead class="thead-light"> {{!-- Thêm thead-light --}}
+                        <tr>
+                            <th scope="col">Mã Code</th>
+                            <th scope="col">Mô tả</th>
+                            <th scope="col">Loại</th>
+                            <th scope="col">Giá trị</th>
+                            <th scope="col">Ngày BĐ</th>
+                            <th scope="col">Ngày KT</th>
+                            <th scope="col">Đã dùng/Giới hạn</th>
+                            <th scope="col">Đơn tối thiểu</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each discounts}}
+                        <tr>
+                            <td><strong>{{this.code}}</strong></td>
+                            <td>{{this.description}}</td>
+                            <td>{{#if (eqString this.discountType 'percentage')}}%{{else}}VNĐ{{/if}}</td>
+                            <td>{{#if (eqString this.discountType 'percentage')}}{{this.discountValue}}%{{else}}{{money this.discountValue}}{{/if}}</td>
+                            <td>{{Date this.startDate}}</td>
+                            <td>{{#if this.endDate}}{{Date this.endDate}}{{else}}Không giới hạn{{/if}}</td>
+                            <td>{{this.usageCount}} / {{#if (eq this.usageLimit 0)}}∞{{else}}{{this.usageLimit}}{{/if}}</td>
+                            <td>{{money this.minOrderValue}}</td>
+                            <td>
+                                {{#if this.isActive}}
+                                    <span class="badge badge-success">Hoạt động</span>
+                                {{else}}
+                                    <span class="badge badge-secondary">Ngừng</span>
+                                {{/if}}
+                            </td>
+                            <td>
+                                <a href="/manage/quan_li_khuyenmai/{{this._id}}/edit" class="btn btn-sm btn-primary mr-1"><i class="fa fa-edit"></i></a>
+
+                                {{!-- Nút xóa (cần form và method-override) --}}
+                                <form action="/manage/quan_li_khuyenmai/crud/{{this._id}}?_method=DELETE" method="POST" style="display: inline-block;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa mã {{this.code}} không?');">
+                                     <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        {{else}}
+                        <tr>
+                            <td colspan="10" class="text-center">Chưa có mã giảm giá nào.</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

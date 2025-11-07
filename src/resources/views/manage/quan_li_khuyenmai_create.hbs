@@ -1,0 +1,85 @@
+<div>
+    <form class="manage_crud" method="POST" action="/manage/quan_li_khuyenmai/crud/create">
+        <h3 class="Mangage_title">Tạo Mã Giảm Giá Mới</h3>
+
+         {{!-- Hiển thị lỗi nếu có --}}
+        {{#if error}}
+             <div class="alert alert-danger" style="width: 400px;">{{error}}</div>
+        {{/if}}
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='code'>Mã Code *</label>
+            <input type='text' class='form-control Mangage_input text-uppercase' id='code' name="code" value="{{formData.code}}" required style="text-transform: uppercase;">
+            <small class="form-text text-muted">Ví dụ: CHAOMUNG, HE2025 (Sẽ tự chuyển thành chữ hoa)</small>
+        </div>
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='description'>Mô tả *</label>
+            <input type='text' class='form-control Mangage_input' id='description' name="description" value="{{formData.description}}" required>
+            <small class="form-text text-muted">Ví dụ: Giảm 10% cho khách lần đầu</small>
+        </div>
+
+        <div class="row" style="width: 400px;">
+             <div class='col-6 form-group'>
+                <label class="Mangage_label" for='discountType'>Loại giảm giá *</label>
+                <select class="form-control" id="discountType" name="discountType" required>
+                    <option value="percentage" {{isSelected formData.discountType "percentage"}}>Theo Phần Trăm (%)</option>
+                    <option value="fixed" {{isSelected formData.discountType "fixed"}}>Số Tiền Cố Định (VNĐ)</option>
+                </select>
+            </div>
+             <div class='col-6 form-group'>
+                <label class="Mangage_label" for='discountValue'>Giá trị giảm *</label>
+                <input type='number' step="any" class='form-control' id='discountValue' name="discountValue" value="{{formData.discountValue}}" required min="0">
+                 <small class="form-text text-muted">Nhập số % (0-100) hoặc số tiền</small>
+            </div>
+        </div>
+
+
+        <div class="row" style="width: 400px;">
+            <div class='col-6 form-group'>
+                <label class="Mangage_label" for='startDate'>Ngày bắt đầu</label>
+                {{!-- Mặc định là ngày hiện tại --}}
+                <input type='date' class='form-control' id='startDate' name="startDate" value="{{isoDate (or formData.startDate (now)) }}">
+            </div>
+             <div class='col-6 form-group'>
+                <label class="Mangage_label" for='endDate'>Ngày kết thúc</label>
+                <input type='date' class='form-control' id='endDate' name="endDate" value="{{isoDate formData.endDate}}">
+                 <small class="form-text text-muted">Bỏ trống nếu không giới hạn</small>
+            </div>
+        </div>
+
+        <div class='form-group'>
+            <label class="Mangage_label" for='usageLimit'>Giới hạn lượt dùng</label>
+            <input type='number' class='form-control Mangage_input' id='usageLimit' name="usageLimit" value="{{formData.usageLimit}}" min="0">
+            <small class="form-text text-muted">Nhập 0 hoặc bỏ trống nếu không giới hạn</small>
+        </div>
+
+         <div class='form-group'>
+            <label class="Mangage_label" for='minOrderValue'>Giá trị đơn tối thiểu (VNĐ)</label>
+            <input type='number' class='form-control Mangage_input' id='minOrderValue' name="minOrderValue" value="{{formData.minOrderValue}}" min="0">
+             <small class="form-text text-muted">Nhập 0 hoặc bỏ trống nếu không yêu cầu</small>
+        </div>
+
+         <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="isActive" name="isActive" value="true" {{#if (or (isNotDefined formData.isActive) formData.isActive)}}checked{{/if}}>
+            <label class="form-check-label Mangage_label" for="isActive">Kích hoạt mã này</label>
+        </div>
+        {{!-- Cần thêm input ẩn để gửi false nếu checkbox không được chọn --}}
+        <input type="hidden" name="isActive" value="false">
+
+
+        <div class="div_Mangage_btn">
+            <button type='submit' class='btn btn-primary mt-3 Mangage_btn'>Tạo Mã</button>
+            <a href="/manage/quan_li_khuyenmai" class='btn btn-secondary mt-3 Mangage_btn'>Hủy</a>
+        </div>
+    </form>
+</div>
+
+{{!-- Thêm helper isNotDefined nếu chưa có --}}
+{{#*inline "isNotDefined"}}
+  {{#unless this}}true{{/unless}}
+{{/inline}}
+{{!-- Thêm helper now nếu chưa có --}}
+{{#*inline "now"}}
+  {{date (moment) "YYYY-MM-DD"}}
+{{/inline}}

@@ -12,7 +12,6 @@ const Room = new Schema({
     roomType: { type: mongoose.Schema.Types.ObjectId, ref: 'RoomType',  required: true},    // available, booked, maintenance
     status: {
         type: String,
-        // Thêm 'Dọn dẹp' vào danh sách các trạng thái hợp lệ
         enum: ['Trống', 'Đã đặt', 'Đang ở', 'Dọn dẹp'], // Giả sử bạn có các trạng thái này
         default: 'Trống'
     },
@@ -20,6 +19,7 @@ const Room = new Schema({
     description: {type: String},
     area: {type: String},
     
+
   },{
     timestamps: true,
     toJSON: { virtuals: true },

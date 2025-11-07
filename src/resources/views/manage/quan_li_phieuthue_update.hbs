@@ -1,0 +1,127 @@
+<form class="manage_crud ql_phieuthue" data-id="{{booking._id}}">
+        <h3 class="Mangage_title">Cập Nhật Phiếu Thuê - Phòng {{booking.roomNumber}}</h3>
+
+        {{!-- Thông tin đặt phòng --}}
+       <div class="wrap_infor">
+            <fieldset class=" ql_phieuthue__form">
+                <legend class="w-auto px-2 Mangage_label">Thông tin đặt phòng</legend>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="Mangage_label" for="checkInDate">Ngày nhận phòng *</label>
+                        <input type="date" class="form-control Mangage_input" id="checkInDate" name="checkInDate" value="{{isoDate booking.checkInDate}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="Mangage_label" for="checkOutDate">Ngày trả phòng *</label>
+                        <input type="date" class="form-control Mangage_input" id="checkOutDate" name="checkOutDate" value="{{isoDate booking.checkOutDate}}" required>
+                    </div>
+                     {{!-- (Tùy chọn) Thêm lại nếu cần --}}
+                     <div class="form-group">
+                         <label class="Mangage_label" for="nguoiLon">Người lớn</label>
+                         <input type="number" class="form-control Mangage_input" id="nguoiLon" name="nguoiLon" value="{{booking.nguoiLon}}" min="1">
+                     </div>
+                     <div class="form-group">
+                         <label class="Mangage_label" for="treEm">Trẻ em</label>
+                         <input type="number" class="form-control Mangage_input" id="treEm" name="treEm" value="{{booking.treEm}}" min="0">
+                     </div>
+                </div>
+            </fieldset>  
+            <fieldset class="ql_phieuthue__form">
+                <legend class="w-auto px-2 Mangage_label">Thông tin khách hàng</legend>
+                <div class="row">
+                     <div class="col-md-6 form-group">
+                        <label class="Mangage_label" for="fullName">Họ và Tên *</label>
+                        <input type="text" class="form-control Mangage_input" id="fullName" name="fullName" value="{{booking.customer.fullName}}" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label class="Mangage_label" for="phone">Số điện thoại *</label>
+                        <input type="tel" class="form-control Mangage_input" id="phone" name="phone" value="{{booking.customer.phone}}" required>
+                    </div>
+                     <div class="col-md-6 form-group">
+                        <label class="Mangage_label" for="email">Email</label>
+                        <input type="email" class="form-control Mangage_input" id="email" name="email" value="{{booking.customer.email}}">
+                    </div>
+                </div>
+            </fieldset>
+             <fieldset class="ql_phieuthue__form">
+            <legend class="w-auto px-2 Mangage_label">Dịch vụ</legend>
+            <div id="service-list-container">
+                {{#each allServices}}
+                    <div class="form-group service-item">
+                        <label for="service-{{this._id}}" class="Mangage_label">{{this.name}} ({{money this.price}} VNĐ/{{this.unit}})</label>
+                            <input type="number" class="form-control service-quantity-input"
+                                   id="service-{{this._id}}"
+                                   min="0"
+                                   value="{{lookup ../selectedServicesMap this._id}}" {{!-- Lấy số lượng đã chọn --}}
+                                   data-service-id="{{this._id}}"
+                                   data-price="{{this.price}}">             
+                    </div>
+                {{/each}}
+            </div>
+        </fieldset>
+       </div>
+       
+        {{!-- Nút Lưu --}}
+        <div class="div_Mangage_btn">
+            <button type='submit' class='btn btn-primary mt-5 Mangage_btn'>Lưu thay đổi</button>
+            <a href="/manage/quan_li_phieuthue" class="btn btn-secondary mt-5 Mangage_btn">Hủy bỏ</a>
+        </div>
+    </form>
+
+
+<script>
+    document.querySelector('.manage_crud').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const bookingId = form.dataset.id;
+        const formData = new FormData(form);
+
+        // Chuyển formData thành đối tượng JSON
+        const data = {};
+        formData.forEach((value, key) => {
+             // Xử lý giá trị rỗng hoặc số
+             if (key === 'nguoiLon' || key === 'treEm') {
+                 data[key] = value ? parseInt(value, 10) : null; // Gửi null nếu rỗng
+             } else {
+                 data[key] = value.trim() === '' ? null : value;
+             }
+        });
+
+        // Thu thập thông tin dịch vụ đã cập nhật
+        const services = [];
+        document.querySelectorAll('.service-quantity-input').forEach(input => {
+            const quantity = parseInt(input.value, 10) || 0;
+            if (quantity > 0) {
+                services.push({
+                    id: input.dataset.serviceId,
+                    quantity: quantity,
+                    price: parseFloat(input.dataset.price) // Gửi cả giá để controller tính lại
+                });
+            }
+        });
+        data.services = services; // Gán mảng services vào đối tượng data
+
+        try {
+            const response = await fetch(`/manage/quan_li_phieuthue/crud/${bookingId}/update`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert('Cập nhật phiếu thuê thành công!');
+                window.location.href = '/manage/quan_li_phieuthue'; // Chuyển về trang danh sách
+            } else {
+                alert('Cập nhật thất bại: ' + (result.message || 'Lỗi không xác định'));
+                console.error(result);
+            }
+        } catch (err) {
+            console.error('Lỗi khi gửi yêu cầu cập nhật:', err);
+            alert('Đã có lỗi xảy ra phía client.');
+        }
+    });
+</script>

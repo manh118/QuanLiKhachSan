@@ -5,11 +5,12 @@ const handel = require('express-handlebars').engine
 const methodOverride = require('method-override')
 const session = require('express-session')
 const MongoStore = require('connect-mongo');
-const app = express()
+const app = express();
+const flash = require('connect-flash');
 const port = 3000
 const http = require('http'); // Import module http gốc của Node.js
 const { Server } = require("socket.io");
-
+const moment = require('moment');
 const route = require('./routes')
 const db = require('./config/db')
 
@@ -48,7 +49,8 @@ app.use(
     extended: true,
   })
 )
-app.use(express.json())
+app.use(express.json());
+app.use(flash());
 
 app.use(methodOverride('_method'))
 
@@ -66,10 +68,9 @@ app.engine(
       money: (value) => {
         return value?.toLocaleString('vi-VN');
       } ,
-
+      toString: (value) => String(value),
       or: (a,b) => a || b,
       isSelected: (a, b) => a?.toString() === b?.toString() ? 'selected' : '',
-      
       // phan trang
       eq: (a, b) => String(a) === String(b),
       gt: (a, b) => a > b,
@@ -109,7 +110,6 @@ app.engine(
       const year = d.getFullYear();
       return `${day}/${month}/${year}`;
       },
-
       //String chuan
       eqString: (a, b) => {
         if (typeof a === 'string' && typeof b === 'string') {
@@ -120,7 +120,18 @@ app.engine(
 
       m2: function (text) {
             return text.replace(/m2/g, 'm<sup>2</sup>');
-        }
+        },
+      isNotDefined: function (value) {
+        return value === undefined || value === null;
+      },
+      now: function () {
+        return moment().format('YYYY-MM-DD');
+      },
+      DateTime: function(date) {
+        if (!date) return '';
+        // Định dạng HH:mm DD/MM/YYYY (ví dụ: 14:30 23/10/2025)
+        return moment(date).format('HH:mm DD/MM/YYYY');
+      }
 
     }
   

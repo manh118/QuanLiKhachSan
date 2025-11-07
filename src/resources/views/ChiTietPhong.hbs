@@ -1,4 +1,3 @@
-
 <div class="container RoomDetail">
     <div class="row" style="margin-top: 70px;">
         <img class="RoomDetail_img" src="{{Room.img}}" alt="">
@@ -32,40 +31,47 @@
     
         <div class="col-4" style="padding: 0 0 0 20px;">
             <div class="RoomDetail__booking" >
-                    <p class="RoomDetail__booking_title ">{{money Room.price}} VNĐ/ ĐÊM</p>
+                    <p class="RoomDetail__booking_title ">{{money Room.roomType.price}} VNĐ/ ĐÊM</p>
                     <div class="RoomDetail__booking__form">
-                        <div class="RoomDetail__booking__content">
-                            <div class="RoomDetail__booking__des">Ngày đến</div>
-                            <input type="date" id="ngayDen" class="form-control  RoomDetail__booking__input">               
-                        </div>
-                        <div class="RoomDetail__booking__content">
-                            <div class="RoomDetail__booking__des">Ngày đi</div>
-                            <input type="date" id="ngayDi" class="form-control RoomDetail__booking__input" >
-                        </div>
-                        <div class="RoomDetail__booking__content">
-                            <div class="RoomDetail__booking__des">Người lớn</div>
-                            <select class="custom-select RoomDetail__booking__input" id="selectNguoiLon">
-                                <option selected>Chọn...</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </div>
-                        <div class="RoomDetail__booking__content">
-                            <div class="RoomDetail__booking__des">Trẻ em</div>
-                            <select class="custom-select RoomDetail__booking__input" id="selectTreEm">
-                                <option selected>Chọn...</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </div>
+                         {{!-- <p>
+                             <div class="RoomDetail__booking__content">
+                                <div class="RoomDetail__booking__des">Ngày đến</div>
+                                <input type="date" id="ngayDen" class="form-control  RoomDetail__booking__input">               
+                            </div>
+                            <div class="RoomDetail__booking__content">
+                                <div class="RoomDetail__booking__des">Ngày đi</div>
+                                <input type="date" id="ngayDi" class="form-control RoomDetail__booking__input" >
+                            </div>
+                            <div class="RoomDetail__booking__content">
+                                <div class="RoomDetail__booking__des">Người lớn </div>
+                                <select class="custom-select RoomDetail__booking__input" id="selectNguoiLon">
+                                    <option selected>Chọn (Có thể bỏ qua)</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="RoomDetail__booking__content">
+                                <div class="RoomDetail__booking__des">Trẻ em</div>
+                                <select class="custom-select RoomDetail__booking__input" id="selectTreEm">
+                                    <option selected>Chọn (Có thể bỏ qua)</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                         </p> --}}
+                         
+                        <button type="button" class="btn RoomDetail__booking__btn js-show-room-calendar-modal"
+                                data-room-id="{{Room._id}}"
+                                data-room-number="{{Room.roomNumber}}"
+                                data-room-price="{{Room.roomType.price}}"> {{!-- Thêm data-room-price --}}
+                            Xem Lịch & Đặt Phòng
+                        </button>
                     </div>
-                    <button type="button" class="btn RoomDetail__booking__btn js-btn-booking " {{#if (eqString Room.status 'Đã đặt')}}disabled{{/if}}>
-                        {{#if (eqString Room.status 'Đã đặt')}}Đang được sử dụng{{else}}Đặt phòng{{/if}}
-                    </button>     
+                        
                           
             </div>
         </div>
@@ -110,7 +116,7 @@
         </div>
         <div class="col-4">
             <div class="RoomDetail__roomtype">
-                <ul class="RoomDetail__roomtype__list">
+                <ul class="RoomDetail__roomtype__list" style="margin-bottom: 0;">
                    {{#each RoomTypes}}
                         {{#unless (eq this._id ../currentRoomTypeId)}}
                             <li class="RoomDetail__roomtype__item">
@@ -132,6 +138,37 @@
     <div class="RoomDetail__realte_"></div>
 </div>
 
+<div class="modal fade" id="roomCalendarModal" tabindex="-1" role="dialog" aria-labelledby="roomCalendarModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="roomCalendarModalLabel">Lịch Trống - Phòng {{Room.roomNumber}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{!-- Nút chuyển tháng --}}
+        <div class="d-flex justify-content-between mb-3 calendar-nav">
+            <button class="btn btn-sm btn-outline-secondary js-prev-month">&lt; Tháng Trước</button>
+            <h5 class="calendar-month-year"></h5>
+            <button class="btn btn-sm btn-outline-secondary js-next-month">Tháng Sau &gt;</button>
+        </div>
+         {{!-- Div để JavaScript vẽ lịch vào --}}
+        <div id="room-calendar-container" class="table-responsive">
+            {{!-- Lịch sẽ được tạo ở đây bằng JS --}}
+        </div>
+         {{!-- Chú thích --}}
+         <div class="mt-3 d-flex justify-content-end">
+             <span class="mr-3"><span class="legend-color legend-available"></span> Còn trống</span>
+             <span class="mr-3"><span class="legend-color legend-past"></span> Quá khứ</span>
+             <span class="mr-3"><span class="legend-color legend-booked"></span> Đã đặt</span>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal__booking js-modal__booking" >
     <div class="modal__booking__container" style="overflow-y: auto; overflow-x: hidden">
         <div class="modal__booking__close">
@@ -147,7 +184,7 @@
                     <input type="Date" id="checkInDate"  class="modal__booking__input" placeholder="">
                 </div>
                 <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label">Người lớn</label>
+                    <label for="" class="modal__booking__label">Người lớn <span>(Có thể bỏ qua)</span></label>
                     <select class="custom-select modal__booking__input" id="modalNguoiLon">
                         <option selected>Choose...</option>
                         <option value="1">1</option>
@@ -163,7 +200,7 @@
                     <input type="Date" id="checkOutDate" class="modal__booking__input" placeholder="">
                 </div>
                 <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label">Trẻ em</label>
+                    <label for="" class="modal__booking__label">Trẻ em <span>(Có thể bỏ qua)</span></label>
                     <select class="custom-select modal__booking__input" id="modalTreEm">
                             <option selected>Choose...</option>
                             <option value="1">1</option>
@@ -205,6 +242,7 @@
                 <div class="modal__booking__label">Số ngày: <b class="color__price" id="soNgay">0</b></div>
                 <div class="modal__booking__label">Tiền phòng: <b class="color__price" id="tienPhong">0</b> VNĐ</div>
                 <div class="modal__booking__label">Tiền dịch vụ: <b class="color__price" id="tienDichVu">0</b> VNĐ</div>
+                <div class="modal__booking__label">Phụ thu (người lớn): <b class="color__price" id="tienPhuThu">0</b> VNĐ</div>
                 <div class="modal__booking__label">Tổng tiền: <b class="color__price" id="tongTien">0</b> VNĐ</div>                 
                 <a class="btn btn_tamtinh">Tạm tính</a>   
             </div>     
@@ -247,138 +285,258 @@
         {{/each}}
     </div>
 </div>
-
+{{!--  Vẽ lịch --}}
 <script>
-    const bookingBtn = document.querySelector('.js-btn-booking')
-    const modal = document.querySelector('.js-modal__booking')
-    const modalClose = document.querySelector('.modal__booking__close')
+    // --- KHAI BÁO BIẾN TOÀN CỤC ---
+    // Phải đặt các hằng số này ở ngoài để tất cả các hàm đều có thể truy cập
+    const SURCHARGE_PER_EXTRA_ADULT = 100000;
+    const ROOM_TYPE_MAX_ADULTS = {{ Room.roomType.maxAdults }};
+    const ROOM_PRICE_PER_NIGHT = {{ Room.roomType.price }};
+    // (Đảm bảo controller Chi_Tiet_Phong đã populate('roomType') 
+    //  và roomType có trường maxAdults và price)
 
 
-    function showBookingModal(){
-
-        modal.classList.add('open')
-        document.body.classList.add('no-scroll');
-        //lay
-        const ngayDen = document.getElementById('ngayDen').value;
-        const ngayDi = document.getElementById('ngayDi').value;
-        const nguoiLon = document.getElementById('selectNguoiLon').value;
-        const treEm = document.getElementById('selectTreEm').value;
-
-        //gan
-        document.getElementById('checkInDate').value = ngayDen;
-        document.getElementById('checkOutDate').value = ngayDi;
-        document.getElementById('modalNguoiLon').value = nguoiLon;
-        document.getElementById('modalTreEm').value = treEm;
-    }
-
-    function removeBookingModal(){
-        modal.classList.remove('open')
-         document.body.classList.remove('no-scroll');
-    }
-
-    modalClose.addEventListener('click', removeBookingModal)
-
-    bookingBtn.addEventListener('click', showBookingModal)
-
-</script>
-
-<script>
-    const btnTinh = document.querySelector('.btn_tamtinh');
-    const inputServices = document.querySelectorAll('.modal__booking__service__input');
-    const ngaytra = document.getElementById('checkOutDate')
-
-    btnTinh.addEventListener('click', function () {
-        // Lấy ngày
-        const checkIn = new Date(document.getElementById('checkInDate').value);
-        const checkOut = new Date(document.getElementById('checkOutDate').value);
-
-        // Tính số ngày
-        let soNgay = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
-
-        document.getElementById('soNgay').textContent = soNgay;
-
-        // Giá phòng
-        const roomPrice = {{Room.roomType.price}}; 
-
-        const tienPhong = soNgay * roomPrice;
-        document.getElementById('tienPhong').textContent = tienPhong.toLocaleString();
-
-        // Tiền dịch vụ
-        let tienDichVu = 0;
-        inputServices.forEach(input => {
-            const sl = parseInt(input.value) || 0;
-            const price = parseInt(input.getAttribute('data-price')) || 0;
-            tienDichVu += sl * price;
-        });
-        document.getElementById('tienDichVu').textContent = tienDichVu.toLocaleString();
-
-        // Tổng tiền
-        const tong = tienPhong + tienDichVu;
-        document.getElementById('tongTien').textContent = tong.toLocaleString();
-
-        const tienCoc = Math.round(tong / 4); // Làm tròn
-        document.getElementById('tienCoc').textContent = tienCoc.toLocaleString();
-
-        const customerPhone = document.getElementById('phone').value; 
-        const noiDungCK = `DP ${customerPhone || '[Số điện thoại]'}`; // DP là viết tắt "Đặt phòng"
-        document.getElementById('noiDungCK').textContent = noiDungCK;
-    });
-</script>
-
-<script>
-    const btnDat = document.querySelector('.modal__booking__btn')
-
-    btnDat.addEventListener('click', () => {
-        
-    const checkInDate = new Date(document.getElementById('checkInDate').value);
-    const checkOutDate = new Date(document.getElementById('checkOutDate').value);
-
-    
-    if (checkOutDate <= checkInDate) {
-        alert('Ngày trả phòng phải sau ngày nhận phòng!');
-        return; // 
-    }
-
-        const data = {
-            roomId: '{{Room._id}}',
-            checkInDate: document.getElementById('checkInDate').value,
-            checkOutDate: document.getElementById('checkOutDate').value,
-            fullName: document.getElementById('fullName').value,
-            phone: document.getElementById('phone').value,
-            email: document.getElementById('email').value,
-            nguoiLon: parseInt(document.getElementById('modalNguoiLon').value),
-            treEm: parseInt(document.getElementById('modalTreEm').value),
-            services: Array.from(document.querySelectorAll('.modal__booking__service__input')).map(input => {
-                return {
-                    id: input.name,
-                    quantity: parseInt(input.value),
-                    price: parseInt(input.dataset.price)
-                };
-            })
-    };
-
-    fetch('/datphong', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(res => {
-        if (res.message === 'success') {
-            alert('Đặt phòng thành công!');
-            window.location.reload(); 
-        } else {
-            alert('Đặt phòng thất bại!');
+    // --- HÀM VẼ LỊCH ---
+    function renderRoomCalendar(containerId, year, month, availability = []) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const monthMoment = moment({ year: year, month: month - 1 });
+        const daysInMonth = monthMoment.daysInMonth();
+        const firstDayOfMonth = monthMoment.startOf('month').day();
+        let calendarHTML = `<table class="table table-bordered table-calendar"><thead><tr>`;
+        const weekdays = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+        weekdays.forEach(day => calendarHTML += `<th class="day-header"><small>${day}</small></th>`);
+        calendarHTML += `</tr></thead><tbody><tr>`;
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            calendarHTML += `<td class="empty-cell"></td>`;
         }
-    })
-    .catch(err => {
-        console.error('Lỗi khi gửi booking:', err);
-    });
-});
-</script>
+        let dayCounter = 1;
+        for (let i = firstDayOfMonth; i < 7; i++) {
+            if (dayCounter > daysInMonth) break;
+            const dayData = availability.find(d => d.date === moment({ year: year, month: month - 1, date: dayCounter }).format('YYYY-MM-DD')) || { status: 'past' };
+            const canClick = dayData.status === 'available';
+            calendarHTML += `<td class="day-cell status-${dayData.status} ${canClick ? 'js-calendar-select-date' : ''}" data-date="${dayData.date}" title="${dayData.status === 'available' ? 'Chọn ngày ' + dayCounter : (dayData.status === 'booked' ? 'Đã đặt' : 'Quá khứ')}">${dayCounter}</td>`;
+            dayCounter++;
+        }
+        calendarHTML += `</tr>`;
+        while (dayCounter <= daysInMonth) {
+            calendarHTML += `<tr>`;
+            for (let i = 0; i < 7 && dayCounter <= daysInMonth; i++) {
+                const dayData = availability.find(d => d.date === moment({ year: year, month: month - 1, date: dayCounter }).format('YYYY-MM-DD')) || { status: 'past' };
+                const canClick = dayData.status === 'available';
+                calendarHTML += `<td class="day-cell status-${dayData.status} ${canClick ? 'js-calendar-select-date' : ''}" data-date="${dayData.date}" title="${dayData.status === 'available' ? 'Chọn ngày ' + dayCounter : (dayData.status === 'booked' ? 'Đã đặt' : 'Quá khứ')}">${dayCounter}</td>`;
+                dayCounter++;
+            }
+             if (dayCounter > daysInMonth) {
+                const remainingCells = 7 - ( (firstDayOfMonth + daysInMonth) % 7 );
+                 if(remainingCells < 7) {
+                     for (let i = 0; i < remainingCells; i++) { calendarHTML += `<td class="empty-cell"></td>`; }
+                 }
+             }
+            calendarHTML += `</tr>`;
+        }
+        calendarHTML += `</tbody></table>`;
+        container.innerHTML = calendarHTML;
+        addCalendarDateClickListeners(); // Gắn lại listener cho các ô mới
+    }
 
+    // --- HÀM XỬ LÝ CLICK VÀO NGÀY TRỐNG TRÊN LỊCH ---
+    function handleDateClick() {
+        const selectedDate = this.dataset.date;
+        const roomBtn = document.querySelector('.js-show-room-calendar-modal'); // Lấy nút mở lịch
+        const roomNumber = roomBtn.dataset.roomNumber;
+        const roomId = roomBtn.dataset.roomId;
+        const roomPrice = parseFloat(roomBtn.dataset.roomPrice) || 0;
+
+        const bookingModal = document.querySelector('.js-modal__booking'); // Lấy modal đặt phòng
+        if (bookingModal) {
+            bookingModal.querySelector('#checkInDate').value = selectedDate;
+            const nextDay = moment(selectedDate).add(1, 'day').format('YYYY-MM-DD');
+            bookingModal.querySelector('#checkOutDate').value = nextDay;
+            bookingModal.querySelector('.modal__booking__title').textContent = `Phòng ${roomNumber}`; // Sửa lại title
+            bookingModal.querySelector('#roomId').value = roomId;
+            bookingModal.dataset.roomPrice = roomPrice; // Gán giá phòng vào modal
+            
+            // Đặt về giá trị đầu tiên (Choose... hoặc 1)
+            bookingModal.querySelector('#modalNguoiLon').selectedIndex = 0;
+            bookingModal.querySelector('#modalTreEm').selectedIndex = 0;
+            
+            bookingModal.querySelectorAll('.modal__booking__service__input').forEach(input => input.value = 0);
+            
+            setTimeout(() => { bookingModal.querySelector('.btn_tamtinh').click(); }, 100);
+
+            bookingModal.classList.add('open');
+            document.body.classList.add('no-scroll');
+            $('#roomCalendarModal').modal('hide'); // Đóng modal lịch
+        }
+    }
+
+    // --- HÀM GẮN EVENT LISTENER CHO Ô LỊCH ---
+    function addCalendarDateClickListeners() {
+        document.querySelectorAll('.js-calendar-select-date').forEach(cell => {
+            cell.removeEventListener('click', handleDateClick);
+            cell.addEventListener('click', handleDateClick);
+        });
+    }
+
+    // --- LOGIC CHÍNH KHI TẢI TRANG (GỘP TẤT CẢ VÀO ĐÂY) ---
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // === 1. XỬ LÝ MODAL LỊCH ===
+        const showCalendarBtn = document.querySelector('.js-show-room-calendar-modal');
+        const calendarModal = $('#roomCalendarModal');
+        const calendarContainerId = 'room-calendar-container';
+        const monthYearDisplay = calendarModal.find('.calendar-month-year');
+        const prevMonthBtn = calendarModal.find('.js-prev-month');
+        const nextMonthBtn = calendarModal.find('.js-next-month');
+
+        let currentDisplayMonth;
+        let currentRoomId;
+
+        // Hàm gọi API và vẽ lịch
+        async function loadAndRenderCalendar(roomId, monthMoment) {
+            currentDisplayMonth = monthMoment.clone();
+            currentRoomId = roomId;
+            monthYearDisplay.text(monthMoment.format('MM/YYYY'));
+            prevMonthBtn.data('month', monthMoment.clone().subtract(1, 'month').format('YYYY-MM'));
+            nextMonthBtn.data('month', monthMoment.clone().add(1, 'month').format('YYYY-MM'));
+            document.getElementById(calendarContainerId).innerHTML = '<p class="text-center">Đang tải lịch...</p>';
+            try {
+                // *** SỬA LẠI URL API ***
+                const apiUrl = `/hangphong/api/rooms/${roomId}/availability?month=${monthMoment.format('YYYY-MM')}`;
+                const response = await fetch(apiUrl);
+                if (!response.ok) { throw new Error('Không thể tải dữ liệu lịch'); }
+                const data = await response.json();
+                renderRoomCalendar(calendarContainerId, monthMoment.year(), monthMoment.month() + 1, data.availability);
+            } catch (error) {
+                console.error(error);
+                document.getElementById(calendarContainerId).innerHTML = '<p class="text-center text-danger">Lỗi tải lịch.</p>';
+            }
+        }
+
+        // Gắn Event Listener cho nút "Xem Lịch & Đặt Phòng"
+        if (showCalendarBtn) {
+            showCalendarBtn.addEventListener('click', function() {
+                const roomId = this.dataset.roomId;
+                loadAndRenderCalendar(roomId, moment());
+                calendarModal.modal('show');
+            });
+        }
+        // Gắn Event Listener cho nút chuyển tháng
+        prevMonthBtn.on('click', function() { loadAndRenderCalendar(currentRoomId, moment($(this).data('month'), 'YYYY-MM')); });
+        nextMonthBtn.on('click', function() { loadAndRenderCalendar(currentRoomId, moment($(this).data('month'), 'YYYY-MM')); });
+
+
+        // === 2. XỬ LÝ MODAL ĐẶT PHÒNG ===
+        const modal = document.querySelector('.js-modal__booking');
+        const modalClose = modal.querySelector('.modal__booking__close');
+        const btnTinh = modal.querySelector('.btn_tamtinh');
+        const inputServices = modal.querySelectorAll('.modal__booking__service__input');
+        const btnDat = modal.querySelector('.modal__booking__btn');
+
+        // Đóng modal
+        modalClose.addEventListener('click', function() {
+            modal.classList.remove('open');
+            document.body.classList.remove('no-scroll');
+        });
+
+        // Nút "Tạm tính"
+        btnTinh.addEventListener('click', function () {
+            const checkIn = new Date(document.getElementById('checkInDate').value);
+            const checkOut = new Date(document.getElementById('checkOutDate').value);
+            let soNgay = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+            if (isNaN(soNgay) || soNgay < 0) soNgay = 0;
+            document.getElementById('soNgay').textContent = soNgay;
+
+            const roomPrice = parseFloat(modal.dataset.roomPrice) || ROOM_PRICE_PER_NIGHT;
+            const tienPhong = soNgay * roomPrice;
+            document.getElementById('tienPhong').textContent = tienPhong.toLocaleString('vi-VN');
+
+            let tienDichVu = 0;
+            inputServices.forEach(input => {
+                const sl = parseInt(input.value) || 0;
+                const price = parseInt(input.getAttribute('data-price')) || 0;
+                tienDichVu += sl * price;
+            });
+            document.getElementById('tienDichVu').textContent = tienDichVu.toLocaleString('vi-VN');
+
+            const numNguoiLon = parseInt(document.getElementById('modalNguoiLon').value, 10) || 1;
+            const numExtraAdults = Math.max(0, numNguoiLon - ROOM_TYPE_MAX_ADULTS);
+            const tienPhuThu = numExtraAdults * SURCHARGE_PER_EXTRA_ADULT * soNgay;
+            document.getElementById('tienPhuThu').textContent = tienPhuThu.toLocaleString('vi-VN');
+            
+            const tong = tienPhong + tienDichVu + tienPhuThu;
+            document.getElementById('tongTien').textContent = tong.toLocaleString('vi-VN');
+            const tienCoc = Math.round(tong / 2); // 50% cọc
+            document.getElementById('tienCoc').textContent = tienCoc.toLocaleString('vi-VN');
+            const customerPhone = document.getElementById('phone').value;
+            const noiDungCK = `DP ${customerPhone || '[Số điện thoại]'}`;
+            document.getElementById('noiDungCK').textContent = noiDungCK;
+        });
+
+        // Nút "ĐẶT PHÒNG NGAY"
+        btnDat.addEventListener('click', () => {
+            const checkInDate = new Date(document.getElementById('checkInDate').value);
+            const checkOutDate = new Date(document.getElementById('checkOutDate').value);
+            if (checkOutDate <= checkInDate) {
+                alert('Ngày trả phòng phải sau ngày nhận phòng!');
+                return;
+            }
+            
+            const services = [];
+            inputServices.forEach(input => {
+                const quantity = parseInt(input.value, 10) || 0;
+                if (quantity > 0) {
+                    services.push({
+                        id: input.name,
+                        quantity: quantity,
+                        price: parseInt(input.dataset.price)
+                    });
+                }
+            });
+
+            const nguoiLonValue = parseInt(document.getElementById('modalNguoiLon').value, 10);
+            const treEmValue = parseInt(document.getElementById('modalTreEm').value, 10);
+            
+            const data = {
+                roomId: document.getElementById('roomId').value,
+                checkInDate: document.getElementById('checkInDate').value,
+                checkOutDate: document.getElementById('checkOutDate').value,
+                fullName: document.getElementById('fullName').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                nguoiLon: isNaN(nguoiLonValue) ? 1 : nguoiLonValue, // Mặc định 1 nếu NaN (chưa chọn)
+                treEm: isNaN(treEmValue) ? 0 : treEmValue,       // Mặc định 0 nếu NaN (chưa chọn)
+                services: services,
+                source: 'website'
+            };
+
+            fetch('/datphong', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => {
+                 if (!res.ok) {
+                    return res.json().then(errData => { throw new Error(errData.message || 'Lỗi không xác định'); });
+                }
+                return res.json();
+            })
+            .then(res => {
+                if (res.message === 'success') {
+                    alert('Đặt phòng thành công! Vui lòng kiểm tra email xác nhận.');
+                    window.location.reload();
+                } else {
+                    alert('Đặt phòng thất bại: ' + res.message);
+                }
+            })
+            .catch(err => {
+                console.error('Lỗi khi gửi booking:', err);
+                alert('Đặt phòng thất bại: ' + err.message);
+            });
+        });
+    });
+</script>
 
 
 

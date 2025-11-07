@@ -1,0 +1,215 @@
+<div class="row manage_body">
+    <div class="col-12">
+        <div class="form_quanliphong">
+           <div style="display: flex; justify-content: space-between; margin-bottom: 20pxsssssssssssssssssssssssssssssss;"> 
+                <h2>Lịch Đặt Phòng - Tháng {{currentMonth}}</h2>
+                 <div class="mt-3 d-flex justify-content-end">
+                    <span class="mr-3"><span class="legend-color legend-available"></span> Trống</span>
+                    <span class="mr-3"><span class="legend-color legend-booked"></span> Đã đặt</span>
+                </div>
+            </div>
+            
+            {{!-- Nút điều hướng tháng --}}
+            <div class="d-flex justify-content-between mb-3">
+                <a href="/manage/lich_dat_phong?month={{prevMonth}}" class="btn btn-outline-secondary">&lt; Tháng Trước</a>
+                <a href="/manage/lich_dat_phong" class="btn btn-outline-primary">Tháng Hiện Tại</a>
+                <a href="/manage/lich_dat_phong?month={{nextMonth}}" class="btn btn-outline-secondary">Tháng Sau &gt;</a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-calendar">
+                    <thead>
+                        <tr>
+                            <th class="room-header">Phòng</th>
+                            {{#each daysHeader}}
+                               <th class="day-header {{#if (eq this.fullDate ../todayDate)}}today-header{{/if}}">
+                                    {{this.dayOfMonth}}<br><small>{{this.dayOfWeek}}</small>
+                                </th>
+                            {{/each}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each calendarData}}
+                        <tr>
+                            <td class="room-number">{{this.roomNumber}}</td>
+                            {{#each this.dailyStatus}}
+                                <td class="day-cell status-{{this.status}} {{#if (eq this.status 'available')}}js-calendar-book-cell{{/if}}"
+                                    data-date="{{this.date}}"
+                                    data-room-id="{{../_id}}"
+                                    data-room-number="{{../roomNumber}}"
+                                    {{#if this.bookingInfo}}
+                                        title="Khách: {{this.bookingInfo.customerName}} ({{this.bookingInfo.checkIn}} - {{this.bookingInfo.checkOut}})"
+                                        data-booking-id="{{this.bookingInfo._id}}"
+                                    {{else if (eq this.status 'available')}}
+                                        {{!-- Sử dụng helper Date (viết hoa) mà bạn đã có --}}
+                                        title="Click để đặt phòng {{../roomNumber}} vào ngày {{Date this.date}}"
+                                    {{/if}}>
+                                    {{!-- Nội dung ô --}}
+                                </td>
+                            {{/each}}
+                        </tr>
+                        {{else}}
+                        <tr> <td colspan="{{add daysHeader.length 1}}" class="text-center">Chưa có phòng nào.</td> </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            {{!-- Chú thích màu --}}
+           
+        </div>
+    </div>
+</div>
+
+<div class="modal__booking js-admin-modal-booking" id="adminBookingModalContainer">
+    <div class="modal__booking__container">
+        <div class="modal__booking__close js-admin-modal-close">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="modal__booking__header">
+            Tạo Phiếu Thuê Mới - Phòng&nbsp;<span id="modalRoomNumberAdmin"></span>
+        </div>
+        <form id="adminBookingFormManual">
+            <input type="hidden" id="modalRoomIdAdmin" name="roomId">
+            <div style="padding: 0 20px; max-height: 400px; overflow-y: auto;">
+                <div class="row modal__booking__contet">
+                    <div class="col-6"> {{!-- Cột trái --}}
+                        <div class="modal__booking__title">Thông tin đặt phòng</div>
+                        <div class="modal__booking__body">
+                            <label class="modal__booking__label" for="checkInDateAdminManual">Nhận phòng *</label>
+                            <input type="date" class="modal__booking__input" id="checkInDateAdminManual" name="checkInDate" required>
+                        </div>
+                        <div class="modal__booking__body">
+                            <label class="modal__booking__label" for="checkOutDateAdminManual">Trả phòng *</label>
+                            <input type="date" class="modal__booking__input" id="checkOutDateAdminManual" name="checkOutDate" required>
+                        </div>
+                       
+                    </div>
+                    <div class="col-6"> {{!-- Cột phải --}}
+                        <div class="modal__booking__title">Thông tin khách hàng</div>
+                        <div class="modal__booking__body">
+                            <label class="modal__booking__label" for="fullNameAdminManual">Họ và Tên *</label>
+                            <input type="text" class="modal__booking__input" id="fullNameAdminManual" name="fullName" required>
+                        </div>
+                        <div class="modal__booking__body">
+                            <label class="modal__booking__label" for="phoneAdminManual">Số điện thoại *</label>
+                            <input type="tel" class="modal__booking__input" id="phoneAdminManual" name="phone" required>
+                        </div>
+                        <div class="modal__booking__body">
+                            <label class="modal__booking__label" for="emailAdminManual">Email</label>
+                            <input type="email" class="modal__booking__input" id="emailAdminManual" name="email">
+                        </div>
+                    </div>
+                </div>
+                {{!-- Phần chọn dịch vụ (nếu có allServices) --}}
+                {{#if allServices}}
+                     {{!-- ... Code phần dịch vụ ... --}}
+                {{/if}}
+            </div>
+            <div class="modal__booking__frame__btn">
+                <button type="submit" class="btn modal__booking__btn">Lưu Phiếu Thuê</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // === Modal Đặt phòng Thủ công ===
+    const adminModalContainer = document.getElementById('adminBookingModalContainer');
+    const adminModalCloseBtn = adminModalContainer.querySelector('.js-admin-modal-close');
+    const adminBookingForm = document.getElementById('adminBookingFormManual');
+
+    // Mở Modal từ Lịch
+    document.querySelectorAll('.js-calendar-book-cell').forEach(cell => {
+        cell.addEventListener('click', function() {
+            const roomId = this.dataset.roomId;
+            const roomNumber = this.dataset.roomNumber;
+            const checkInDate = this.dataset.date;
+
+            // Reset form TRƯỚC khi điền
+            adminBookingForm.reset();
+            adminModalContainer.querySelectorAll('.service-input-admin').forEach(input => input.value = 0);
+
+            // Điền thông tin vào modal
+            adminModalContainer.querySelector('#modalRoomIdAdmin').value = roomId;
+            adminModalContainer.querySelector('#modalRoomNumberAdmin').textContent = roomNumber;
+            adminModalContainer.querySelector('#checkInDateAdminManual').value = checkInDate; // Điền ngày check-in
+
+            // Hiện modal
+            adminModalContainer.style.display = 'flex';
+            document.body.classList.add('no-scroll');
+        });
+    });
+
+    // Đóng Modal
+    adminModalCloseBtn.addEventListener('click', function() {
+        adminModalContainer.style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    });
+    adminModalContainer.addEventListener('click', function(event) {
+         if (event.target === adminModalContainer) {
+             adminModalContainer.style.display = 'none';
+             document.body.classList.remove('no-scroll');
+         }
+    });
+
+    // Submit Form Modal
+    adminBookingForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(adminBookingForm);
+
+        // Chuyển FormData thành JSON object
+        const data = {};
+        formData.forEach((value, key) => { data[key] = value; });   
+
+        // Xử lý dịch vụ
+        const services = [];
+         adminModalContainer.querySelectorAll('.service-input-admin').forEach(input => {
+            const quantity = parseInt(input.value, 10) || 0;
+            if (quantity > 0) {
+                 services.push({
+                    id: input.dataset.id,
+                    quantity: quantity,
+                    price: parseInt(input.dataset.price, 10) || 0
+                });
+            }
+        });
+        data.services = services;
+
+        data.source = 'manual'; // Đánh dấu là booking thủ công
+
+        try {
+            const response = await fetch('/datphong', { // Đảm bảo URL này đúng
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if (result.message === 'success') {
+                alert('Tạo phiếu thuê thành công!');
+                adminModalContainer.style.display = 'none';
+                document.body.classList.remove('no-scroll');
+                window.location.reload(); // Tải lại lịch
+            } else {
+                 alert('Lỗi: ' + (result.message || 'Không thể tạo phiếu thuê.'));
+            }
+        } catch (error) {
+             console.error('Lỗi khi gửi yêu cầu đặt phòng:', error);
+             alert('Đã có lỗi xảy ra phía client.');
+        }
+    });
+
+    // === Xử lý Click ô Booked ===
+    document.querySelectorAll('.day-cell.status-booked').forEach(cell => {
+        cell.addEventListener('click', function() {
+            const bookingId = this.dataset.bookingId;
+            if (bookingId) {
+                console.log('Clicked booking:', bookingId);
+                // Chuyển đến trang cập nhật phiếu thuê
+                window.location.href = `/manage/quan_li_phieuthue/crud/${bookingId}/show_update`;
+            }
+        });
+    });
+
+});
+</script>

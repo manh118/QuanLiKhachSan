@@ -13,7 +13,9 @@ const RoomType = new Schema({
       icon: { type: String, required: true },       
       note: { type: String }                        
     }
-  ]
+  ],
+  maxAdults: { type: Number, required: true, default: 2 }, // Số người lớn tối đa cơ bản
+    maxOccupancy: { type: Number, required: true, default: 2 },
   },{
     timestamps: true
   })

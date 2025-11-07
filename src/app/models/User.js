@@ -7,7 +7,7 @@ const User = new Schema({
     phone: { type: String, required: true, unique: true, sparse: true, index: true },
     email: { type: String, unique: true, sparse: true, index: true },
     password: { type: String }, // 
-    role: { type: String, required: true, default: 'user' }, 
+    role: { type: String, required: true,enum: ['admin', 'staff', 'user'], default: 'user' }, 
 
     fullName: { type: String }, // Tên đầy đủ
     dob: { type: Date }, 
