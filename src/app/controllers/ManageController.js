@@ -241,8 +241,30 @@ class ManageController {
       .sort({ createdAt: -1 })
       .lean()
       .then((Bookings) => {
+         const now = new Date();
+         const STANDARD_CHECKOUT_HOUR = 12;
+
+         const processedBookings = Bookings.map(booking => {
+             let isOverdue = false;
+             
+             if (booking.bookingStatus === 'Checked In' && booking.checkOutDate) {
+                 const standardCheckOutTime = new Date(booking.checkOutDate);
+                 standardCheckOutTime.setHours(STANDARD_CHECKOUT_HOUR, 0, 0, 0);
+
+                 // Nếu thời gian hiện tại đã vượt qua giờ checkout chuẩn (12h của ngày checkout)
+                 if (now > standardCheckOutTime) {
+                     isOverdue = true;
+                 }
+             }
+
+             return {
+                 ...booking,
+                 isOverdue
+             };
+         });
+
         res.render('manage/quan_li_phieuthue', {
-           Bookings,
+           Bookings: processedBookings,
            searchQuery: searchName, 
           searchPhone: searchPhone 
           })

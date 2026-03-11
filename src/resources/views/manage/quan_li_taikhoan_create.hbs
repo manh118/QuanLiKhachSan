@@ -18,11 +18,17 @@
         </div>
     {{/if}}
 
-    <form class="form_CreateAccount" action="/manage/quan_li_taikhoan/create" method="POST">
+    <form class="form_CreateAccount" action="/manage/quan_li_taikhoan/crud/create" method="POST">
         
         <div class='form-group '>
             <label class="Mangage_label" for='name'>Tên đăng nhập <span class="text-danger">*</span></label>
             <input type='text' class='form-control Mangage_input' id='name' name="name" value="{{name}}" required />
+        </div>
+
+
+        <div class='form-group '>
+            <label class="Mangage_label" for='phone'>Số điện thoại <span class="text-danger">*</span></label>
+            <input type='text' class='form-control Mangage_input' id='phone' name="phone" value="{{phone}}" required />
         </div>
 
         <div class='form-group'>
@@ -60,10 +66,10 @@
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries()); 
         
-        delete data.confirmPassword; 
+        // Remove delete data.confirmPassword because the backend requires it
 
         try {
-            const response = await fetch('/manage/quan_li_taikhoan/create', { 
+            const response = await fetch('/manage/quan_li_taikhoan/crud/create', { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json' 

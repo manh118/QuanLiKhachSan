@@ -13,13 +13,13 @@ class ManageAdminController {
 
     // [POST] /manage/quan_li_taikhoan/store
     async store(req, res, next) {
-        const { name, password, confirmPassword, role } = req.body; 
+        const { name, password, confirmPassword, role, fullName, phone, email } = req.body; 
 
         // 1. Kiểm tra đầu vào (tương tự regis)
-        if (!name || !password || !confirmPassword || !role) { 
+        if (!name || !password || !confirmPassword || !role || !phone) { 
             return res.status(400).json({
                 success: false,
-                message: 'Vui lòng điền đầy đủ các trường bắt buộc.'
+                message: 'Vui lòng điền đầy đủ các trường bắt buộc (bao gồm số điện thoại).'
             });
         }
         if (password !== confirmPassword) {
@@ -43,19 +43,33 @@ class ManageAdminController {
 
         try {
             // 2. Kiểm tra tên đăng nhập đã tồn tại chưa
-            const existingUser = await User.findOne({ name: name }); 
+            const existingUser = await User.findOne({ 
+                $or: [{ name: name }, { phone: phone }]
+            }); 
+            
             if (existingUser) {
-                return res.status(409).json({ // 409 Conflict cho trường hợp trùng lặp
-                    success: false,
-                    message: 'Tên đăng nhập này đã tồn tại.'
-                });
+                if (existingUser.name === name) {
+                    return res.status(409).json({ // 409 Conflict cho trường hợp trùng lặp
+                        success: false,
+                        message: 'Tên đăng nhập này đã tồn tại.'
+                    });
+                }
+                if (existingUser.phone === phone) {
+                    return res.status(409).json({
+                        success: false,
+                        message: 'Số điện thoại này đã được sử dụng.'
+                    });
+                }
             }
 
             // 3. Tạo tài khoản mới
             const newUser = new User({
                 name, 
                 password, 
-                role
+                role,
+                fullName,
+                phone,
+                email
             });
 
             // 4. Lưu vào DB

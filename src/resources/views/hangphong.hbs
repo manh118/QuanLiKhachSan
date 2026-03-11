@@ -1,34 +1,211 @@
-<div class="slide_hbs_phu">
-    <div class="slide__content_phu">
-        <div class="text__des">Hạng phòng</div> 
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+    /* ============ HERO BANNER ============ */
+    .hp-hero {
+        position: relative;
+        height: 420px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: url('/img/hotel-banner.jpg') center/cover no-repeat;
+    }
+    .hp-hero::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0,50,43,0.35), rgba(0,50,43,0.65));
+        z-index: 1;
+    }
+    .hp-hero-content {
+        position: relative;
+        z-index: 2;
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        max-width: 750px;
+        padding: 0 2rem;
+    }
+    .hp-hero-content h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .hp-hero-content p {
+        font-size: 1.3rem;
+        line-height: 1.9;
+        font-weight: 300;
+        color: rgba(255,255,255,0.9);
+    }
+
+    /* ============ PAGE BODY ============ */
+    .hp-page-body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f9fafb;
+        padding: 4rem 0 5rem;
+    }
+
+    .hp-section-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #1f2937;
+        text-align: center;
+        margin-bottom: 0.8rem;
+    }
+    .hp-section-subtitle {
+        font-size: 1.3rem;
+        color: #6b7280;
+        text-align: center;
+        margin-bottom: 3.5rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* ============ ROOM TYPE CARDS ============ */
+    .hp-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+    @media (max-width: 991px) {
+        .hp-cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 575px) {
+        .hp-cards-grid { grid-template-columns: 1fr; }
+    }
+
+    .hp-card {
+        background: white;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+        transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .hp-card:hover {
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        transform: translateY(-4px);
+    }
+
+    .hp-card-img {
+        position: relative;
+        height: 280px;
+        overflow: hidden;
+    }
+    .hp-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+    .hp-card:hover .hp-card-img img {
+        transform: scale(1.08);
+    }
+    .hp-card-price-tag {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        color: white;
+        padding: 3rem 1.5rem 1rem;
+        font-weight: 700;
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    .hp-card-body {
+        padding: 2rem 1.5rem;
+    }
+    .hp-card-name {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 1rem;
+    }
+    .hp-card-desc {
+        font-size: 1.2rem;
+        color: #6b7280;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .hp-card-btn {
+        display: block;
+        width: 100%;
+        padding: 0.85rem;
+        background-color: transparent;
+        color: #00796B;
+        border: 2px solid #00796B;
+        border-radius: 0.375rem;
+        font-size: 1.3rem;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.25s;
+    }
+    .hp-card-btn:hover {
+        background-color: #00796B;
+        color: white;
+        text-decoration: none;
+    }
+
+    /* ============ CONTACT BANNER ============ */
+    .hp-contact-bar {
+        background-color: #00796B;
+        color: white;
+        padding: 2.5rem 0;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .hp-contact-bar p {
+        font-size: 1.4rem;
+        margin: 0;
+    }
+    .hp-contact-bar b {
+        font-weight: 700;
+    }
+</style>
+
+<!-- ============ HERO BANNER ============ -->
+<section class="hp-hero">
+    <div class="hp-hero-content">
+        <h1>Hạng Phòng</h1>
+        <p>Nhà nghỉ An Bình giúp du khách có thể chiêm ngưỡng những nét đẹp nổi bật 
+            của Hà Nội. Không gian phòng đảm bảo mang đến cho quý khách sự ấm cúng, tiện nghi và yên tĩnh.</p>
     </div>
+</section>
+
+<!-- ============ CONTACT BAR ============ -->
+<div class="hp-contact-bar">
+    <p>Để đặt phòng, vui lòng gọi <b>0983 230 945</b> hoặc gửi email đến <b>anbinh.hanoi@gmail.com</b></p>
 </div>
-<div class="container">
-    <div class="body_phu">
-        <h3 class="Phu__room__heading">Hạng Phòng</h3>
-        <div class="Phu__room__description">Nhà nghỉ An Bình giúp du khách có thể chiêm ngưỡng những nét đẹp nổi bật 
-            của Hà Nội. Không gian phòng đảm bảo mang đến cho quý khách sự ấm cúng, tiện nghi và yên tĩnh. Nội thất được bài trí chi tiết
-            mang đến cho quý khách những cảm xúc đặc biệt, được hòa mình vào bầu không khí trong lành, gần gũi với văn hóa bản địa. Để đặt chỗ 
-            và giải đáp thắc mắc, vui lòng gọi <b>0983230945</b> hoặc gửi mail đến: <b>anbinh.hanoi@gmail.com</b> Hoặc đặt phòng trực tuyến tại đây.
-        </div>
-        <div class="row">
+
+<!-- ============ PAGE BODY ============ -->
+<div class="hp-page-body">
+    <div class="container" style="max-width: 1400px;">
+        <h2 class="hp-section-title">Khám Phá Các Hạng Phòng</h2>
+        <p class="hp-section-subtitle">Lựa chọn không gian nghỉ dưỡng phù hợp với nhu cầu của bạn</p>
+
+        <div class="hp-cards-grid">
             {{#each RoomTypes}}
-            <div class="col-4">
-                <div class="card phu__room__card" style="width: 100%;">
-                    <div class="phu__room__img" style="background:url({{this.img}}) top center / cover no-repeat;">
-                        <p class="phu__room__img__price color__price_phong">CHỈ TỪ {{money this.price}} VNĐ/ĐÊM</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-body__content">
-                            <h5 class="card-title phu__room__type">{{this.name}}</h5>
-                        </div>
-                        <p class="card-text phu__room__cart__des">
-                            {{this.description}}
-                        </p>
-                        <a href="/hangphong/{{this._id}}/rooms" class="btn phu__room__cart__btn">Xem</a>
-                    </div>
+            <div class="hp-card">
+                <div class="hp-card-img">
+                    <img src="{{this.img}}" alt="{{this.name}}">
+                    <div class="hp-card-price-tag">CHỈ TỪ {{money this.price}} VNĐ / ĐÊM</div>
                 </div>
-            </div>        
+                <div class="hp-card-body">
+                    <h3 class="hp-card-name">{{this.name}}</h3>
+                    <p class="hp-card-desc">{{this.description}}</p>
+                    <a href="/hangphong/{{this._id}}/rooms" class="hp-card-btn">Xem Danh Sách Phòng</a>
+                </div>
+            </div>
             {{/each}}
         </div>
     </div>

@@ -1,141 +1,307 @@
-<div class="container RoomDetail">
-    <div class="row" style="margin-top: 70px;">
-        <img class="RoomDetail_img" src="{{Room.img}}" alt="">
-    </div>
-    <div class="row RoomDetail__body">
-        <div class="col-8 RoomDetail__body__cot1">
-            <p class="RoomDetail_title">Phòng: {{Room.roomNumber}} - {{Room.roomType.name}}</p>
-            <p class="RoomDetail_des">
-                {{Room.roomType.description}}
-            </p>
-            <ul class="RoomDetail__tienich__list" style="margin-top: 20px;">   
-                    <li class="RoomDetail__tienich__item">
-                        <i class="fa-solid fa-bed RoomDetail__tienich__icon "></i> 
-                        <p class="RoomDetail__tienich__name">{{Room.bedType.name}}</p> 
-                    </li>        
-                    <li class="RoomDetail__tienich__item">
-                        <i class="bx  bx-area RoomDetail__tienich__icon Libary_icon"></i> 
-                        <p class="RoomDetail__tienich__name">Phòng {{{m2 Room.area}}}</p> 
-                    </li>                     
-            </ul>
-            <p class="RoomDetail_title">Tiện nghi</p>
-            <ul class="RoomDetail__tienich__list">
-                {{#each Room.roomType.utilities}}
-                    <li class="RoomDetail__tienich__item">
-                    <i class="{{this.icon}} RoomDetail__tienich__icon"></i> 
-                    <p class="RoomDetail__tienich__name">{{this.name}}</p> 
-                    </li> 
-                {{/each}}
-            </ul>
-        </div>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+    .room-detail-container {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f9fafb;
+        color: #1f2937;
+        padding-top: 2rem;
+        padding-bottom: 4rem;
+        font-size: 1.4rem; /* Tăng base font size */
+    }
+    .text-hotel-teal { color: #00796B !important; }
+    .bg-hotel-teal { background-color: #00796B !important; color: white !important; }
+    .border-hotel-teal { border-color: #00796B !important; }
+    .hover-bg-hotel-teal:hover { background-color: #004D40 !important; color: white !important; }
     
-        <div class="col-4" style="padding: 0 0 0 20px;">
-            <div class="RoomDetail__booking" >
-                    <p class="RoomDetail__booking_title ">{{money Room.roomType.price}} VNĐ/ ĐÊM</p>
-                    <div class="RoomDetail__booking__form">
-                         {{!-- <p>
-                             <div class="RoomDetail__booking__content">
-                                <div class="RoomDetail__booking__des">Ngày đến</div>
-                                <input type="date" id="ngayDen" class="form-control  RoomDetail__booking__input">               
-                            </div>
-                            <div class="RoomDetail__booking__content">
-                                <div class="RoomDetail__booking__des">Ngày đi</div>
-                                <input type="date" id="ngayDi" class="form-control RoomDetail__booking__input" >
-                            </div>
-                            <div class="RoomDetail__booking__content">
-                                <div class="RoomDetail__booking__des">Người lớn </div>
-                                <select class="custom-select RoomDetail__booking__input" id="selectNguoiLon">
-                                    <option selected>Chọn (Có thể bỏ qua)</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                </select>
-                            </div>
-                            <div class="RoomDetail__booking__content">
-                                <div class="RoomDetail__booking__des">Trẻ em</div>
-                                <select class="custom-select RoomDetail__booking__input" id="selectTreEm">
-                                    <option selected>Chọn (Có thể bỏ qua)</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                </select>
-                            </div>
-                         </p> --}}
-                         
-                        <button type="button" class="btn RoomDetail__booking__btn js-show-room-calendar-modal"
-                                data-room-id="{{Room._id}}"
-                                data-room-number="{{Room.roomNumber}}"
-                                data-room-price="{{Room.roomType.price}}"> {{!-- Thêm data-room-price --}}
-                            Xem Lịch & Đặt Phòng
-                        </button>
-                    </div>
-                        
-                          
-            </div>
-        </div>
-    </div> 
-    <div class=" row "> 
-        <p class="RoomDetail_title">Phòng liên quan</p>   
-        <p class="RoomDetail_title" style="margin-left: 525px;" >Hạng phòng khác</p>   
-    </div>
-    <div class=" row "> 
-        <div class="col-8 RoomDetail__relate" >
-            <div class="row RoomDetail__relate__body">
-                 {{#each RelatedRooms}}              
-                    <div class="card RoomDetail__relate__card">
-                        <div class="RoomDetail__relate__img" style="background:url({{this.img}}) center/cover no-repeat;">
-                            <p class="phu__room__img__price color__price_phong">{{money this.price}} VNĐ/ĐÊM</p>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title phu__room__type">{{this.roomType.name}}</h5>
-                            <p class="phu__room__name">Phòng: {{this.roomNumber}}</p>
-                            <p class="phu__room__title">
-                                <i class="fa-solid fa-bed"></i> {{this.bedType.name}} -
-                                <i class="bx bx-area Chinh_icon_area"></i> {{{m2 this.area}}}
-                            </p>
-                            <a href="/hangphong/room/{{this.roomNumber}}" class="btn phu__room__cart__btn">Chi tiết</a>
-                        </div>
-                        {{#if (eqString this.status 'Đã đặt')}}
-                            <div class="phu__room__status phu__room__status--booked" style="font-size: 1.2rem;">
-                                <i class="fa-solid fa-xmark phu__room__status__icon" style="font-size: 1.2rem;"></i></i> {{this.status}}
-                            </div> 
+    .rd-gallery {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        height: auto;
+        margin-bottom: 3.5rem; /* Tăng lề dưới */
+    }
+    @media (min-width: 768px) {
+        .rd-gallery {
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            height: 550px; /* Tăng chiều cao ảnh */
+        }
+        .rd-main-img {
+            grid-column: span 3;
+            grid-row: span 2;
+        }
+    }
+    .rd-img-wrapper {
+        border-radius: 0.5rem; /* Bo góc ít hơn */
+        overflow: hidden;
+        position: relative;
+    }
+    .rd-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    .rd-img-wrapper:hover img {
+        transform: scale(1.03);
+    }
 
-                        {{else}}
-                            <div class="phu__room__status phu__room__status" style="font-size: 1.2rem;">
-                                <i class="fa-light fa-check phu__room__status__icon" style="font-size: 1.2rem;"></i></i> {{this.status}}
-                            </div>
-                        {{/if}}  
-                    </div>  
-                           
-                {{/each}}
+    .rd-content-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem; /* Tăng khoảng cách 2 cột */
+    }
+    @media (min-width: 992px) {
+        .rd-content-layout {
+            grid-template-columns: 2fr 1fr;
+        }
+    }
+
+    .rd-badge {
+        background-color: #f3f4f6; /* Màu xám nhạt hơn */
+        padding: 0.5rem 1.2rem;
+        border-radius: 9999px;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1.2rem; /* Chữ to hơn */
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+        color: #4b5563;
+    }
+
+    .rd-section-title {
+        font-size: 1.8rem; /* Tiêu đề to hơn */
+        font-weight: 700;
+        color: #00796B;
+        margin-bottom: 2rem;
+        border-left: 5px solid #00796B; /* Viền dày hơn */
+        padding-left: 1rem;
+    }
+
+    .rd-amenities-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    @media (min-width: 576px) {
+        .rd-amenities-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 768px) {
+        .rd-amenities-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+    .rd-amenity-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.25rem; /* Bo góc ít hơn */
+        padding: 1.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: white;
+        transition: box-shadow 0.3s, border-color 0.3s;
+    }
+    .rd-amenity-card:hover {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        border-color: #00796B;
+    }
+    .rd-amenity-icon {
+        font-size: 2.2rem; /* Icon to hơn */
+        margin-bottom: 1rem;
+        color: #00796B;
+    }
+
+    .rd-sidebar-card {
+        background: white;
+        border-radius: 0.5rem; /* Bo góc ít */
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e5e7eb;
+        top: 6rem;
+    }
+    
+    .rd-related-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    @media (min-width: 768px) {
+        .rd-related-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    
+    .rd-related-card {
+        background: white;
+        border-radius: 0.5rem;
+        border: 1px solid #e5e7eb;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+    }
+    .rd-related-card:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Bootstrap Overrides for new styles */
+    .hover-text-hotel-teal:hover {
+        color: #00796B !important;
+    }
+    
+    /* Chỉnh cỡ chữ text chung */
+    .rd-text-body {
+        font-size: 1.4rem;
+        color: #6b7280;
+        line-height: 1.8;
+    }
+    .rd-title-main {
+        font-size: 2.8rem;
+        color: #1f2937;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+<div class="room-detail-container mt-5">
+    <div class="container" style="max-width: 1400px;"> <!-- Mở rộng container giống UI xịn -->
+        <!-- Gallery -->
+        <section class="rd-gallery">
+            <div class="rd-img-wrapper rd-main-img group">
+                <img src="{{Room.img}}" alt="Hình ảnh chính phòng {{Room.roomNumber}}">
             </div>
-           
-            <a href="/hangphong/{{Room.roomType._id}}/rooms" class="RoomDetail__relate__name" style="display: block;">Xem tất cả.....</a>
-        </div>
-        <div class="col-4">
-            <div class="RoomDetail__roomtype">
-                <ul class="RoomDetail__roomtype__list" style="margin-bottom: 0;">
-                   {{#each RoomTypes}}
+            <!-- Thêm ảnh tạm cho đủ lưới -->
+            <div class="rd-img-wrapper d-none d-md-block">
+                <img src="/img/room-thumb-1.jpg" onerror="this.src='{{Room.img}}'" alt="Thumb 1">
+            </div>
+            <div class="rd-img-wrapper d-none d-md-block">
+                <img src="/img/room-thumb-2.jpg" onerror="this.src='{{Room.img}}'" alt="Thumb 2">
+            </div>
+        </section>
+
+        <div class="rd-content-layout">
+            <!-- Main Content -->
+            <div class="rd-main-content">
+                <div class="border-bottom pb-4 mb-5">
+                    <h1 class="rd-title-main">Phòng: {{Room.roomNumber}} - {{Room.roomType.name}}</h1>
+                    <div class="d-flex flex-wrap">
+                        <span class="rd-badge"><i class="fa-solid fa-bed mr-2" style="color:#9ca3af;"></i> {{Room.bedType.name}}</span>
+                        <span class="rd-badge"><i class="bx bx-area mr-2" style="color:#9ca3af;"></i> Diện tích: {{{m2 Room.area}}}</span>
+                        <span class="rd-badge"><i class="fa-solid fa-users mr-2" style="color:#9ca3af;"></i> Tối đa: {{Room.roomType.maxAdults}} người</span>
+                    </div>
+                </div>
+
+                <article class="mb-5">
+                    <h2 class="rd-section-title">Mô tả chi tiết</h2>
+                    <p class="text-justify rd-text-body">
+                        {{Room.roomType.description}}
+                    </p>
+                </article>
+
+                <section class="mb-5">
+                    <h2 class="rd-section-title">Tiện nghi phòng</h2>
+                    <div class="rd-amenities-grid">
+                        {{#each Room.roomType.utilities}}
+                        <div class="rd-amenity-card">
+                            <i class="{{this.icon}} rd-amenity-icon"></i>
+                            <span class="font-weight-bold text-uppercase" style="font-size: 1.1rem; color: #374151;">{{this.name}}</span>
+                        </div>
+                        {{/each}}
+                    </div>
+                </section>
+
+                <section class="mb-5">
+                    <h2 class="rd-section-title">Chính sách & Quy định</h2>
+                    <div class="p-4 p-md-5 rounded" style="background-color: #f8f9fa;">
+                        <div class="row">
+                            <div class="col-md-6 mb-4 mb-md-0">
+                                <h5 class="font-weight-bold mb-3" style="font-size: 1.6rem; color: #1f2937;"><i class="fa-regular fa-clock mr-2"></i> Thời gian Nhận/Trả phòng</h5>
+                                <ul class="rd-text-body pl-4" style="list-style-type: none; padding-left: 0;">
+                                    <li class="mb-2"><span style="color:#9ca3af; margin-right: 8px;">•</span>Nhận phòng: từ 14:00</li>
+                                    <li><span style="color:#9ca3af; margin-right: 8px;">•</span>Trả phòng: trước 12:00</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="font-weight-bold mb-3" style="font-size: 1.6rem; color: #1f2937;"><i class="fa-solid fa-clipboard-list mr-2"></i> Quy định chung</h5>
+                                <ul class="rd-text-body pl-4" style="list-style-type: none; padding-left: 0;">
+                                    <li class="mb-2"><span style="color:#9ca3af; margin-right: 8px;">•</span>Không hút thuốc trong phòng</li>
+                                    <li class="mb-2"><span style="color:#9ca3af; margin-right: 8px;">•</span>Không mang theo thú cưng</li>
+                                    <li><span style="color:#9ca3af; margin-right: 8px;">•</span>Giữ yên tĩnh sau 22:00</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <aside>
+                <div class="rd-sidebar-card mb-5" style="z-index: 10;">
+                    <div class="bg-hotel-teal p-5 text-center" style="border-radius: 0.5rem 0.5rem 0 0;">
+                        <p class="text-uppercase mb-2" style="font-size: 1.2rem; letter-spacing: 1px; color: rgba(255,255,255,0.9);">Giá chỉ từ</p>
+                        <h3 class="font-weight-bold mb-1" style="font-size: 3.2rem;">{{money Room.roomType.price}} VNĐ</h3>
+                        <p class="mb-0" style="font-size: 1.1rem; color: rgba(255,255,255,0.9);">/ ĐÊM</p>
+                    </div>
+                    <div class="p-5">
+                        <button type="button" class="btn btn-block bg-hotel-teal text-white py-3 rounded js-show-room-calendar-modal hover-bg-hotel-teal" data-room-id="{{Room._id}}" data-room-number="{{Room.roomNumber}}" data-room-price="{{Room.roomType.price}}" style="font-size: 1.5rem; font-weight: bold; transition: all 0.3s; border: none; letter-spacing: 0.5px;">
+                            XEM LỊCH ĐẶT PHÒNG
+                        </button>
+                        <p class="text-center mt-3 mb-0" style="font-size: 1.1rem; color: #9ca3af;">Cam kết giá tốt nhất khi đặt trực tiếp</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded border">
+                    <h4 class="font-weight-bold border-bottom pb-3 mb-4" style="font-size: 1.8rem; color: #1f2937;">Hạng phòng khác</h4>
+                    {{#each RoomTypes}}
                         {{#unless (eq this._id ../currentRoomTypeId)}}
-                            <li class="RoomDetail__roomtype__item">
-                                <a href="/hangphong/{{this._id}}/rooms" class="RoomDetail__roomtype__item__link">
-                                    <img class="RoomDetail__roomtype__item__img" src="{{this.img}}" alt="">
-                                    <div class="RoomDetail__roomtype__item__content">
-                                    <div class="RoomDetail__roomtype__item__title">{{this.name}}</div>
-                                    <div class="RoomDetail__roomtype__item__price">{{money this.price}} VNĐ</div>
-                                    </div>
-                                </a>
-                            </li>
+                        <a href="/hangphong/{{this._id}}/rooms" class="d-flex align-items-center mb-4 text-decoration-none text-dark group hover-text-hotel-teal">
+                            <div class="rounded overflow-hidden mr-4 position-relative" style="width: 90px; height: 90px; flex-shrink: 0;">
+                                <img src="{{this.img}}" alt="{{this.name}}" style="width:100%; height:100%; object-fit:cover; transition: transform 0.3s;" class="group-hover-img">
+                            </div>
+                            <div>
+                                <h6 class="font-weight-bold mb-2" style="font-size: 1.4rem; transition: color 0.2s;">{{this.name}}</h6>
+                                <p class="text-hotel-teal font-weight-bold mb-0" style="font-size: 1.2rem;">{{money this.price}} VNĐ</p>
+                            </div>
+                        </a>
                         {{/unless}}
                     {{/each}}
-                </ul>
-            </div>
+                </div>
+            </aside>
         </div>
-        
+
+        <!-- Related Rooms -->
+        <section class="mt-5 pt-5">
+            <div class="d-flex justify-content-between align-items-end mb-5 border-bottom pb-3">
+                <h2 class="rd-section-title mb-0 border-0 pl-0 mt-5">Phòng liên quan</h2>
+            </div>
+            
+            <div class="rd-related-grid">
+                {{#each RelatedRooms}}
+                <div class="rd-related-card position-relative">
+                    <div style="height: 250px; position: relative; overflow: hidden;">
+                        <img src="{{this.img}}" alt="Phòng {{this.roomNumber}}" style="width:100%; height:100%; object-fit:cover; transition: transform 0.5s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                        
+                        {{#if (eqString this.status 'Đã đặt')}}
+                            <span class="badge badge-warning position-absolute" style="top: 15px; left: 15px; font-size: 1.1rem; padding: 6px 12px; z-index: 2;">Đã đặt</span>
+                        {{else}}
+                            <span class="badge position-absolute bg-hotel-teal text-white" style="top: 15px; left: 15px; font-size: 1.1rem; padding: 6px 12px; z-index: 2;">✓ Trống</span>
+                        {{/if}}
+                        
+                        <div class="position-absolute w-100 text-center p-3 font-weight-bold text-white shadow" style="bottom: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); font-size: 1.4rem;">
+                            {{money this.price}} VNĐ/ĐÊM
+                        </div>
+                    </div>
+                    <div class="p-4" style="background: white;">
+                        <h4 class="font-weight-bold mb-2" style="font-size: 1.6rem; color: #1f2937;">{{this.roomType.name}}</h4>
+                        <p class="rd-text-body mb-3"><i class="fa-solid fa-door-open mr-2" style="color: #9ca3af;"></i> Phòng: {{this.roomNumber}}</p>
+                        
+                        <div class="d-flex justify-content-between rd-text-body mb-4" style="border-top: 1px solid #f3f4f6; padding-top: 15px;">
+                            <span><i class="fa-solid fa-bed mr-2" style="color: #9ca3af;"></i> {{this.bedType.name}}</span>
+                            <span><i class="bx bx-area mr-2" style="color: #9ca3af;"></i> {{{m2 this.area}}}</span>
+                        </div>
+                        <a href="/hangphong/room/{{this.roomNumber}}" class="btn btn-block font-weight-bold bg-light py-2" style="color: #00796B; font-size: 1.4rem; border: 1px solid rgba(0, 121, 107, 0.2); transition: all 0.3s;" onmouseover="this.style.backgroundColor='#00796B'; this.style.color='white'" onmouseout="this.style.backgroundColor='#f8f9fa'; this.style.color='#00796B'">Chi tiết phòng</a>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </section>
     </div>
-    <div class="RoomDetail__realte_"></div>
+</div>
 </div>
 
 <div class="modal fade" id="roomCalendarModal" tabindex="-1" role="dialog" aria-labelledby="roomCalendarModalLabel" aria-hidden="true">

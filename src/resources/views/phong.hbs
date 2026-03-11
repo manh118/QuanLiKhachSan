@@ -1,72 +1,361 @@
-<div class="slide_hbs_phu">
-    <div class="slide__content_phu">
-        <div class="text__des">DANH SÁCH PHÒNG</div> 
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+    /* ============ HERO BANNER ============ */
+    .rp-hero {
+        position: relative;
+        height: 480px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 0;
+    }
+    .rp-hero img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+    .rp-hero::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.55));
+        z-index: 1;
+    }
+    .rp-hero-content {
+        position: relative;
+        z-index: 2;
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        max-width: 700px;
+        padding: 0 2rem;
+    }
+    .rp-hero-content h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .rp-hero-content p {
+        font-size: 1.3rem;
+        line-height: 1.8;
+        font-weight: 300;
+        color: rgba(255,255,255,0.9);
+        font-style: italic;
+    }
+
+    /* ============ PAGE BODY ============ */
+    .rp-page-body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f9fafb;
+        padding: 3rem 0 5rem;
+    }
+
+    /* ============ FILTER BAR ============ */
+    .rp-filter-bar {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1.5rem 2rem;
+        margin-bottom: 3rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .rp-filter-bar label {
+        font-weight: 600;
+        font-size: 1.3rem;
+        color: #374151;
+        white-space: nowrap;
+        margin-bottom: 0;
+    }
+    .rp-filter-bar select {
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        padding: 0.6rem 1rem;
+        font-size: 1.3rem;
+        color: #374151;
+        min-width: 220px;
+        background: white;
+    }
+    .rp-filter-bar select:focus {
+        border-color: #00796B;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0,121,107,0.15);
+    }
+    .rp-filter-btn {
+        background-color: #1f2937;
+        color: white;
+        border: none;
+        padding: 0.6rem 2rem;
+        border-radius: 0.375rem;
+        font-size: 1.3rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        margin-left: auto;
+    }
+    .rp-filter-btn:hover {
+        background-color: #111827;
+        color: white;
+    }
+
+    /* ============ ROOM CARDS GRID ============ */
+    .rp-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        margin-bottom: 3rem;
+    }
+    @media (max-width: 991px) {
+        .rp-cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 575px) {
+        .rp-cards-grid { grid-template-columns: 1fr; }
+    }
+
+    .rp-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+    }
+    .rp-card:hover {
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    .rp-card-img {
+        position: relative;
+        height: 250px;
+        overflow: hidden;
+    }
+    .rp-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    .rp-card:hover .rp-card-img img {
+        transform: scale(1.05);
+    }
+    .rp-card-status {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 600;
+        z-index: 2;
+    }
+    .rp-card-status--available {
+        background-color: #00796B;
+        color: white;
+    }
+    .rp-card-status--booked {
+        background-color: #f59e0b;
+        color: white;
+    }
+    .rp-card-price {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+        color: white;
+        padding: 2rem 1.2rem 0.8rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .rp-card-body {
+        padding: 1.5rem;
+    }
+    .rp-card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 0.8rem;
+    }
+    .rp-card-amenities {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.2rem;
+        padding-bottom: 1.2rem;
+        border-bottom: 1px solid #f3f4f6;
+    }
+    .rp-card-amenity {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+        color: #6b7280;
+    }
+    .rp-card-amenity i {
+        font-size: 1.5rem;
+        color: #00796B;
+    }
+    .rp-card-amenity span {
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .rp-card-btn {
+        display: block;
+        width: 100%;
+        padding: 0.8rem;
+        background-color: #00796B;
+        color: white;
+        border: none;
+        border-radius: 0.375rem;
+        font-size: 1.3rem;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.2s;
+    }
+    .rp-card-btn:hover {
+        background-color: #004D40;
+        color: white;
+        text-decoration: none;
+    }
+
+    /* ============ PAGINATION ============ */
+    .rp-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        list-style: none;
+        padding: 0;
+        margin: 2rem 0 0;
+    }
+    .rp-pagination li a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        color: #374151;
+        font-size: 1.3rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+    .rp-pagination li a:hover {
+        background-color: #f3f4f6;
+        border-color: #9ca3af;
+        text-decoration: none;
+    }
+    .rp-pagination li.rp-page-active a {
+        background-color: #00796B;
+        color: white;
+        border-color: #00796B;
+    }
+</style>
+
+<!-- ============ HERO BANNER ============ -->
+<section class="rp-hero">
+    <img src="{{roomTypes.img}}" alt="{{roomTypes.name}}">
+    <div class="rp-hero-content">
+        <h1>{{roomTypes.name}}</h1>
+        <p>{{roomTypes.description}}</p>
     </div>
-</div>
-<div class="container">
-  <div class="body_phu" >
-      <h3 class="Phu__room__heading ">{{roomTypes.name}}</h3>
-      <form class="Phu__room__form__sreach" method="GET" action="/hangphong/{{roomTypeId}}/rooms">
-            {{!-- <input class="input__serach" name="q" type="search" placeholder="Tìm kiếm hạng phòng" aria-label="Search" value="{{searchQuery}}"> --}}
-            <select name="bedType" class="form-control Phu__room__form__sreach__select">
-              <option value="">Tất cả loại giường</option>
-              {{#each bedTypes}}
-                <option value="{{this._id}}" {{#if (eq ../selectedBedType this._id)}}selected{{/if}}>
-                  {{this.name}}
-                </option>
-              {{/each}}
+</section>
+
+<!-- ============ PAGE BODY ============ -->
+<div class="rp-page-body">
+    <div class="container" style="max-width: 1400px;">
+
+        <!-- Filter Bar -->
+        <form class="rp-filter-bar" method="GET" action="/hangphong/{{roomTypeId}}/rooms">
+            <label>Lọc theo:</label>
+            <select name="bedType">
+                <option value="">Tất cả loại giường</option>
+                {{#each bedTypes}}
+                    <option value="{{this._id}}" {{#if (eq ../selectedBedType this._id)}}selected{{/if}}>
+                        {{this.name}}
+                    </option>
+                {{/each}}
             </select>
-            
-            <button class="btn btn-primary  Phu__room__form__sreach-btn">Lọc thông tin</button>       
-      </form>
-      <div class="row" id="content">
-          {{#each Rooms}}
-          <div class="col-4">
-              <div class="card phu__room__card" style="width: 100%;">
-                  <div class="phu__room__img" style="background:url({{this.img}}) top center / cover no-repeat;">
-                      <p class="phu__room__img__price color__price_phong">{{money this.roomType.price}} VNĐ/ĐÊM</p>
-                  </div>
-                  <div class="card-body">
-                      <div class="card-body__content">
-                          <h5 class="card-title phu__room__type">{{this.roomType.name}}</h5>
-                          <p class="phu__room__name">Phòng: {{this.roomNumber}} - Tầng {{this.floor}}</p>
-                          <p class="phu__room__title"><i class="fa-solid fa-bed"></i> {{this.bedType.name}} - <i class="bx  bx-area Chinh_icon_area"></i> {{{m2 this.area}}} </p> 
-                      </div>
-                      <p class="card-text phu__room__cart__des" style="-webkit-line-clamp: 3;">
-                         {{this.roomType.description}}
-                      </p>
-                      <a href="/hangphong/room/{{this.roomNumber}}" class="btn phu__room__cart__btn"> Xem Chi Tiết</a>
-                  </div>
-              </div>
-          </div>
-          {{/each}}
-          
-      </div>
-      <div class="Pagination">
-          {{#if (gt currentPage 1)}}
-              <li class="pagination-item">
-              <a href="?page={{subtract currentPage 1}}" class="pagination-item__link">
-                  <i class="pagination-item__icon fa-solid fa-angle-left"></i>
-              </a>
-              </li>
-          {{/if}}
-  
-          {{#each (range 1 totalPages)}}
-              <li class="pagination-item {{#if (eq this ../currentPage)}}pagination-item--active{{/if}}">
-              <a href="?page={{this}}" class="pagination-item__link">{{this}}</a>
-              </li>
-          {{/each}}
-  
-          {{#if (lt currentPage totalPages)}}
-              <li class="pagination-item">
-              <a href="?page={{add currentPage 1}}" class="pagination-item__link">
-                  <i class="pagination-item__icon fa-solid fa-angle-right"></i>
-              </a>
-              </li>
-          {{/if}}
-      </div>
-  
-  </div>
+            <button type="submit" class="btn rp-filter-btn">Lọc</button>
+        </form>
+
+        <!-- Room Cards Grid -->
+        <div class="rp-cards-grid" id="content">
+            {{#each Rooms}}
+            <div class="rp-card">
+                <div class="rp-card-img">
+                    <img src="{{this.img}}" alt="Phòng {{this.roomNumber}}">
+                    {{#if (eqString this.status 'Đã đặt')}}
+                        <span class="rp-card-status rp-card-status--booked">Đã đặt</span>
+                    {{else}}
+                        <span class="rp-card-status rp-card-status--available">✓ Trống</span>
+                    {{/if}}
+                    <div class="rp-card-price">{{money this.roomType.price}} VNĐ / ĐÊM</div>
+                </div>
+                <div class="rp-card-body">
+                    <h3 class="rp-card-title">Phòng {{this.roomNumber}}, Tầng {{this.floor}}</h3>
+                    <div class="rp-card-amenities">
+                        <div class="rp-card-amenity">
+                            <i class="fa-solid fa-bed"></i>
+                            <span>{{this.bedType.name}}</span>
+                        </div>
+                        <div class="rp-card-amenity">
+                            <i class="bx bx-area"></i>
+                            <span>{{{m2 this.area}}}</span>
+                        </div>
+                        {{#each this.roomType.utilities}}
+                        <div class="rp-card-amenity">
+                            <i class="{{this.icon}}"></i>
+                            <span>{{this.name}}</span>
+                        </div>
+                        {{/each}}
+                    </div>
+                    <a href="/hangphong/room/{{this.roomNumber}}" class="rp-card-btn">Xem Chi Tiết</a>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+
+        <!-- Pagination -->
+        <ul class="rp-pagination">
+            {{#if (gt currentPage 1)}}
+                <li>
+                    <a href="?page={{subtract currentPage 1}}{{#if selectedBedType}}&bedType={{selectedBedType}}{{/if}}">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </a>
+                </li>
+            {{/if}}
+
+            {{#each (range 1 totalPages)}}
+                <li class="{{#if (eq this ../currentPage)}}rp-page-active{{/if}}">
+                    <a href="?page={{this}}{{#if ../selectedBedType}}&bedType={{../selectedBedType}}{{/if}}">{{this}}</a>
+                </li>
+            {{/each}}
+
+            {{#if (lt currentPage totalPages)}}
+                <li>
+                    <a href="?page={{add currentPage 1}}{{#if selectedBedType}}&bedType={{selectedBedType}}{{/if}}">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+
+    </div>
 </div>
 
 <script>
@@ -80,6 +369,3 @@
     }
   });
 </script>
-
-
-

@@ -2,6 +2,7 @@ const Booking = require('../models/Booking');
 const Room = require('../models/Room');
 const User = require('../models/User'); 
 const Service = require('../models/Service');
+const moment = require('moment'); // Import missing moment library
 
 const SURCHARGE_PER_EXTRA_ADULT = 100000;
 const STANDARD_CHECKOUT_HOUR = 12; 
@@ -176,20 +177,77 @@ class BookingController {
   // Check In
   async checkIn(req, res, next) {
         const bookingId = req.params.id;
+        const { fullName, phone, cccd } = req.body;
+
         try {
             const booking = await Booking.findById(bookingId);
             if (!booking || booking.bookingStatus !== 'Confirmed') {
-                return res.redirect('/manage/quan_li_phieuthue?error=NotInConfirmedState');
+                return res.status(400).json({ success: false, message: 'Phiếu thuê không ở trạng thái Xác nhận cọc' });
             }
+
+            if (cccd) {
+                // Kiểm tra trùng lặp CCCD hoặc SĐT
+                let checkQuery = [
+                    { idCard: cccd },
+                    { phone: phone }
+                ];
+
+                const existingUsers = await User.find({ $or: checkQuery });
+
+                for (let user of existingUsers) {
+                    if (booking.userId && user._id.toString() !== booking.userId.toString()) {
+                        if (user.idCard === cccd) {
+                            return res.status(400).json({ success: false, message: 'Số CCCD này đã tồn tại trên một khách hàng khác.' });
+                        }
+                        if (user.phone === phone) {
+                            return res.status(400).json({ success: false, message: 'Số điện thoại này đã tồn tại trên một khách hàng khác.' });
+                        }
+                    }
+                }
+
+                // Cập nhật User hoặc tạo mới
+                if (booking.userId) {
+                     const user = await User.findById(booking.userId);
+                     if (user) {
+                         user.fullName = fullName || user.fullName;
+                         user.phone = phone || user.phone;
+                         user.idCard = cccd;
+                         await user.save();
+                     }
+                } else {
+                    const existingUser = existingUsers[0];
+                    if (existingUser) {
+                        existingUser.idCard = cccd;
+                        await existingUser.save();
+                        booking.userId = existingUser._id;
+                    } else {
+                        const newUser = new User({
+                            fullName: fullName,
+                            phone: phone,
+                            idCard: cccd,
+                            role: 'user'
+                        });
+                        await newUser.save();
+                        booking.userId = newUser._id;
+                    }
+                }
+            }
+
+            // Ghi nhận lại thông tin vào booking
+            if (fullName) booking.customer.fullName = fullName;
+            if (phone) booking.customer.phone = phone;
 
             booking.bookingStatus = 'Checked In';
             booking.actualCheckInTime = new Date();
             await booking.save();
 
-            res.redirect('/manage/quan_li_phieuthue?success=CheckedIn');
+            res.json({ success: true, message: 'CheckedIn' });
         } catch (error) {
             console.error('Lỗi khi check-in:', error);
-            next(error);
+            if (error.code === 11000) {
+                 return res.status(400).json({ success: false, message: 'SĐT hoặc CCCD đã được đăng ký bởi người khác.' });
+            }
+            res.status(500).json({ success: false, message: 'Lỗi server khi check-in' });
         }
     }
 

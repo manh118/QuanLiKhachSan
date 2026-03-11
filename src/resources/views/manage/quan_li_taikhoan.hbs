@@ -17,9 +17,7 @@
                         <tr>
                             <th scope="col">STT</th>
                             <th scope="col">Tên đăng nhập</th>
-                            <th scope="col">Họ và Tên</th>
                             <th scope="col">Số điện thoại</th>
-                            <th scope="col">Email</th>
                             <th scope="col">Vai trò</th>
                             <th scope="col">Thao tác</th>
                         </tr>
@@ -29,9 +27,7 @@
                         <tr>
                             <th scope="row">{{sum @index 1}}</th>
                             <td>{{this.name}}</td>
-                            <td>{{this.fullName}}</td>
                             <td>{{this.phone}}</td>
-                            <td>{{this.email}}</td>
                             <td>
                                 {{!-- Hiển thị vai trò đẹp hơn --}}
                                 {{#if (eqString this.role 'admin')}}
@@ -43,15 +39,9 @@
                                 {{/if}}
                             </td>
                             <td>
-                                {{!-- Nút Sửa (sẽ dẫn đến form sửa bạn làm sau) --}}
-                                <a href="/manage/tai_khoan_quan_tri/{{this._id}}/edit" class="btn btn-sm btn-primary mr-1" title="Sửa thông tin"><i class="fa fa-edit"></i></a>
-
-                                {{!-- Nút Đặt lại mật khẩu (làm sau) --}}
-                                {{!-- <button class="btn btn-sm btn-info mr-1" title="Đặt lại mật khẩu"><i class="fa fa-key"></i></button> --}}
-
-                                {{!-- Nút Xóa (cần form và xác nhận) --}}
-                                {{!-- Chỉ cho xóa nếu không phải tài khoản admin cuối cùng --}}
-                                <form action="/manage/tai_khoan_quan_tri/{{this._id}}?_method=DELETE" method="POST" style="display: inline-block;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản {{this.name}} không?');">
+                                <a href="/manage/quan_li_taikhoan/crud/{{this._id}}/edit" class="btn btn-sm btn-primary mr-1" title="Sửa thông tin"><i class="fa fa-edit"></i></a>
+                    
+                                <form action="/manage/quan_li_taikhoan/crud/{{this._id}}?_method=DELETE" method="POST" style="display: inline-block;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản {{this.name}} không?');">
                                      <button type="submit" class="btn btn-sm btn-danger" title="Xóa tài khoản"><i class="fa fa-trash"></i></button>
                                 </form>
                             </td>
