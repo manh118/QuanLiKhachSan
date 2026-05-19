@@ -1,287 +1,373 @@
-@use 'variables' as v;
 
-.huy_pd{
-    padding: 0;
+// ============================================
+// Home Page Styles
+// ============================================
+
+.huy_pd { padding: 0; }
+.huy_mg { margin: 0; }
+
+.Bao {
+  margin-top: $spacing-3xl;
+  
+  &:first-child {
+    margin-top: $spacing-2xl;
+  }
 }
 
-.huy_mg{
-    margin: 0;
+.den { color: $gray-800; }
+
+.mg-50 { margin-top: $spacing-2xl; }
+
+// --- Introduce Section ---
+.introduce {
+  align-items: center;
 }
 
-.Bao{
-    margin-top: 100px;
+.introduce__img, .introduce__img_2 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: $radius-lg;
 }
 
-.den{
-    color: v.$black-color;
-}
-
-.mg-50{
-    margin-top: 50px;
-}
-
-.introduce__img, .introduce__img_2{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease-in-out;
-    
-}
-
-.introduce__img:hover, .introduce__img_2:hover{
-    transform: scale(1.05);
+.introduce__img:hover, .introduce__img_2:hover {
+  transform: scale(1.05);
 }
 
 .bo_goc {
-  width: 265px;           
-  height: 190px;         
+  width: 265px;
+  height: 190px;
   overflow: hidden;
-  border-radius: 5px;
+  border-radius: $radius-lg;
   margin: 0 0 0 14px;
+  box-shadow: $shadow-md;
 }
 
 .bo_goc_2 {
-  width: 265px;           
-  height: 390px;         
+  width: 265px;
+  height: 390px;
   overflow: hidden;
-  border-radius: 5px;
+  border-radius: $radius-lg;
   margin-left: 5px;
+  box-shadow: $shadow-md;
 }
 
-.introduce__title_mini{
-    font-size: 1.8rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-    color: #0bb4a1;
-    letter-spacing: 2px;
+.introduce__title_mini {
+  font-family: $font-primary;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: $spacing-xs;
+  color: $primary-500;
+  letter-spacing: 3px;
 }
 
-.introduce__title{
-    font-size: 3.8rem;
-    text-transform: uppercase;
-    margin-bottom: 28px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
+.introduce__title {
+  font-family: $font-display;
+  font-size: $font-size-3xl;
+  text-transform: uppercase;
+  margin-bottom: $spacing-lg;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: $gray-800;
+  line-height: 1.2;
 }
 
-.introduce__description{
-    font-size: 1.8rem;
-    text-align: justify;
-    line-height: 3.2rem;
-    color: rgb(99, 106, 118);
+.introduce__description {
+  font-size: $font-size-md;
+  text-align: justify;
+  line-height: 1.8;
+  color: $gray-500;
 }
 
-.introduce__btn{
-    margin-top: 18px;
-    font-size: 1.6rem;
-    padding: 6px 20px;
+.introduce__btn {
+  margin-top: $spacing-lg;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  padding: 10px 28px;
+  background-color: $primary-500;
+  color: $white-color;
+  border: 2px solid $primary-500;
+  border-radius: $radius-md;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all $transition-base;
+
+  &:hover {
+    background-color: transparent;
+    color: $primary-500;
+    border-color: $primary-500;
+  }
 }
 
-//phong nghi
-
-.PhongNghi_gt{
-    text-align: center;
+// --- Phòng Nghỉ Section ---
+.PhongNghi_gt {
+  text-align: center;
 }
 
-.phongnghi-mt{
-    margin-top: 50px;
+.phongnghi-mt {
+  margin-top: 50px;
 }
 
-.PhongNghi__tieude{
-    font-weight: 500;
-    font-size: 1.8rem;
-    text-transform: uppercase;
-     color: #0bb4a1;
+.PhongNghi__tieude {
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: $font-size-sm;
+  text-transform: uppercase;
+  color: $primary-500;
+  letter-spacing: 3px;
 }
 
-.PhongNghi__mota{
-    margin-top: 5px;
-    font-weight: 500;
-    font-size: 3.2rem;
-    text-transform: uppercase;
-    color: #14404a;
+.PhongNghi__mota {
+  margin-top: $spacing-xs;
+  font-family: $font-display;
+  font-weight: 700;
+  font-size: $font-size-2xl;
+  text-transform: uppercase;
+  color: $gray-800;
 }
 
-.PhongNghi__slide{
-    margin-top: 65px;
-    box-shadow: 0 1px 20px #888888;
-    height: 400px;
-    border-radius: 5px;
+.PhongNghi__slide {
+  margin-top: $spacing-2xl;
+  box-shadow: $shadow-xl;
+  height: 400px;
+  border-radius: $radius-lg;
+  overflow: hidden;
 }
 
-.PhongNghi__title_mini{
-    font-size: 2.6rem;
-    text-transform: uppercase;
-    font-weight: 300;
+.PhongNghi__title_mini {
+  font-family: $font-display;
+  font-size: $font-size-xl;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: $gray-600;
 }
 
-.PhongNghi__title{
-    font-size: 1.8rem;
-    font-weight: 500;
-    margin-top: 10px;
-    margin-bottom: 10px;
+.PhongNghi__title {
+  font-size: $font-size-md;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: $gray-700;
 }
 
-.PhongNghi__description{
-    margin-top: 30px;
-    padding: 0 20px;
-    font-size: 1.6rem;
+.PhongNghi__description {
+  margin-top: $spacing-lg;
+  padding: 0 20px;
+  font-size: $font-size-base;
+  color: $gray-500;
+  line-height: 1.7;
 }
 
-.PhongNghi__img{
-    height: 400px;
-    border-radius: 5px;
-}
-
-.PhongNghi__btn{
-    margin-top: 30px;
-    font-size: 1.6rem;
-    padding: 6px 20px;
+.PhongNghi__img {
+  height: 400px;
+  border-radius: $radius-lg;
+  object-fit: cover;
 }
 
 .carousel-control-prev {
-  left: -130px; /* Di chuyển sang trái */
+  left: -130px;
 }
 
 .carousel-control-next {
-  right: -130px; /* Di chuyển sang phải */
+  right: -130px;
 }
 
-.PhongNghi__slide__icon{
-    color: v.$black-color;
-    font-size: 3rem;
+.PhongNghi__slide__icon {
+  color: $gray-800;
+  font-size: 3rem;
 }
 
-//dich vu
+.PhongNghi__btn {
+  margin-top: $spacing-lg;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  padding: 10px 28px;
+  background-color: $primary-500;
+  border: 2px solid $primary-500;
+  color: $white-color;
+  border-radius: $radius-md;
+  transition: all $transition-base;
 
-.home_gt_dichvu{
-    display: block;
-    position: relative;
-    
+  &:hover {
+    background-color: transparent;
+    color: $primary-500;
+  }
 }
 
-.home_gt_dichvu__img{
-    width: 350px;
-    height: 420px;
-    filter: brightness(80%);
-    border-radius: 3px;    
-    object-fit: cover; 
+.PhongNghi__slide__icon {
+  color: $gray-700;
+  font-size: 2.4rem;
 }
 
-.home_gt_dichvu__ten{
-    position: absolute;
-    bottom: 20px;
-    font-size: 2.8rem;
-    color: #ffffff;
-    width: 100%;
-    text-align: center;
-    font-weight: 600;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+// --- Dịch vụ Section ---
+.home_gt_dichvu {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+  transition: transform $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: $shadow-xl;
+
+    .home_gt_dichvu__img {
+      transform: scale(1.08);
+      filter: brightness(65%);
+    }
+  }
 }
 
-
-// tin tuc
-
-.home__gt__tintuc__img{
-    width: 35rem;
-    height: 24rem;
-    border-radius: 3px;
+.home_gt_dichvu__img {
+  width: 100%;
+  height: 420px;
+  filter: brightness(75%);
+  border-radius: $radius-lg;
+  object-fit: cover;
+  transition: all 0.5s ease;
 }
 
-.home__gt__tintuc__content{
-    margin-top: 20px;
+.home_gt_dichvu__ten {
+  position: absolute;
+  bottom: 24px;
+  font-size: $font-size-xl;
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
 }
 
-.home__gt__tintuc__time{
-    font-size: 1.6rem;
-    color: #afb4bf;
+// --- Tin Tức Section ---
+.home__gt__tintuc {
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  transition: all $transition-base;
+  background: $white-color;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-xl;
+  }
 }
 
-.home__gt__tintuc__time_1{
-    font-size: 1.6rem;
-    color: v.$chudao;
-    margin-left: 32px;
-    font-weight: 500;
+.home__gt__tintuc__img {
+  width: 100%;
+  height: 24rem;
+  object-fit: cover;
 }
 
-.home__gt__tintuc__tieude{
-    font-size: 2.1rem;
-    text-transform: uppercase;
-    font-weight: 500;
-    color: #14404a;
+.home__gt__tintuc__content {
+  padding: $spacing-md;
 }
 
-.home__gt__tintuc__mota{
-    margin-top: 20px;
-    font-size: 1.6rem;
-    color: v.$text;
+.home__gt__tintuc__time {
+  font-size: $font-size-xs;
+  color: $gray-400;
 }
 
-.home__gt__tintuc__price{
-    font-size: 1.6rem;
-    color: v.$text;
+.home__gt__tintuc__time_1 {
+  font-size: $font-size-xs;
+  color: $primary-500;
+  margin-left: $spacing-md;
+  font-weight: 600;
 }
 
-.home__gt__tintuc__btn{
-    margin-top: 40px;
-    width: 13.5rem;
-    height: 3.7rem;
-    font-size: 1.6rem;
-    background-color: v.$btn;
-    color: v.$white-color;
+.home__gt__tintuc__tieude {
+  font-size: $font-size-lg;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: $gray-800;
+  margin-top: $spacing-sm;
 }
 
-.home__gt__tintuc__icon{
-    position: relative;
-    right: -4px;
-    top: 2px
+.home__gt__tintuc__mota {
+  margin-top: $spacing-sm;
+  font-size: $font-size-base;
+  color: $gray-500;
+  line-height: 1.6;
 }
 
-// thu vien
+.home__gt__tintuc__price {
+  font-size: $font-size-base;
+  color: $primary-600;
+  font-weight: 600;
+  margin-top: $spacing-sm;
+}
+
+.home__gt__tintuc__btn {
+  margin-top: $spacing-md;
+  font-size: $font-size-sm;
+  background-color: $primary-500;
+  color: $white-color;
+  border-radius: $radius-md;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: all $transition-fast;
+
+  &:hover {
+    background-color: $primary-600;
+    color: $white-color;
+  }
+}
+
+.home__gt__tintuc__icon {
+  position: relative;
+  right: -4px;
+  top: 2px;
+}
+
+// --- Thư Viện Ảnh ---
 .thuvien__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: $radius-md;
   display: block;
+  transition: transform 0.5s ease;
+
+  &:hover {
+    transform: scale(1.03);
+  }
 }
 
 .img3-wrapper {
-  height: 50%;          
-  overflow: hidden;     /* Ẩn phần ảnh tràn */
+  height: 50%;
+  overflow: hidden;
   position: relative;
+  border-radius: $radius-md;
 }
 
-.row_285{
+.row_285 {
   height: 370px;
   display: flex;
   flex-direction: column;
-  gap: 16px; /* khoảng cách giữa 2 hàng */
+  gap: 16px;
 }
 
-.thuvien__btn{
-    margin-top: 18px;
-    font-size: 1.6rem;
-    padding: 6px 20px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 4px;
-    margin-top: 30px;
-    background-color: v.$chudao;
-    color: v.$white-color;
+.thuvien__btn {
+  font-size: $font-size-sm;
+  font-weight: 600;
+  padding: 10px 28px;
+  margin: 30px auto 80px auto;
+  border-radius: $radius-md;
+  background-color: $primary-500;
+  color: $white-color;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all $transition-base;
+
+  &:hover {
+    background-color: $primary-600;
+  }
 }
 
-.btn:hover{
-    color: #ffffff;
-    filter: brightness(90%);
+.btn:hover {
+  color: #ffffff;
+  filter: brightness(95%);
 }
-
-
-
-
-
-
-
-
-

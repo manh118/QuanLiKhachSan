@@ -1,26 +1,29 @@
-.slide_hbs_phu{
-    margin: 0;
-    padding: 0;
-    position: relative;
-    height: 350px;
-    background: 
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), /* lớp phủ mờ */
-        url('/img/slide_phu.jpg') top center / cover no-repeat;
+﻿
+// ============================================
+// Sub-page Hero Slide (About, etc.)
+// ============================================
+.slide_hbs_phu {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $secondary-700, $primary-700);
 }
 
-.slide_hbs_phu .slide__content_phu{
-    position: absolute;
-    bottom: 150px;
-    color: #fff;   
-}
+.slide__content_phu {
+  position: relative;
+  z-index: 2;
+  text-align: center;
 
-.slide__content_phu{
-    width: 100%;
-    text-align: center;
-}
-
-.slide__content_phu .text__des{
-    text-shadow: 0 0px 2px rgba(255, 255, 255, 0.6);
-    font-size: 6rem;
+  .text__des {
+    font-family: $font-display;
+    font-size: $font-size-3xl;
+    font-weight: 700;
+    color: $white-color;
     text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  }
 }

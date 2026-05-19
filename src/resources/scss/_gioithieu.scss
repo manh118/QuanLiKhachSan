@@ -1,38 +1,58 @@
-@use 'variables' as v;
+﻿
+// ============================================
+// Giới thiệu (About) Page
+// ============================================
+.GioiThieu__titile {
+  font-family: $font-display;
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  color: $gray-800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.3;
+  margin-bottom: $spacing-lg;
+  position: relative;
+  padding-bottom: $spacing-md;
 
-.GioiThieu__titile{
-    font-size: 2.5rem;
-    line-height: 31px;
-    font-weight: 700;
-    text-align: justify;
-    color: rgb(203, 190, 115);
-    
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: $primary-500;
+    border-radius: $radius-full;
+  }
 }
 
-.GioiThieu__des{
-    margin-top: 18px;
-    font-size: 1.6rem;
-    text-align: justify;
-    color: rgb(40, 40, 40);
+.GioiThieu__des {
+  font-size: $font-size-base;
+  line-height: 1.8;
+  color: $gray-600;
+  margin-bottom: $spacing-md;
+  text-align: justify;
 }
 
 .GioiThieu__img {
-  width: 100%;         /* hoặc một giá trị cụ thể như 600px */
-  max-width: 100%;     /* không cho tràn chiều ngang */
-  overflow: hidden;    /* ẩn phần tràn nếu có */
-  
-}
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-md;
 
-.GioiThieu__img img {
-  width: 100%;         /* ảnh tự co giãn theo khung */
-  height: 480px;        /* giữ nguyên tỉ lệ ảnh */
-  display: block;      /* loại bỏ khoảng trắng dưới ảnh */
-  object-fit: cover;   /* nếu muốn cắt ảnh vừa khung */
-}
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
 
-.GioiThieu__img .img2{
-  width: 100%;         
-  height: 200px;       
-  display: block;      
-  object-fit: cover;
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+
+  .img2 {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
 }

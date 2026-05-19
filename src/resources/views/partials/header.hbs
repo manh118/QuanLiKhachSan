@@ -12,7 +12,7 @@
       <ul class="contact__list">
         <li class="contact__item">
           <a href="" class="contact__icon-link mr-3"><i class="fa-solid fa-phone mr-3"></i>0983230945</a>
-          <a href="" class="contact__icon-link"><i class="fa-solid fa-envelope mr-3"></i>anbinh.hanoi@gmail.com</a>
+          <a href="" class="contact__icon-link"><i class="fa-solid fa-envelope mr-3"></i>20hotel@gmail.com</a>
         </li>
       </ul>
     </div>
@@ -23,7 +23,7 @@
     <div class="navbar">
       <ul class="navbar_list">
         <li>
-          <a class="navbar_item" href="/">
+          <a class="navbar_item no-hover" href="/">
             <img class="logo" src="/img/logo.png" alt="">
           </a>
         </li>
@@ -55,8 +55,8 @@
         
         <li class="navbar__taikhoan"> {{!-- Bạn sẽ cần thêm CSS cho class này --}}
             {{!-- Hiển thị tên người dùng --}}
-            <a class="navbar_item Huy_padding" style="cursor: pointer;">
-                <i class="fa-solid fa-user mr-3"></i>{{username}}
+            <a class="navbar_item Huy_padding no-hover" style="cursor: pointer;">
+                <i class="fa-solid fa-user mr-2"></i>{{username}}
             </a>
             
             <ul class="navbar__hangphong__list">
@@ -86,8 +86,8 @@
     {{else}}
         {{!-- NẾU CHƯA ĐĂNG NHẬP --}}
         <li>
-            <a href="/account/login" class="navbar_item Huy_padding">
-                <i class="fa-solid fa-user mr-3"></i>Tài khoản
+            <a href="/account/login" class="navbar_item">
+                <i class="fa-solid fa-user mr-2"></i>Tài khoản
             </a>
         </li>
     {{/if}}

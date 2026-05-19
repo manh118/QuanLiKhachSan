@@ -1,94 +1,112 @@
-@use 'variables' as v;
-
-.form__login{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 50px 100px;
+﻿
+// ============================================
+// Login / Register Pages
+// ============================================
+.form__login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: $spacing-2xl 0;
 }
 
-.form__login__lable{
-    font-size: 2.6rem;
+.form__login__body,
+.form__regis__body {
+  width: 420px;
+  padding: $spacing-2xl;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: $radius-xl;
+  box-shadow: $shadow-2xl;
 }
 
-.form__login__btn{ 
-    font-size:1.6rem;
-    background-color: v.$btn;
-    color: #fff;
-    padding: 5px 20px;
-    border-radius: 20px;
-    margin-top: 20px;
+.form__login__title {
+  font-family: $font-display;
+  font-size: $font-size-2xl;
+  font-weight: 700;
+  text-align: center;
+  color: $gray-800;
+  margin-bottom: $spacing-lg;
 }
 
-.form__login__body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 360px;
-    height: 400px;
-    border: 1px solid #ccc;
+.form__login__input {
+  margin-bottom: $spacing-md;
 }
 
-.form__login__title{
-    font-size: 2.6rem;
-    margin-top: 30px;
+.form__login__input-1 {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: $font-size-base;
+  font-family: $font-primary;
+  border: 1.5px solid $gray-200;
+  border-radius: $radius-md;
+  background-color: rgba(249, 250, 251, 0.8);
+  color: $gray-800;
+  transition: all $transition-fast;
+  outline: none;
+
+  &::placeholder {
+    color: $gray-400;
+  }
+
+  &:focus {
+    border-color: $primary-500;
+    background-color: $white-color;
+    box-shadow: 0 0 0 3px rgba($primary-500, 0.15);
+  }
 }
 
-.form__login__input{
-    text-align: center;
-    width: 100%;
-    padding: 10px 0;
+.form__login__btn,
+.form__regis__btn {
+  width: 100%;
+  padding: 12px;
+  font-size: $font-size-md;
+  font-weight: 700;
+  font-family: $font-primary;
+  background: linear-gradient(135deg, $primary-500, $primary-600);
+  color: $white-color;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all $transition-base;
+  margin-top: $spacing-sm;
+
+  &:hover {
+    background: linear-gradient(135deg, $primary-600, $primary-700);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba($primary-500, 0.35);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 }
 
-.form__login__input-1{
-    width: 80%;
-    font-size: 1.6rem;
-    padding: 4px 8px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
+.regis {
+  text-align: center;
+  margin-top: $spacing-md;
+  font-size: $font-size-sm;
+  color: $gray-500;
 
-.form__login .regis{
-    margin-top: 30px;
-    font-size: 1.2rem;
-    color: rgba(0,0,0,0.6);
-}
-
-.form__login .regis a{
-    color: v.$btn;
+  a {
+    color: $primary-500;
     font-weight: 600;
+    transition: color $transition-fast;
 
-}
-
-.form__login .regis a:hover{
-    color: v.$btn;
-    cursor: pointer;
-}
-
-.form__regis__body { // Dành cho form ĐĂNG KÝ
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 360px;
-    border: 1px solid #ccc;
-    height: auto;
-    padding-bottom: 30px; 
+    &:hover {
+      color: $primary-600;
+      text-decoration: underline;
+    }
+  }
 }
 
 #regis-error {
-    color: red;
-    height: 10px; /* Dành sẵn 20px chiều cao để layout không bị "nhảy" */
-    font-size: 1.4rem;
-    text-align: center;
-    margin-top: 5px;
+  color: $danger;
+  font-size: $font-size-sm;
+  text-align: center;
+  margin-top: $spacing-sm;
 }
-
-.form__regis__btn{ 
-    font-size:1.6rem;
-    background-color: v.$btn;
-    color: #fff;
-    padding: 5px 20px;
-    border-radius: 20px;
-    margin-top: 10px;
-}
-

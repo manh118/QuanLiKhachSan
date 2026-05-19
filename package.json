@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon --inspect src/index.js",
-    "watch": "sass src/resources/scss:src/public/css --watch",
+    "watch": "npx sass src/resources/scss/main.scss src/public/css/main.css --watch --no-source-map",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,8 +23,10 @@
   "homepage": "https://github.com/manh118/nodejs_blog#readme",
   "description": "",
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
+    "dotenv": "^17.4.2",
     "express": "^5.1.0",
     "express-handlebars": "^8.0.3",
     "express-session": "^1.18.1",

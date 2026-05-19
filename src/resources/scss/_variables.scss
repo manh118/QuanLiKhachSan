@@ -1,10 +1,109 @@
-$red-color: red;
+﻿// ============================================
+// 20Hotel Design System - Variables
+// ============================================
+
+// --- Color Palette ---
+// Primary: Teal/Emerald tone
+$primary-50: #e6faf7;
+$primary-100: #b3f0e8;
+$primary-200: #80e6d9;
+$primary-300: #4ddcca;
+$primary-400: #26d4be;
+$primary-500: #0bb4a1; // Main brand color
+$primary-600: #099e8e;
+$primary-700: #07877a;
+$primary-800: #056f65;
+$primary-900: #034a43;
+
+// Secondary: Deep teal
+$secondary-500: #046056;
+$secondary-600: #034d45;
+$secondary-700: #023a34;
+
+// Accent: Gold/Amber
+$accent-400: #fbbf24;
+$accent-500: #f59e0b;
+$accent-600: #d97706;
+
+// Neutrals
+$gray-50: #f9fafb;
+$gray-100: #f3f4f6;
+$gray-200: #e5e7eb;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-700: #374151;
+$gray-800: #1f2937;
+$gray-900: #111827;
+
+// Semantic colors
+$success: #10b981;
+$warning: #f59e0b;
+$danger: #ef4444;
+$info: #3b82f6;
+
+// Legacy aliases (backward compatibility)
+$red-color: $danger;
 $white-color: #fff;
-$black-color: #000;
-$chudao: #0bb4a1;
-$text: #636a76;
-$btn: #046056;
-$btn_quanli:rgb(0, 112, 244);
+$black-color: $gray-900;
+$chudao: $primary-500;
+$text: $gray-500;
+$btn: $secondary-500;
+$btn_quanli: $info;
 
+// --- Typography ---
+$font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-display: 'Playfair Display', 'Georgia', serif;
 
+$font-size-xs: 1.1rem;
+$font-size-sm: 1.2rem;
+$font-size-base: 1.4rem;
+$font-size-md: 1.6rem;
+$font-size-lg: 1.8rem;
+$font-size-xl: 2.2rem;
+$font-size-2xl: 2.8rem;
+$font-size-3xl: 3.6rem;
+$font-size-4xl: 4.8rem;
 
+// --- Spacing ---
+$spacing-xs: 0.4rem;
+$spacing-sm: 0.8rem;
+$spacing-md: 1.6rem;
+$spacing-lg: 2.4rem;
+$spacing-xl: 3.2rem;
+$spacing-2xl: 4.8rem;
+$spacing-3xl: 6.4rem;
+
+// --- Border Radius ---
+$radius-sm: 0.4rem;
+$radius-md: 0.8rem;
+$radius-lg: 1.2rem;
+$radius-xl: 1.6rem;
+$radius-2xl: 2.4rem;
+$radius-full: 9999px;
+
+// --- Shadows ---
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+$shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+// --- Transitions ---
+$transition-fast: 150ms ease;
+$transition-base: 250ms ease;
+$transition-slow: 350ms ease;
+
+// --- Z-index ---
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-modal-backdrop: 300;
+$z-modal: 400;
+$z-toast: 500;
+
+// --- Breakpoints ---
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;

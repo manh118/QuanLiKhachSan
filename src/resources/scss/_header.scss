@@ -1,246 +1,286 @@
-@use 'variables' as v;
 
-*{
-    box-sizing: inherit;
+// ============================================
+// Header - Top Bar
+// ============================================
+.header-1 {
+  color: $white-color;
+  background: linear-gradient(135deg, $secondary-700, $secondary-500);
+  font-size: 1.3rem;
+  height: 42px;
+  letter-spacing: 0.3px;
 }
 
-html {
-    font-size: 62.5%;
-    line-height: 1.6rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-sizing: border-box;
+.contact {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.logo{
-    width: 15rem;
-    position: relative;
-    left: -10px;
+.contact__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
 }
 
-.header-1{
-    color: v.$white-color;
-    background-color: #046056;
-    font-size: 2rem;
-    height: 50px;
-}
-
-.contact{
-    height: 100%;    
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.contact__list{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-}
-
-.contact__item{
-    padding: 0;
-    list-style: none;
+.contact__item {
+  padding: 0;
+  list-style: none;
+  font-weight: 400;
 }
 
 .contact__item-separate {
-    position: relative; 
+  position: relative;
 }
 
-.contact__item-separate::after{
-    display: block;
-    content: "";
+.contact__item-separate::after {
+  display: block;
+  content: "";
+  position: absolute;
+  background-color: rgba(255,255,255,0.3);
+  width: 1px;
+  height: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -8px;
+}
+
+.contact__icon-link {
+  color: $white-color;
+  padding: 0 4px;
+  transition: all $transition-fast;
+  opacity: 0.9;
+}
+
+.contact__icon-link:hover {
+  color: $accent-400;
+  text-decoration: none;
+  opacity: 1;
+}
+
+// ============================================
+// Header - Main Navigation
+// ============================================
+.logo {
+  width: 13rem;
+  position: relative;
+  left: -10px;
+  transition: transform $transition-base;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.header {
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.98);
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-sticky;
+  border-bottom: 1px solid $gray-200;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all $transition-base;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.container {
+  height: 100%;
+}
+
+.navbar {
+  height: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar_list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar_item {
+  font-family: $font-primary;
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: $gray-700;
+  padding: 0 14px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color $transition-fast;
+
+  &::after {
+    content: '';
     position: absolute;
-    background-color: #fff;
-    width: 1px;
-    height: 18px;
-    top: 8px;
-    right: -8px;
+    bottom: 12px;
+    left: 14px;
+    right: 14px;
+    height: 2px;
+    background-color: $primary-500;
+    transform: scaleX(0);
+    transition: transform $transition-base;
+    transform-origin: center;
+  }
 
-}
-
-.contact__icon-link{
-    color: v.$white-color;
-    padding: 0 3px;
-}
-
-
-.contact__icon-link:hover{
-    color: rgba(255,255,255,0.6);
-    text-decoration: none;
-}
-
-.header{
-    height: 90px;
-    background-color: #fff;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    border-bottom: 1px solid hsla(0, 3%, 8%, 0.486);
-}
-
-.container{
-    height: 100%;
-}
-
-.navbar{
-    height: 100%;
-    padding: 0;
-    display: flex;
-    justify-content: space-between;
-}
-
-.navbar_list{
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    align-items: center;
-}
-
-.navbar_item{
-    font-weight: 600;
-    font-size: 1.8rem;
-    color: black;
-    padding: 0 12px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    height: 60px;
-}
-
-.navbar_item.Huy_padding{
-    padding-right: 0;
-}
-
-.navbar_item:hover{
+  &:not(.no-hover):hover {
     cursor: pointer;
-    color: rgb(8, 90, 26);
+    color: $primary-500;
     text-decoration: none;
-}
 
-.navbar__dichvu{
-    position: relative;}
-
-
-.navbar__hangphong{
-    position: relative;
-}
-
-.navbar__hangphong__list{
-    position: absolute;
-    // top: calc(100% + 15px);
-    top:100%;
-    left: -5px;
-    width: 170px;
-    padding: 0;
-    background-color: v.$white-color;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-    z-index: 1;
-    display: none;
-    animation: hangphong ease-in 0.15s;
-    will-change: hangphong;
-}
-
-.navbar__dichvu__list{
-    position: absolute;
-    top: calc(100% + 14px);
-    left: -5px;
-    width: 200px;
-    padding: 0;
-    background-color: v.$white-color;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.6);
-    z-index: 1;
-    display: none;
-    animation: hangphong ease-in 0.15s;
-    will-change: hangphong;
-}
-
-@keyframes hangphong {
-    from{
-        transform: translateY(8px);
-    }to{
-        transform: translateY(0);
+    &::after {
+      transform: scaleX(1);
     }
+  }
+
+  &.no-hover {
+    &::after {
+      display: none;
+    }
+  }
 }
 
-.navbar__hangphong::after{
-    cursor: pointer;
-    content: "";
-    display: block;
-    position: absolute;
-    width: 130px;
-    height: 15px;
-    background-color: transparent;
-    bottom: 0;
-    left: 10px;
+.navbar_item.Huy_padding {
+  padding-right: 0;
 }
 
-.navbar__dichvu::after{
-    cursor: pointer;
-    content: "";
-    display: block;
-    position: absolute;
-    width: 130px;
-    height: 35px;
-    background-color: transparent;
-    bottom: -32px;
-    left: 10px;
+// ============================================
+// Dropdown Menus
+// ============================================
+.navbar__dichvu {
+  position: relative;
 }
 
-.navbar__hangphong__item__link{
-    list-style: none;
+.navbar__hangphong {
+  position: relative;
 }
 
-.navbar__hangphong__item__link a{
-    font-size: 1.6rem;
-    padding: 8px 20px;
-    display: block;
-    color: #000;
-    text-decoration: none;
-    
+.navbar__hangphong__list {
+  position: absolute;
+  top: 100%;
+  left: -5px;
+  min-width: 200px;
+  padding: $spacing-xs 0;
+  background-color: $white-color;
+  box-shadow: $shadow-lg;
+  border: 1px solid $gray-100;
+  border-radius: $radius-md;
+  z-index: $z-dropdown;
+  display: none;
+  animation: dropdownFade ease-out 0.2s;
 }
 
-.navbar__hangphong__item__link a:hover{
-    cursor: pointer;
-    color: #fff;
-    background-color: rgb(8, 90, 26);
+.navbar__dichvu__list {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: -5px;
+  min-width: 220px;
+  padding: $spacing-xs 0;
+  background-color: $white-color;
+  box-shadow: $shadow-lg;
+  border: 1px solid $gray-100;
+  border-radius: $radius-md;
+  z-index: $z-dropdown;
+  display: none;
+  animation: dropdownFade ease-out 0.2s;
 }
 
-.navbar__hangphong:hover .navbar__hangphong__list{
-    display: block;
-
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.navbar__dichvu:hover .navbar__dichvu__list{
-    display: block;
+.navbar__hangphong::after {
+  cursor: pointer;
+  content: "";
+  display: block;
+  position: absolute;
+  width: 130px;
+  height: 15px;
+  background-color: transparent;
+  bottom: 0;
+  left: 10px;
 }
 
+.navbar__dichvu::after {
+  cursor: pointer;
+  content: "";
+  display: block;
+  position: absolute;
+  width: 130px;
+  height: 35px;
+  background-color: transparent;
+  bottom: -32px;
+  left: 10px;
+}
+
+.navbar__hangphong__item__link {
+  list-style: none;
+}
+
+.navbar__hangphong__item__link a {
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  display: block;
+  color: $gray-700;
+  text-decoration: none;
+  transition: all $transition-fast;
+}
+
+.navbar__hangphong__item__link a:hover {
+  cursor: pointer;
+  color: $white-color;
+  background-color: $primary-500;
+}
+
+.navbar__hangphong:hover .navbar__hangphong__list {
+  display: block;
+}
+
+.navbar__dichvu:hover .navbar__dichvu__list {
+  display: block;
+}
+
+// ============================================
+// User Account Dropdown
+// ============================================
 .navbar__taikhoan {
-  position: relative; 
+  position: relative;
 }
 
-/* 2. Ẩn và định vị cho menu dropdown (ul con) */
 .navbar__taikhoan .navbar__hangphong__list {
   position: absolute;
-  top: 100%; 
-  left: 0;
-  display: none; 
+  top: 100%;
+  right: 0;
+  left: auto;
+  display: none;
   background-color: #fff;
-  border: 1px solid #eee;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.6);
-  z-index: 10;
-  width: 200px; 
+  border: 1px solid $gray-100;
+  box-shadow: $shadow-lg;
+  border-radius: $radius-md;
+  z-index: $z-dropdown;
+  min-width: 200px;
 }
 
 .navbar__taikhoan:hover .navbar__hangphong__list {
-  display: block; 
+  display: block;
 }
-
-
-
-
-

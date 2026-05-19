@@ -1,13 +1,16 @@
-@use '../variables' as v;
-
+﻿
+// ============================================
+// Admin Panel - Body / Content Area
+// ============================================
 .chinh {
   padding: 6px 0;
   display: inline;
 }
 
 .manage_body {
-  background-color: #f7f8f9;
+  background-color: $gray-50;
   min-height: 100vh;
+  font-family: $font-primary;
 }
 
 .manage_crud {
@@ -18,13 +21,19 @@
   height: 70vh;
 }
 
+// --- Page titles ---
 .Mangage_title {
-  font-size: 3rem;
-  margin-bottom: 30px;
+  font-family: $font-primary;
+  font-size: $font-size-xl;
+  font-weight: 700;
+  color: $gray-800;
+  margin-bottom: $spacing-lg;
 }
 
 .Mangage_label {
-  font-size: 1.6rem;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: $gray-600;
 }
 
 .Mangage_input {
@@ -37,82 +46,142 @@
 }
 
 .Mangage_btn {
-  font-size: 1.6rem;
-  margin-left: auto;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: $radius-md;
+  transition: all $transition-fast;
 }
 
+// --- Main content area ---
 .form_quanliphong {
-  margin: 40px 30px;
+  margin: $spacing-lg $spacing-xl;
+  background-color: $white-color;
+  padding: $spacing-xl;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
 }
 
 .form_quanliphong h2 {
-  font-size: 3rem;
+  font-size: $font-size-xl;
+  font-weight: 700;
   text-transform: uppercase;
+  color: $gray-800;
 }
 
 .nowrap {
   white-space: nowrap;
   display: flex;
-  align-items: center; /* Căn trái theo chiều ngang, hoặc center nếu muốn */
-  height: 138px; /* Chiều cao tùy chỉnh ô, để thấy hiệu quả căn giữa */
+  align-items: center;
+  height: 138px;
   gap: 5px;
 }
 
-.form-check {
-}
-
+// --- Tables ---
 .table {
+  font-size: $font-size-sm;
   background-color: #fff;
-  box-shadow: 0 0 2px #ccc;
+  border-radius: $radius-md;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+
+  th {
+    background-color: $gray-50;
+    font-weight: 600;
+    color: $gray-700;
+    border-bottom: 2px solid $gray-200;
+    padding: 12px 16px;
+    font-size: $font-size-xs;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    padding: 10px 16px;
+    color: $gray-600;
+    border-bottom: 1px solid $gray-100;
+    vertical-align: middle;
+  }
+
+  tr:hover td {
+    background-color: $gray-50;
+  }
 }
 
+.table.mt-4 th,
+.table.mt-4 td {
+  padding: 7.5px 25px;
+}
+
+// --- Search ---
 .form__sreach {
   width: 238px;
   margin-left: 14px;
-  margin-top: 47px;
+  margin-top: $spacing-2xl;
   background-color: #fff;
-  padding: 10px 12px;
-  font-size: 1.6rem;
-  box-shadow: 0 0 2px #ccc;
+  padding: $spacing-md;
+  font-size: $font-size-base;
+  box-shadow: $shadow-sm;
+  border-radius: $radius-md;
 }
 
 .lable__search {
   margin-left: 5px;
+  font-weight: 500;
+  color: $gray-600;
+  font-size: $font-size-sm;
 }
 
 .input__serach {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 5px 10px;
+  border: 1.5px solid $gray-200;
+  border-radius: $radius-md;
+  padding: 8px 12px;
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: $spacing-md;
+  font-size: $font-size-sm;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-500;
+    box-shadow: 0 0 0 3px rgba($primary-500, 0.1);
+  }
 }
 
 .form__sreach__btn {
-  font-size: 1.6rem;
-  margin-top: 10px;
+  font-size: $font-size-sm;
+  font-weight: 600;
   margin-left: auto;
   margin-right: auto;
   display: block;
-  margin-top: 15px;
+  margin-top: $spacing-md;
 }
 
+// --- Action buttons ---
 .form_quanliphong__btn__them {
   margin-left: auto;
-  // margin-right: 35px;
-  padding: 5px 10px;
-  background-color: v.$btn_quanli;
+  padding: 8px 18px;
+  background-color: $primary-500;
   color: #fff;
-  border-radius: 5px;
-  font-size: 1.6rem;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  border: none;
+  transition: all $transition-fast;
+
+  &:hover {
+    background-color: $primary-600;
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+  }
 }
 
 .btn-link {
-  font-size: 1.6rem;
+  font-size: $font-size-sm;
 }
 
 .form-check-label {
-  font-size: 1.6rem;
+  font-size: $font-size-sm;
   margin-left: 5px;
 }
 
@@ -136,23 +205,18 @@
 .disabled {
   pointer-events: none;
   cursor: default;
+  opacity: 0.6;
 }
 
-.table {
-  font-size: 1.6rem;
+.form_quanliphong button {
+  font-size: 1.2rem;
 }
 
-//quan li phong
+// --- Room filters ---
 .SoGiuong,
 .HangPhong {
   width: 200px;
   height: 40px;
-}
-
-.table.mt-4 th,
-.table.mt-4 td {
-  padding: 7.5px 25px;
-  // text-align: center;
 }
 
 .chinh {
@@ -160,104 +224,238 @@
 }
 
 .total-label {
-  color: rgb(0, 112, 244);
+  color: $primary-500;
+  font-weight: 600;
 }
 
 .PhuongThuc {
   margin-left: 20px;
-  font-size: 20px;
+  font-size: $font-size-lg;
 }
 
+// ============================================
+// Room Status Grid (Dashboard)
+// ============================================
 .floor {
   width: 100px;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid $gray-200;
   text-align: center;
   vertical-align: middle !important;
+  font-weight: 600;
+  color: $gray-600;
+  font-size: $font-size-sm;
 }
 
 .table tr {
-  border: 1px solid #ccc;
+  border: 1px solid $gray-200;
 }
 
 .table__room__heading {
-  font-size: 3rem;
+  font-size: $font-size-2xl;
+  text-align: center;
+  font-weight: 700;
 }
 
 .table__room {
   width: 271px;
   height: 180px;
   display: inline-block;
-  margin: 3px;
+  margin: 4px;
   color: #fff;
+  border-radius: $radius-lg;
+  padding: $spacing-md;
+  transition: all $transition-base;
+  position: relative;
+
+  p {
+    font-size: $font-size-xs;
+    margin-bottom: 2px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+// Room status colors - Modern palette
+.table__room.available {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
 }
 
 .table__room.booked {
-  background-color: #dc1313;
+  background: linear-gradient(135deg, $accent-500, $accent-600);
+  border: none;
+  color: $gray-800;
+  text-shadow: none;
+
+  .table__room__heading {
+    color: $gray-800;
+  }
 }
 
-.table__room.available {
-  background-color: green;
+.table__room.checked-in {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: none;
 }
 
 .table__room.cleaning {
-  background-color: rgb(173, 175, 28);
-}
-
-.modal__booking__label span {
-  font-size: 1.4rem;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.table__room__heading {
-  text-align: center;
-  font-weight: 600;
+  background: linear-gradient(135deg, $gray-400, $gray-500);
+  border: none;
 }
 
 .row__room {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid $gray-200;
   width: auto;
 }
 
-/* Thêm vào file manage.scss của bạn */
+// ============================================
+// Report Cards
+// ============================================
 .report-card {
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: $spacing-lg;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  transition: all $transition-base;
+  border: 1px solid transparent;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
 
   &__title {
-    font-size: 1.8rem;
+    font-size: $font-size-sm;
     font-weight: 600;
-    color: #333;
-    margin-bottom: 8px;
+    color: $gray-600;
+    margin-bottom: $spacing-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   &__value {
-    font-size: 3.2rem;
-    font-weight: 700;
-    color: #000;
-    margin-bottom: 5px;
+    font-size: $font-size-3xl;
+    font-weight: 800;
+    color: $gray-800;
+    margin-bottom: 4px;
     line-height: 1.2;
   }
 
   &__subtext {
-    font-size: 1.4rem;
-    color: #555;
+    font-size: $font-size-xs;
+    color: $gray-500;
   }
 }
 
 .report .time .btn_find {
   margin-top: 32px;
-  // margin-left: auto;
 }
 
-.form_quanliphong button {
-  font-size: 1.2rem;
+// ============================================
+// Booking Calendar
+// ============================================
+.table-calendar {
+  font-size: $font-size-xs;
 }
 
-//quan li phieu thue
+.table-calendar th,
+.table-calendar td {
+  text-align: center;
+  vertical-align: middle;
+  min-width: 40px;
+  height: 40px;
+  padding: 0.25rem !important;
+}
+
+.room-header {
+  min-width: 80px;
+  font-weight: 700;
+  background-color: $gray-50;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+.room-number {
+  font-weight: 700;
+  background-color: $gray-50;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+.day-header {
+  background-color: $gray-50;
+}
+
+.day-header small {
+  font-weight: normal;
+  font-size: 0.9em;
+}
+
+.day-cell {
+  cursor: default;
+  transition: all $transition-fast;
+  border-radius: 2px;
+}
+
+.day-cell.status-available {
+  background-color: #e9f7ef;
+  color: #155724;
+  cursor: pointer;
+}
+
+.day-cell.status-available:hover {
+  background-color: #c1e7d0;
+}
+
+.day-cell.status-booked {
+  background-color: #fde8d0;
+  color: #8a5a00;
+  cursor: help;
+}
+
+.day-cell.status-cleaning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.today-header {
+  background-color: $primary-500 !important;
+  color: white !important;
+  font-weight: bold;
+  border-radius: $radius-sm;
+}
+
+.today-header small {
+  color: rgba(255,255,255,0.8);
+}
+
+.legend-color {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  border: 1px solid $gray-200;
+  vertical-align: middle;
+  border-radius: 3px;
+}
+
+.legend-available {
+  background-color: #e9f7ef;
+}
+
+.legend-booked {
+  background-color: #fde8d0;
+}
+
+// ============================================
+// Phiếu thuê (Booking Records)
+// ============================================
 .manage_crud.ql_phieuthue {
   height: auto;
-  margin-top: 30px;
+  margin-top: $spacing-lg;
 }
 
 .ql_phieuthue .row {
@@ -269,14 +467,15 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  gap: 50px;
+  gap: $spacing-2xl;
 }
 
 .ql_phieuthue__form {
   width: auto;
   display: inline-block;
-  padding: 0 25px;
-  border: 1px solid #ccc;
+  padding: 0 $spacing-lg;
+  border: 1px solid $gray-200;
+  border-radius: $radius-md;
 }
 
 .form__sreach.ql_phieuthue {
@@ -286,118 +485,154 @@
   gap: 10px;
 }
 
-// lich dat phong
-.table-calendar {
-  font-size: 1.2rem;
+// ============================================
+// Modal Booking (Admin)
+// ============================================
+.modal__booking {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: $z-modal;
+  align-items: center;
+  justify-content: center;
 }
-.table-calendar th,
-.table-calendar td {
+
+.modal__booking__container {
+  background: $white-color;
+  border-radius: $radius-xl;
+  width: 680px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: $shadow-2xl;
+  position: relative;
+}
+
+.modal__booking__close {
+  position: absolute;
+  top: $spacing-md;
+  right: $spacing-md;
+  cursor: pointer;
+  font-size: $font-size-xl;
+  color: $gray-400;
+  transition: color $transition-fast;
+  z-index: 1;
+
+  &:hover {
+    color: $gray-800;
+  }
+}
+
+.modal__booking__header {
+  font-size: $font-size-lg;
+  font-weight: 700;
+  color: $gray-800;
+  padding: $spacing-lg $spacing-xl;
+  border-bottom: 1px solid $gray-100;
+}
+
+.modal__booking__title {
+  font-size: $font-size-md;
+  font-weight: 600;
+  color: $primary-600;
+  margin-bottom: $spacing-md;
+}
+
+.modal__booking__body {
+  margin-bottom: $spacing-md;
+}
+
+.modal__booking__label {
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: $gray-600;
+  margin-bottom: $spacing-xs;
+  display: block;
+}
+
+.modal__booking__input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid $gray-200;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-500;
+    box-shadow: 0 0 0 3px rgba($primary-500, 0.1);
+  }
+}
+
+.modal__booking__contet {
+  padding: $spacing-md 0;
+}
+
+.modal__booking__chooseService {
+  font-size: $font-size-sm;
+  font-weight: 600;
+  color: $primary-500;
+  border: 1px solid $primary-500;
+  border-radius: $radius-md;
+  padding: 8px 16px;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: $primary-500;
+    color: $white-color;
+  }
+}
+
+.modal__booking__service__form {
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm 0;
+  border-bottom: 1px solid $gray-100;
+}
+
+.modal__booking__service__lable {
+  font-size: $font-size-sm;
+  color: $gray-700;
+  font-weight: 500;
+}
+
+.modal__booking__service__form1 {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.modal__booking__service__input {
+  width: 70px;
   text-align: center;
-  vertical-align: middle;
-  min-width: 40px;
-  height: 40px;
-  padding: 0.25rem !important;
-}
-.room-header {
-  min-width: 80px;
-  font-weight: bold;
-  background-color: #f8f9fa;
-  position: sticky;
-  left: 0;
-  z-index: 1;
-}
-.room-number {
-  font-weight: bold;
-  background-color: #f8f9fa;
-  position: sticky;
-  left: 0;
-  z-index: 1;
-}
-.day-header {
-  background-color: #f8f9fa;
-}
-.day-header small {
-  font-weight: normal;
-  font-size: 0.9em;
-}
-.day-cell {
-  cursor: default;
-}
-.day-cell.status-available {
-  background-color: #e9f7ef;
-  color: #155724;
-}
-.day-cell.status-booked {
-  background-color: #f8d7da;
-  color: #721c24;
-  cursor: help;
-} 
- .day-cell.status-cleaning { 
-    background-color: #fff3cd; color: #856404; 
-} 
-
-.legend-color {
-  display: inline-block;
-  width: 15px;
-  height: 15px;
-  margin-right: 5px;
-  border: 1px solid #ccc;
-  vertical-align: middle;
-}
-.legend-available {
-  background-color: #e9f7ef;
-}
-.legend-booked {
-  background-color: #f8d7da;
 }
 
-.day-cell.status-available {
-    background-color: #e9f7ef;
-    color: #155724;
-    cursor: pointer; /* Thêm con trỏ chuột */
-}
-.day-cell.status-available:hover {
-    background-color: #d1e7dd; /* Thêm hiệu ứng hover */
-}
-.today-header {
-  background-color: #007bff !important; /* Màu xanh dương nổi bật */
-  color: white !important; /* Chữ trắng */
-  font-weight: bold;
-}
-.today-header small {
-    color: #e9ecef; /* Màu chữ phụ nhạt hơn */
+.modal__booking__service__price {
+  font-size: $font-size-xs;
+  color: $gray-500;
 }
 
-.table__room.booked {
-    background-color: #ffcccc; /* Màu đỏ nhạt cho phòng đã đặt hôm nay */
-    border: 1px solid #ff0000;
-}
-.table__room.checked-in {
-    background-color: red; /* Xanh dương của Bootstrap */
-    border: 1px solid #0056b3;
+.modal__booking__frame__btn {
+  padding: $spacing-lg $spacing-xl;
+  border-top: 1px solid $gray-100;
 }
 
+.modal__booking__btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, $primary-500, $primary-600);
+  color: $white-color;
+  border: none;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+  font-weight: 700;
+  transition: all $transition-base;
 
-/* 2. Phòng Đã đặt (Booked Today)  */
-.table__room.booked {
-    background-color: #ffc107; /* Cam của Bootstrap (warning) */
-    border: 1px solid #e0a800;
-    color: #343a40; /* Chữ tối màu hơn để dễ đọc trên nền cam */
-    text-shadow: none; /* Bỏ bóng chữ nếu nền đã sáng */
-}
-.table__room.booked .table__room__heading {
-    color: #343a40; /* Chữ tối màu cho heading */
-}
-
-/* 3. Phòng Đang dọn dẹp (Cleaning) */
-.table__room.cleaning {
-    background-color: #c5bc3ab2; /* Xám của Bootstrap (secondary) */
-    border: 1px solid #545b62;
-}
-
-
-/* 4. Phòng Trống (Available)  */
-.table__room.available {
-    background-color: #28a745; 
-    border: 1px solid #218838;
+  &:hover {
+    background: linear-gradient(135deg, $primary-600, $primary-700);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba($primary-500, 0.3);
+  }
 }

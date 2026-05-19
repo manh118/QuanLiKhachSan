@@ -6,6 +6,7 @@ const manageRouter = require('./manage')
 const serviceRouter = require('./service')
 const bookingRouter = require('./booking')
 const questionRouter = require('./question')
+const chatbotRouter = require('./chatbot')
 const manageLayout = require('../middleware/manage_layout')
 
 
@@ -37,6 +38,7 @@ function route(app) {
   app.use('/datphong', bookingRouter)
   app.use('/gioi_thieu', gioithieuRouter)
   app.use('/question', questionRouter)
+  app.use('/api/chatbot', chatbotRouter)
   app.use('/', siteRouter)
 }
 

@@ -1,193 +1,174 @@
-@use '../variables' as v;
-
-*{
-    box-sizing: inherit;
+﻿
+// ============================================
+// Admin Panel - Header / Navigation
+// ============================================
+.manage__header {
+  height: 56px;
+  background: linear-gradient(135deg, $gray-800, $gray-900);
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-sticky;
+  box-shadow: $shadow-md;
 }
 
-html {
-    font-size: 62.5%;
-    line-height: 1.6rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-sizing: border-box;
+.manage__navbar {
+  height: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 20px;
 }
 
-.manage__header{
-    height: 50px;
-    background-color: rgb(0, 112, 244);
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    border-bottom: 1px solid hsla(0, 3%, 8%, 0.486);
+.manage__navbar_list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 2px;
 }
 
-.manage__navbar{
-    height: 100%;
-    padding: 0;
-    display: flex;
-    justify-content: space-between;
-    margin: 0 20px;
-}
-
-.manage__navbar_list{
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-
-.manage__navbar_item{
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 1.4rem;
-    color: black;
-    padding: 8px 20px;
-    text-transform: uppercase;
-    display: block;
-    color: #fff;
-    border-radius: 7px;
+.manage__navbar_item {
+  cursor: pointer;
+  font-family: $font-primary;
+  font-weight: 500;
+  font-size: 1.3rem;
+  color: $gray-300;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  display: block;
+  border-radius: $radius-md;
+  letter-spacing: 0.5px;
+  transition: all $transition-fast;
 }
 
 .manage__navbar__user,
-.manage__navbar__hangphong, 
-.manage__navbar__dichvu{
-    position: relative;
+.manage__navbar__hangphong,
+.manage__navbar__dichvu {
+  position: relative;
 }
 
-.manage__navbar_item:hover{
-    color: #fff;
-    background-color: rgb(2, 80, 170);;
-    text-decoration: none;
+.manage__navbar_item:hover {
+  color: $white-color;
+  background-color: rgba(255,255,255,0.1);
+  text-decoration: none;
 }
 
-.manage__navbar__dichvu__list{
-    position: relative;
+// Dropdowns
+.manage__navbar__hangphong__list {
+  position: absolute;
+  top: calc(100% + 7px);
+  left: -5px;
+  min-width: 180px;
+  padding: $spacing-xs 0;
+  background-color: $white-color;
+  box-shadow: $shadow-lg;
+  border: 1px solid $gray-100;
+  border-radius: $radius-md;
+  z-index: $z-dropdown;
+  display: none;
+  animation: adminDropdown ease-out 0.2s;
 }
 
-.manage__navbar__hangphong__list{
-    position: absolute;
-    top: calc(100% + 7px);
-    left: -5px;
-    width: 170px;
-    padding: 10px 0;
-    background-color: v.$white-color;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-    z-index: 1;
-    display: none;
-    animation: hangphong ease-in 0.15s;
-    will-change: hangphong;
-    border-radius: 5px;
+.manage__navbar__user__list {
+  position: absolute;
+  top: calc(100% + 7px);
+  right: 0;
+  min-width: 150px;
+  padding: $spacing-xs 0;
+  background-color: $white-color;
+  box-shadow: $shadow-lg;
+  border: 1px solid $gray-100;
+  border-radius: $radius-md;
+  z-index: $z-dropdown;
+  display: none;
+  animation: adminDropdown ease-out 0.2s;
 }
 
-.manage__navbar__user__list{
-    position: absolute;
-    top: calc(100% + 7px);
-    right: 0;
-    width: 120px;
-    padding: 0;
-    background-color: v.$white-color;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-    z-index: 1;
-    display: none;
-    animation: hangphong ease-in 0.15s;
-    will-change: hangphong;
+.manage__navbar__dichvu__list {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: -5px;
+  min-width: 200px;
+  padding: $spacing-xs 0;
+  background-color: $white-color;
+  box-shadow: $shadow-lg;
+  border: 1px solid $gray-100;
+  border-radius: $radius-md;
+  z-index: $z-dropdown;
+  display: none;
+  animation: adminDropdown ease-out 0.2s;
 }
 
-.manage__navbar__dichvu__list{
-    position: absolute;
-    top: calc(100% + 5px);
-    left: -5px;
-    width: 200px;
-    padding: 0;
-    background-color: v.$white-color;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
-    z-index: 1;
-    display: none;
-    animation: hangphong ease-in 0.15s;
-    will-change: hangphong;
+@keyframes adminDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@keyframes hangphong {
-    from{
-        transform: translateY(8px);
-    }to{
-        transform: translateY(0);
-    }
+// Hover triggers
+.manage__navbar__hangphong::after {
+  cursor: pointer;
+  content: "";
+  display: block;
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  background-color: transparent;
+  bottom: -15px;
+  left: 15px;
 }
 
-.manage__navbar__hangphong::after{
-    cursor: pointer;
-    content: "";
-    display: block;
-    position: absolute;
-    width: 60px;
-    height: 20px;
-    background-color: transparent;
-    bottom: -15px;
-    left: 15px;
+.manage__navbar__user::after {
+  cursor: pointer;
+  content: "";
+  display: block;
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  background-color: transparent;
+  bottom: -20px;
+  right: 0;
 }
 
-.manage__navbar__user::after{
-    cursor: pointer;
-    content: "";
-    display: block;
-    position: absolute;
-    width: 60px;
-    height: 30px;
-    background-color: transparent;
-    bottom: -20px;
-    right: 0;
+// Dropdown item links
+.manage__navbar__hangphong__item__link {
+  list-style: none;
 }
 
-// .manage__navbar__dichvu::after{
-//     cursor: pointer;
-//     content: "";
-//     display: block;
-//     position: absolute;
-//     width: 80px;
-//     height: 20px;
-//     // background-color: transparent;
-    
-//     bottom: -8px;
-//     left: 5px;
-// }
-
-.manage__navbar__hangphong__item__link{
-    list-style: none;
+.manage__navbar__hangphong__item__link a {
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding: 10px 18px;
+  display: block;
+  color: $gray-700;
+  text-decoration: none;
+  transition: all $transition-fast;
 }
 
-.manage__navbar__hangphong__item__link a{
-    font-size: 1.6rem;
-    padding: 8px 20px;
-    display: block;
-    color: #000;
-    text-decoration: none;
-    
+.manage__navbar__hangphong__item__link a:hover {
+  cursor: pointer;
+  color: $white-color;
+  background-color: $primary-500;
 }
 
-.manage__navbar__hangphong__item__link a:hover{
-    cursor: pointer;
-    color: #000;
-    background-color: #ccc;
+.manage__navbar__hangphong:hover .manage__navbar__hangphong__list {
+  display: block;
 }
 
-.manage__navbar__hangphong:hover .manage__navbar__hangphong__list{
-    display: block;
+.manage__navbar__user:hover .manage__navbar__user__list {
+  display: block;
 }
 
-.manage__navbar__user:hover .manage__navbar__user__list{
-    display: block;
+.manage__navbar__dichvu:hover .manage__navbar__dichvu__list {
+  display: block;
 }
-
-.manage__navbar__dichvu:hover .manage__navbar__dichvu__list{
-    display: block;
-}
-
-
-
-
-

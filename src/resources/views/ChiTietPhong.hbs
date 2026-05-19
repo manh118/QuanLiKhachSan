@@ -335,120 +335,135 @@
   </div>
 </div>
 
-<div class="modal__booking js-modal__booking" >
-    <div class="modal__booking__container" style="overflow-y: auto; overflow-x: hidden">
-        <div class="modal__booking__close">
-            <i class="fa-solid fa-xmark"></i>
-        </div>
-        <div class="modal__booking__header">BOOKING</div>
-        <input type="hidden" id="roomId" value="{{Room._id}}">
-        <div class="modal__booking__title">Phòng {{Room.roomNumber}}</div>
-        <div class="row modal__booking__contet">
-            <div class="col-6">
-                 <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label">Nhận phòng</label>
-                    <input type="Date" id="checkInDate"  class="modal__booking__input" placeholder="">
-                </div>
-                <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label">Người lớn <span>(Có thể bỏ qua)</span></label>
-                    <select class="custom-select modal__booking__input" id="modalNguoiLon">
-                        <option selected>Choose...</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="modal__booking__body">
-                    <label for=""  class="modal__booking__label">Trả phòng</label>
-                    <input type="Date" id="checkOutDate" class="modal__booking__input" placeholder="">
-                </div>
-                <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label">Trẻ em <span>(Có thể bỏ qua)</span></label>
-                    <select class="custom-select modal__booking__input" id="modalTreEm">
-                            <option selected>Choose...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="modal__booking__title">Thông tin khách hàng</div>
-        <div class="row modal__booking__contet">
-            <div class="col-6">
-                 <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label">Họ và tên</label>
-                    <input type="Text" id="fullName" class="modal__booking__input" placeholder="" value="{{user.fullName}}">
-                </div>
-                <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label">Số điện thoại</label>
-                    <input type="Text" id="phone" class="modal__booking__input" placeholder="" value="{{user.phone}}">
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="modal__booking__body">
-                    <label for="" class="modal__booking__label">Email</label>
-                    <input type="Text" id="email" class="modal__booking__input" placeholder="" value="{{user.email}}">
-                </div> 
-                <a class="btn modal__booking__chooseService" data-toggle="collapse" href="#serviceCollapse" role="button" aria-expanded="false" aria-controls="serviceCollapse">
-                Chọn dịch vụ
-                </a>              
-            </div>                 
-        </div>
-        <div class="modal__booking__title" style="display: inline;">Giá cả</div>
-        <div class="modal__booking__contet__des" style="display: inline;">
-            Tạm tính tổng số tiền khi trả phòng (nếu không sử dụng thêm dịch vụ gì), sẽ trừ cọc sau 
-        </div>
-        <div class="row modal__booking__contet" style="margin-top: 10px;">
-            <div class="col-6">  
-                <div class="modal__booking__label">Số ngày: <b class="color__price" id="soNgay">0</b></div>
-                <div class="modal__booking__label">Tiền phòng: <b class="color__price" id="tienPhong">0</b> VNĐ</div>
-                <div class="modal__booking__label">Tiền dịch vụ: <b class="color__price" id="tienDichVu">0</b> VNĐ</div>
-                <div class="modal__booking__label">Phụ thu (người lớn): <b class="color__price" id="tienPhuThu">0</b> VNĐ</div>
-                <div class="modal__booking__label">Tổng tiền: <b class="color__price" id="tongTien">0</b> VNĐ</div>                 
-                <a class="btn btn_tamtinh">Tạm tính</a>   
-            </div>     
-        </div>
-         <div class="modal__booking__title">Thông tin Đặt cọc (20%)</div>
-        <div class="row modal__booking__contet" style="align-items: center;">
-            <div class="col-6">
-                <p class="modal__booking__label">Số tiền cần cọc:</p>
-                <p class="modal__booking__label color__price" style="font-size: 1.8rem;">
-                    <span id="tienCoc" style="color__price">0</span> VNĐ
-                </p>
-                <p style="font-size: 1.2rem; color: #555;">(Vui lòng chuyển khoản đúng số tiền này)</p>
-                <p style="font-size: 1.2rem; color: #555;">Nội dung chuyển khoản: <br>
-                    <b id="noiDungCK" style="color: red;">DP [Số điện thoại]</b>
-                </p>
-            </div>
-            <div class="col-6 text-center">
-                {{!-- === ĐÂY LÀ CHỖ ĐỂ ẢNH MÃ QR CỦA BẠN === --}}
-                <img id="qrCodeImage" src="/img/qr.png" alt="Mã QR VietQR" style="max-width: 150px; height: auto;">
-                <p style="font-size: 1.2rem; color: #555; margin-top: 5px;">Quét mã VietQR để thanh toán</p>
-            </div>
-        </div>
-        <div class="modal__booking__frame__btn">
-            <button type="button submit" class="btn modal__booking__btn">ĐẶT PHÒNG NGAY</button>   
-        </div>
-
+<div class="modal__booking js-modal__booking">
+    <div class="modal__booking__container modern-booking-modal" style="width: 1000px; max-height: 90vh; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; background: #fff;">
         
-             
-    </div>
-    <div class="collapse mt-2 modal__booking__service" id="serviceCollapse" style="overflow-y: auto; overflow-x: hidden">
-        {{#each Services}}
-        <div class="modal__booking__service__form" >
-            <label class="modal__booking__service__lable" style="min-width: 100px;">{{this.name}}:</label>
-            <div class="modal__booking__service__form1">
-                <input type="number" name="{{this._id}}" min="0" value="0" class="form-control modal__booking__service__input"  data-price="{{this.price}}">
-                <span class="modal__booking__service__price ">{{money this.price}} VNĐ/&nbsp</span> 
-                <span style="font-size: 1.4rem;"> {{this.unit}}</span>
+        <!-- Header -->
+        <div class="bg-hotel-teal text-white p-4 d-flex justify-content-between align-items-center">
+            <h3 class="mb-0 font-weight-bold" style="font-size: 2.2rem; color: #fff;"><i class="fa-solid fa-calendar-check mr-2"></i> ĐẶT PHÒNG <span id="modalRoomName">- Phòng {{Room.roomNumber}}</span></h3>
+            <div class="modal__booking__close" style="position: static; font-size: 2.5rem; color: white; cursor: pointer;">
+                <i class="fa-solid fa-xmark" style="color: white;"></i>
             </div>
         </div>
-        {{/each}}
+        
+        <input type="hidden" id="roomId" value="{{Room._id}}">
+
+        <!-- Body -->
+        <div class="row m-0 flex-grow-1" style="overflow-y: auto; background-color: #f3f4f6;">
+            <!-- Cột trái: Form -->
+            <div class="col-md-7 p-4 bg-white">
+                <h4 class="font-weight-bold mb-4" style="color: #1f2937; font-size: 1.8rem; border-left: 4px solid #00796B; padding-left: 10px;">Thông tin Đặt phòng</h4>
+                
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="font-weight-bold" style="color: #4b5563; font-size: 1.4rem;">Nhận phòng</label>
+                        <input type="Date" id="checkInDate" class="form-control form-control-lg bg-light" style="font-size: 1.4rem;">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="font-weight-bold" style="color: #4b5563; font-size: 1.4rem;">Trả phòng</label>
+                        <input type="Date" id="checkOutDate" class="form-control form-control-lg bg-light" style="font-size: 1.4rem;">
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-6">
+                        <label class="font-weight-bold" style="color: #4b5563; font-size: 1.4rem;">Người lớn</label>
+                        <div class="d-flex align-items-center justify-content-between p-2 border rounded bg-light">
+                            <button type="button" class="btn btn-sm btn-outline-secondary js-qty-btn" data-target="modalNguoiLon" data-action="minus"><i class="fa-solid fa-minus"></i></button>
+                            <span class="font-weight-bold" style="font-size: 1.6rem; width: 30px; text-align: center;" id="modalNguoiLonDisplay">1</span>
+                            <button type="button" class="btn btn-sm btn-outline-secondary js-qty-btn" data-target="modalNguoiLon" data-action="plus"><i class="fa-solid fa-plus"></i></button>
+                            <input type="hidden" id="modalNguoiLon" value="1">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label class="font-weight-bold" style="color: #4b5563; font-size: 1.4rem;">Trẻ em</label>
+                        <div class="d-flex align-items-center justify-content-between p-2 border rounded bg-light">
+                            <button type="button" class="btn btn-sm btn-outline-secondary js-qty-btn" data-target="modalTreEm" data-action="minus"><i class="fa-solid fa-minus"></i></button>
+                            <span class="font-weight-bold" style="font-size: 1.6rem; width: 30px; text-align: center;" id="modalTreEmDisplay">0</span>
+                            <button type="button" class="btn btn-sm btn-outline-secondary js-qty-btn" data-target="modalTreEm" data-action="plus"><i class="fa-solid fa-plus"></i></button>
+                            <input type="hidden" id="modalTreEm" value="0">
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="font-weight-bold mb-4 mt-5" style="color: #1f2937; font-size: 1.8rem; border-left: 4px solid #00796B; padding-left: 10px;">Thông tin Khách hàng</h4>
+                <div class="mb-3">
+                    <label class="font-weight-bold" style="color: #4b5563; font-size: 1.4rem;">Họ và tên</label>
+                    <input type="Text" id="fullName" class="form-control form-control-lg" style="font-size: 1.4rem;" value="{{user.fullName}}">
+                </div>
+                <div class="row mb-4">
+                    <div class="col-6">
+                        <label class="font-weight-bold" style="color: #4b5563; font-size: 1.4rem;">Số điện thoại</label>
+                        <input type="Text" id="phone" class="form-control form-control-lg" style="font-size: 1.4rem;" value="{{user.phone}}">
+                    </div>
+                    <div class="col-6">
+                        <label class="font-weight-bold" style="color: #4b5563; font-size: 1.4rem;">Email</label>
+                        <input type="Text" id="email" class="form-control form-control-lg" style="font-size: 1.4rem;" value="{{user.email}}">
+                    </div>
+                </div>
+                
+                <h4 class="font-weight-bold mb-3 mt-5" style="color: #1f2937; font-size: 1.8rem; border-left: 4px solid #00796B; padding-left: 10px;">Dịch vụ thêm (Tùy chọn)</h4>
+                <div class="service-list">
+                    {{#each Services}}
+                    <div class="d-flex justify-content-between align-items-center p-3 mb-2 border rounded bg-light" style="transition: box-shadow 0.2s;">
+                        <div>
+                            <h6 class="mb-0 font-weight-bold" style="color: #00796B; font-size: 1.4rem;">{{this.name}}</h6>
+                            <small class="text-muted" style="font-size: 1.2rem;">{{money this.price}} VNĐ / {{this.unit}}</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm btn-outline-secondary js-service-btn" data-target="service_{{this._id}}" data-action="minus"><i class="fa-solid fa-minus"></i></button>
+                            <span class="font-weight-bold mx-3" style="font-size: 1.4rem; width: 20px; text-align: center;" id="display_service_{{this._id}}">0</span>
+                            <button type="button" class="btn btn-sm btn-outline-secondary js-service-btn" data-target="service_{{this._id}}" data-action="plus"><i class="fa-solid fa-plus"></i></button>
+                            <input type="hidden" class="modal__booking__service__input" id="service_{{this._id}}" name="{{this._id}}" data-price="{{this.price}}" value="0">
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <!-- Cột phải: Summary -->
+            <div class="col-md-5 p-4 border-left" style="background-color: #f8f9fa;">
+                <h4 class="font-weight-bold mb-4" style="color: #1f2937; font-size: 1.8rem;">Tóm tắt Đơn hàng</h4>
+                
+                <div class="bg-white p-4 rounded border mb-4 shadow-sm" style="font-size: 1.4rem;">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted">Số đêm:</span>
+                        <span class="font-weight-bold" id="soNgay">0</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted">Tiền phòng:</span>
+                        <span class="font-weight-bold" id="tienPhong">0 VNĐ</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted">Tiền dịch vụ:</span>
+                        <span class="font-weight-bold" id="tienDichVu">0 VNĐ</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-4 border-bottom pb-4">
+                        <span class="text-muted">Phụ thu khách thêm:</span>
+                        <span class="font-weight-bold text-danger" id="tienPhuThu">0 VNĐ</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="font-weight-bold" style="font-size: 1.6rem; color: #1f2937;">TỔNG TIỀN:</span>
+                        <span class="font-weight-bold text-danger" style="font-size: 2.2rem;" id="tongTien">0 VNĐ</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded border mb-4 shadow-sm text-center">
+                    <h5 class="font-weight-bold mb-3" style="color: #00796B; font-size: 1.6rem;">Thanh Toán Đặt Cọc (50%)</h5>
+                    <p class="mb-3 text-muted" style="font-size: 1.3rem;">Vui lòng quét mã QR để thanh toán cọc và giữ phòng.</p>
+                    <div class="mb-3">
+                        <span style="font-size: 2.6rem; font-weight: bold; color: #00796B;" id="tienCoc">0 VNĐ</span>
+                    </div>
+                    <img src="/img/qr.png" alt="Mã QR" style="max-width: 180px; border-radius: 8px; border: 1px solid #e5e7eb; padding: 5px;" class="mb-3">
+                    <div class="p-3 rounded" style="background-color: #f3f4f6;">
+                        <small class="d-block text-muted mb-1" style="font-size: 1.2rem;">Nội dung chuyển khoản:</small>
+                        <strong class="text-danger" id="noiDungCK" style="font-size: 1.4rem; letter-spacing: 1px;">DP [Số điện thoại]</strong>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-block bg-hotel-teal text-white py-3 rounded font-weight-bold modal__booking__btn hover-bg-hotel-teal" style="font-size: 1.8rem; width: 100%; border: none;">XÁC NHẬN ĐẶT PHÒNG</button>
+            </div>
+        </div>
     </div>
 </div>
 {{!--  Vẽ lịch --}}
@@ -519,17 +534,22 @@
             bookingModal.querySelector('#checkInDate').value = selectedDate;
             const nextDay = moment(selectedDate).add(1, 'day').format('YYYY-MM-DD');
             bookingModal.querySelector('#checkOutDate').value = nextDay;
-            bookingModal.querySelector('.modal__booking__title').textContent = `Phòng ${roomNumber}`; // Sửa lại title
+            bookingModal.querySelector('#modalRoomName').textContent = `- Phòng ${roomNumber}`;
             bookingModal.querySelector('#roomId').value = roomId;
             bookingModal.dataset.roomPrice = roomPrice; // Gán giá phòng vào modal
             
-            // Đặt về giá trị đầu tiên (Choose... hoặc 1)
-            bookingModal.querySelector('#modalNguoiLon').selectedIndex = 0;
-            bookingModal.querySelector('#modalTreEm').selectedIndex = 0;
+            // Đặt về giá trị mặc định cho số lượng khách
+            bookingModal.querySelector('#modalNguoiLon').value = 1;
+            bookingModal.querySelector('#modalNguoiLonDisplay').textContent = 1;
+            bookingModal.querySelector('#modalTreEm').value = 0;
+            bookingModal.querySelector('#modalTreEmDisplay').textContent = 0;
             
-            bookingModal.querySelectorAll('.modal__booking__service__input').forEach(input => input.value = 0);
-            
-            setTimeout(() => { bookingModal.querySelector('.btn_tamtinh').click(); }, 100);
+            // Reset dịch vụ
+            bookingModal.querySelectorAll('.modal__booking__service__input').forEach(input => {
+                input.value = 0;
+                const display = document.getElementById('display_' + input.id);
+                if (display) display.textContent = 0;
+            });
 
             bookingModal.classList.add('open');
             document.body.classList.add('no-scroll');
@@ -593,30 +613,92 @@
         nextMonthBtn.on('click', function() { loadAndRenderCalendar(currentRoomId, moment($(this).data('month'), 'YYYY-MM')); });
 
 
-        // === 2. XỬ LÝ MODAL ĐẶT PHÒNG ===
+        // === 2. XỬ LÝ MODAL ĐẶT PHÒNG VÀ LOGIC GIÁ ===
         const modal = document.querySelector('.js-modal__booking');
         const modalClose = modal.querySelector('.modal__booking__close');
-        const btnTinh = modal.querySelector('.btn_tamtinh');
         const inputServices = modal.querySelectorAll('.modal__booking__service__input');
         const btnDat = modal.querySelector('.modal__booking__btn');
+        
+        // Config Limits
+        const MAX_ADULTS_ALLOWED = ROOM_TYPE_MAX_ADULTS + 1;
+        const MAX_CHILDREN_ALLOWED = 2;
 
         // Đóng modal
         modalClose.addEventListener('click', function() {
             modal.classList.remove('open');
             document.body.classList.remove('no-scroll');
         });
+        
+        // Xử lý nút tăng giảm (Nguời lớn / Trẻ em)
+        modal.querySelectorAll('.js-qty-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.dataset.target;
+                const action = this.dataset.action;
+                const input = document.getElementById(targetId);
+                const display = document.getElementById(targetId + 'Display');
+                
+                let val = parseInt(input.value, 10);
+                if (isNaN(val)) val = (targetId === 'modalNguoiLon' ? 1 : 0);
+                
+                if (action === 'plus') {
+                    if (targetId === 'modalNguoiLon' && val >= MAX_ADULTS_ALLOWED) {
+                        alert(`Phòng này tối đa chỉ ở được ${MAX_ADULTS_ALLOWED} người lớn!`);
+                        return;
+                    }
+                    if (targetId === 'modalTreEm' && val >= MAX_CHILDREN_ALLOWED) {
+                        alert(`Phòng này tối đa chỉ thêm được ${MAX_CHILDREN_ALLOWED} trẻ em!`);
+                        return;
+                    }
+                    val++;
+                } else if (action === 'minus') {
+                    const minVal = (targetId === 'modalNguoiLon' ? 1 : 0);
+                    if (val > minVal) val--;
+                }
+                
+                input.value = val;
+                display.textContent = val;
+                calculateTotal();
+            });
+        });
 
-        // Nút "Tạm tính"
-        btnTinh.addEventListener('click', function () {
+        // Xử lý nút tăng giảm (Dịch vụ)
+        modal.querySelectorAll('.js-service-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.dataset.target;
+                const action = this.dataset.action;
+                const input = document.getElementById(targetId);
+                const display = document.getElementById('display_' + targetId);
+                
+                let val = parseInt(input.value, 10) || 0;
+                
+                if (action === 'plus') val++;
+                else if (action === 'minus' && val > 0) val--;
+                
+                input.value = val;
+                display.textContent = val;
+                calculateTotal();
+            });
+        });
+
+        // Tự động tính tiền khi thay đổi ngày hoặc SĐT
+        modal.querySelector('#checkInDate').addEventListener('change', calculateTotal);
+        modal.querySelector('#checkOutDate').addEventListener('change', calculateTotal);
+        modal.querySelector('#phone').addEventListener('input', function() {
+            document.getElementById('noiDungCK').textContent = `DP ${this.value || '[Số điện thoại]'}`;
+        });
+
+        // Hàm tính toán Real-time
+        function calculateTotal() {
             const checkIn = new Date(document.getElementById('checkInDate').value);
             const checkOut = new Date(document.getElementById('checkOutDate').value);
             let soNgay = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
-            if (isNaN(soNgay) || soNgay < 0) soNgay = 0;
+            if (isNaN(soNgay) || soNgay <= 0) soNgay = 1; // Default to 1 night if invalid
+            
             document.getElementById('soNgay').textContent = soNgay;
 
             const roomPrice = parseFloat(modal.dataset.roomPrice) || ROOM_PRICE_PER_NIGHT;
             const tienPhong = soNgay * roomPrice;
-            document.getElementById('tienPhong').textContent = tienPhong.toLocaleString('vi-VN');
+            document.getElementById('tienPhong').textContent = tienPhong.toLocaleString('vi-VN') + ' VNĐ';
 
             let tienDichVu = 0;
             inputServices.forEach(input => {
@@ -624,28 +706,61 @@
                 const price = parseInt(input.getAttribute('data-price')) || 0;
                 tienDichVu += sl * price;
             });
-            document.getElementById('tienDichVu').textContent = tienDichVu.toLocaleString('vi-VN');
+            document.getElementById('tienDichVu').textContent = tienDichVu.toLocaleString('vi-VN') + ' VNĐ';
 
+            // Phụ thu logic
             const numNguoiLon = parseInt(document.getElementById('modalNguoiLon').value, 10) || 1;
+            const numTreEm = parseInt(document.getElementById('modalTreEm').value, 10) || 0;
+            
+            let tienPhuThu = 0;
+            // Phụ thu người lớn (vượt quá tiêu chuẩn)
             const numExtraAdults = Math.max(0, numNguoiLon - ROOM_TYPE_MAX_ADULTS);
-            const tienPhuThu = numExtraAdults * SURCHARGE_PER_EXTRA_ADULT * soNgay;
-            document.getElementById('tienPhuThu').textContent = tienPhuThu.toLocaleString('vi-VN');
+            tienPhuThu += numExtraAdults * 200000 * soNgay; // 200k/người lớn/đêm
+            
+            // Phụ thu trẻ em (Trẻ em thứ 2 trở đi)
+            if (numTreEm > 1) {
+                tienPhuThu += (numTreEm - 1) * 100000 * soNgay; // 100k/trẻ/đêm
+            }
+
+            document.getElementById('tienPhuThu').textContent = tienPhuThu.toLocaleString('vi-VN') + ' VNĐ';
             
             const tong = tienPhong + tienDichVu + tienPhuThu;
-            document.getElementById('tongTien').textContent = tong.toLocaleString('vi-VN');
+            document.getElementById('tongTien').textContent = tong.toLocaleString('vi-VN') + ' VNĐ';
             const tienCoc = Math.round(tong / 2); // 50% cọc
-            document.getElementById('tienCoc').textContent = tienCoc.toLocaleString('vi-VN');
-            const customerPhone = document.getElementById('phone').value;
-            const noiDungCK = `DP ${customerPhone || '[Số điện thoại]'}`;
-            document.getElementById('noiDungCK').textContent = noiDungCK;
-        });
+            document.getElementById('tienCoc').textContent = tienCoc.toLocaleString('vi-VN') + ' VNĐ';
+        }
 
-        // Nút "ĐẶT PHÒNG NGAY"
+        // Tự động tính ngay khi vừa mở modal
+        // Lắng nghe MutationObserver để tính khi class 'open' được thêm vào
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class' && modal.classList.contains('open')) {
+                    calculateTotal();
+                    const phone = document.getElementById('phone').value;
+                    document.getElementById('noiDungCK').textContent = `DP ${phone || '[Số điện thoại]'}`;
+                }
+            });
+        });
+        observer.observe(modal, { attributes: true });
+
+        // Nút "XÁC NHẬN ĐẶT PHÒNG"
         btnDat.addEventListener('click', () => {
             const checkInDate = new Date(document.getElementById('checkInDate').value);
             const checkOutDate = new Date(document.getElementById('checkOutDate').value);
+            
+            if (isNaN(checkInDate.getTime()) || isNaN(checkOutDate.getTime())) {
+                alert('Vui lòng chọn ngày nhận và ngày trả phòng!');
+                return;
+            }
             if (checkOutDate <= checkInDate) {
                 alert('Ngày trả phòng phải sau ngày nhận phòng!');
+                return;
+            }
+            
+            const fullName = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            if (!fullName || !phone) {
+                alert('Vui lòng nhập đầy đủ Họ tên và Số điện thoại!');
                 return;
             }
             
@@ -653,29 +768,32 @@
             inputServices.forEach(input => {
                 const quantity = parseInt(input.value, 10) || 0;
                 if (quantity > 0) {
+                    // Extract ID from 'service_ID'
+                    const serviceId = input.id.replace('service_', '');
                     services.push({
-                        id: input.name,
+                        id: serviceId,
                         quantity: quantity,
                         price: parseInt(input.dataset.price)
                     });
                 }
             });
 
-            const nguoiLonValue = parseInt(document.getElementById('modalNguoiLon').value, 10);
-            const treEmValue = parseInt(document.getElementById('modalTreEm').value, 10);
-            
             const data = {
                 roomId: document.getElementById('roomId').value,
                 checkInDate: document.getElementById('checkInDate').value,
                 checkOutDate: document.getElementById('checkOutDate').value,
-                fullName: document.getElementById('fullName').value,
-                phone: document.getElementById('phone').value,
+                fullName: fullName,
+                phone: phone,
                 email: document.getElementById('email').value,
-                nguoiLon: isNaN(nguoiLonValue) ? 1 : nguoiLonValue, // Mặc định 1 nếu NaN (chưa chọn)
-                treEm: isNaN(treEmValue) ? 0 : treEmValue,       // Mặc định 0 nếu NaN (chưa chọn)
+                nguoiLon: parseInt(document.getElementById('modalNguoiLon').value, 10),
+                treEm: parseInt(document.getElementById('modalTreEm').value, 10),
                 services: services,
                 source: 'website'
             };
+
+            // Show loading state
+            btnDat.disabled = true;
+            btnDat.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> ĐANG XỬ LÝ...';
 
             fetch('/datphong', {
                 method: 'POST',
@@ -694,11 +812,15 @@
                     window.location.reload();
                 } else {
                     alert('Đặt phòng thất bại: ' + res.message);
+                    btnDat.disabled = false;
+                    btnDat.textContent = 'XÁC NHẬN ĐẶT PHÒNG';
                 }
             })
             .catch(err => {
                 console.error('Lỗi khi gửi booking:', err);
                 alert('Đặt phòng thất bại: ' + err.message);
+                btnDat.disabled = false;
+                btnDat.textContent = 'XÁC NHẬN ĐẶT PHÒNG';
             });
         });
     });

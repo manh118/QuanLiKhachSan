@@ -1,53 +1,72 @@
-.card{
-    border-bottom: 1px solid #ccc !important;
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-    padding: 10px 0;
+﻿
+// ============================================
+// Contact / FAQ Page
+// ============================================
+.card__question {
+  border: none;
+  border-bottom: 1px solid $gray-200;
 }
 
-.card__question{
-    padding: 0;
-    border: 0;
+.card__question__form {
+  margin: 0;
 }
 
-.card__question__title{
-    background-color: #fff;
-    border: 0;
-    padding: 0;
-    width: 100%;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    font-weight: 500;
-    line-height: 30px;
-    font-size: 1.6rem;
+.card__question__title {
+  width: 100%;
+  font-size: $font-size-base;
+  font-weight: 600;
+  font-family: $font-primary;
+  color: $gray-700;
+  padding: $spacing-md 0;
+  background: transparent;
+  border: none;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $primary-500;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }
 
-.card__question__form__icon{
-    padding-left: 0;
+.card__question__form__icon {
+  flex-shrink: 0;
+  margin-left: $spacing-md;
 }
 
-.card__question__icon{
-    margin-top: 5px;
-    background-color: #ccc;
-    border-radius: 50%;
-    padding: 2px;
-    font-size: 1.6rem;
-    height: auto;
-    
+.card__question__icon {
+  font-size: $font-size-md;
+  color: $primary-500;
+  transition: transform $transition-base;
 }
 
-.card-body{
-    color: #6e6e6e;
-    padding: 10px 0;
-    font-size: 1.4rem;
-    text-align: justify;
+.card-body {
+  font-size: $font-size-base;
+  color: $gray-600;
+  line-height: 1.7;
+  padding: 0 0 $spacing-md;
 }
 
-.card__question__form{
-    
+.card {
+  border: none;
+  background: transparent;
 }
 
-// <i class="fa-light fa-plus"></i>  
-// <i class="fa-light fa-minus card__question__btn"></i>
+// Map section
+.map-responsive {
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+
+  iframe {
+    border-radius: $radius-lg;
+  }
+}

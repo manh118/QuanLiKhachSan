@@ -24,40 +24,150 @@
     
     <hr>
 
-    {{!-- 2. Hiển thị các chỉ số --}}
+    {{!-- Report Cards --}}
     <div class="row mt-4">
         
         <div class="col-md-6 col-lg-3 mb-3">
-            <div class="report-card" style="background-color: #d1ecf1;">
-                <h4 class="report-card__title">Tổng Doanh Thu</h4>
-                <p class="report-card__value">{{money totalRevenue}} VNĐ</p>
+            <div class="report-card" style="background: linear-gradient(135deg, #e0f2fe, #bae6fd);">
+                <h4 class="report-card__title"><i class="fa-solid fa-money-bill-trend-up mr-2" style="color:#0284c7"></i>Tổng Doanh Thu</h4>
+                <p class="report-card__value">{{money totalRevenue}} <span style="font-size:1.4rem">VNĐ</span></p>
                 <span class="report-card__subtext">từ {{totalBills}} hóa đơn</span>
             </div>
         </div>
 
         <div class="col-md-6 col-lg-3 mb-3">
-            <div class="report-card" style="background-color: #d4edda;">
-                <h4 class="report-card__title">Công Suất Phòng</h4>
-                <p class="report-card__value">{{toFixed occupancyRate 2}} %</p>
+            <div class="report-card" style="background: linear-gradient(135deg, #dcfce7, #bbf7d0);">
+                <h4 class="report-card__title"><i class="fa-solid fa-chart-pie mr-2" style="color:#16a34a"></i>Công Suất Phòng</h4>
+                <p class="report-card__value">{{toFixed occupancyRate 2}} <span style="font-size:1.4rem">%</span></p>
                 <span class="report-card__subtext">{{totalNightsBooked}} đêm phòng</span>
             </div>
         </div>
         
         <div class="col-md-6 col-lg-3 mb-3">
-            <div class="report-card" style="background-color: #fff3cd;">
-                <h4 class="report-card__title">Booking (Website)</h4>
+            <div class="report-card" style="background: linear-gradient(135deg, #fef3c7, #fde68a);">
+                <h4 class="report-card__title"><i class="fa-solid fa-globe mr-2" style="color:#d97706"></i>Booking (Online)</h4>
                 <p class="report-card__value">{{websiteBookings}}</p>
                 <span class="report-card__subtext">đặt phòng trực tuyến</span>
             </div>
         </div>
         
         <div class="col-md-6 col-lg-3 mb-3">
-            <div class="report-card" style="background-color: #f5c6cb;">
-                <h4 class="report-card__title">Booking (Thủ công)</h4>
+            <div class="report-card" style="background: linear-gradient(135deg, #fee2e2, #fecaca);">
+                <h4 class="report-card__title"><i class="fa-solid fa-pen-to-square mr-2" style="color:#dc2626"></i>Booking (Thủ công)</h4>
                 <p class="report-card__value">{{manualBookings}}</p>
                 <span class="report-card__subtext">lễ tân nhập tay</span>
             </div>
         </div>
         
     </div>
+
+    {{!-- Charts Section --}}
+    <div class="row mt-4">
+        <div class="col-lg-8 mb-4">
+            <div style="background:#fff; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                <h4 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 16px; color: #1f2937;">
+                    <i class="fa-solid fa-chart-column mr-2" style="color:#0284c7"></i>Tổng Quan Doanh Thu
+                </h4>
+                <canvas id="revenueChart" height="280"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div style="background:#fff; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                <h4 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 16px; color: #1f2937;">
+                    <i class="fa-solid fa-chart-pie mr-2" style="color:#16a34a"></i>Nguồn Đặt Phòng
+                </h4>
+                <canvas id="bookingSourceChart" height="280"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+    // Revenue bar chart
+    var ctxRevenue = document.getElementById('revenueChart');
+    if (ctxRevenue) {
+        new Chart(ctxRevenue.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Doanh thu phòng', 'Doanh thu DV', 'Phụ thu'],
+                datasets: [{
+                    label: 'Doanh thu (VNĐ)',
+                    data: [{{totalRevenue}}, 0, 0],
+                    backgroundColor: [
+                        'rgba(2, 132, 199, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(249, 115, 22, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgb(2, 132, 199)',
+                        'rgb(16, 185, 129)',
+                        'rgb(249, 115, 22)'
+                    ],
+                    borderWidth: 1,
+                    borderRadius: 8,
+                    barThickness: 60
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(0,0,0,0.05)' },
+                        ticks: {
+                            callback: function(value) {
+                                return new Intl.NumberFormat('vi-VN').format(value) + ' đ';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    }
+
+    // Booking source doughnut
+    var ctxSource = document.getElementById('bookingSourceChart');
+    if (ctxSource) {
+        new Chart(ctxSource.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Online', 'Thủ công'],
+                datasets: [{
+                    data: [{{websiteBookings}}, {{manualBookings}}],
+                    backgroundColor: [
+                        'rgba(2, 132, 199, 0.85)',
+                        'rgba(239, 68, 68, 0.85)'
+                    ],
+                    borderWidth: 0,
+                    spacing: 4,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                            pointStyleWidth: 12
+                        }
+                    }
+                }
+            }
+        });
+    }
+})();
+</script>

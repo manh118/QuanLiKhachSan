@@ -1,3 +1,4 @@
+require('dotenv').config(); // Load environment variables
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
@@ -119,8 +120,9 @@ app.engine(
       },
 
       m2: function (text) {
-            return text.replace(/m2/g, 'm<sup>2</sup>');
-        },
+          if (!text) return '';
+          return text.toString().replace(/m2/g, 'm<sup>2</sup>');
+      },
       isNotDefined: function (value) {
         return value === undefined || value === null;
       },

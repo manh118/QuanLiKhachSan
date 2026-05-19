@@ -1,81 +1,56 @@
-@use 'variables' as v;
+@import 'variables';
 
-.slide_hbs{
-    position: relative;
-    // padding-top: 50%;
-    height: 80vh;
-    width: 100%;
-    background: 
-        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), /* lớp phủ mờ */
-        url('/img/slide_chinh.jpg') top center / cover no-repeat;
+// ============================================
+// Hero Slide (Home Page Banner)
+// ============================================
+.slide_hbs {
+  position: relative;
+  height: 500px; // A nice banner height that doesn't cover the full screen
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: 
+    linear-gradient(rgba(0, 40, 35, 0.4), rgba(0, 40, 35, 0.7)),
+    url('/img/slide_chinh.jpg') center / cover no-repeat;
+  overflow: hidden;
 }
 
-.slide_hbs .slide__content{
-    position: absolute;
-    bottom: 300px;
-    color: #fff;   
+.slide__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 $spacing-xl;
 }
 
-.slide__content{
-    width: 100%;
-    text-align: center;
-    
+.text__heading {
+  font-size: $font-size-md;
+  font-weight: 600;
+  color: $white-color;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: $spacing-sm;
+  animation: fadeUp 0.8s ease-out;
 }
 
-.text__heading{
-    font-size: 2rem;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
+.text__des {
+  font-family: $font-display;
+  font-size: $font-size-4xl;
+  font-weight: 700;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: $white-color;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  animation: fadeUp 1s ease-out;
 }
 
-.text__des{
-    font-size: 7rem;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 1);
-}
-
-.header__booking{
-    position: relative;
-    background-color: #046056;
-    width: 100%;
-    height: 100px;
-    
-}
-
-.header__booking__container{
-    display: flex;
-    align-items: center;
-}
-
-.header__booking__container button{
-    width: 212px;
-    height: 38px;
-    margin-top: 29px;
-    font-size: 1.6rem;
-}
-
-.custom-select{
-    width: 212px;
-    height: 38px;
-    font-size: 1.6rem;
-}
-
-.form-control{
-    width: 212px;
-    height: 38px;
-    font-size: 1.6rem;
-}
-
-.header__booking__form{
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.header__booking__des{
-    font-size: 1.6rem;
-    color: v.$white-color;
-    text-transform: uppercase;
-}
-
-.header__booking__content{
-    margin-right:20px;
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

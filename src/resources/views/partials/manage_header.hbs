@@ -1,12 +1,17 @@
 <div class="manage__header">
     <div class="manage__navbar">
       <ul class="manage__navbar_list ">
-        <li class="manage__navbar__hangphong ">
-          <a href="/manage" class="manage__navbar_item" >Tổng quan</a>
+        <li style="margin-right: 10px;">
+          <a href="/manage" class="manage__navbar_item" style="font-weight: 800; font-size: 1.5rem; letter-spacing: 1px; color: #10b981;">
+            <i class="fa-solid fa-hotel mr-2"></i>20Hotel
+          </a>
         </li>
-        <li><a class="manage__navbar_item" href="/manage/lich_dat_phong">Lịch Đặt Phòng</a></li>
         <li class="manage__navbar__hangphong ">
-          <a class="manage__navbar_item" href="/manage/quan_li_phong">Phòng</a>
+          <a href="/manage" class="manage__navbar_item" ><i class="fa-solid fa-grip mr-2"></i>Tổng quan</a>
+        </li>
+        <li><a class="manage__navbar_item" href="/manage/lich_dat_phong"><i class="fa-regular fa-calendar-days mr-2"></i>Lịch</a></li>
+        <li class="manage__navbar__hangphong ">
+          <a class="manage__navbar_item" href="/manage/quan_li_phong"><i class="fa-solid fa-bed mr-2"></i>Phòng</a>
           <ul class="manage__navbar__hangphong__list">
             <li class="manage__navbar__hangphong__item__link">
               <a href="/manage/quan_li_phong">Danh sách phòng</a>
@@ -17,22 +22,22 @@
           </ul>
         </li>
         <li class="manage__navbar__dichvu ">
-          <a class="manage__navbar_item" href="/manage/quan_li_dichvu">dịch vụ</a>
+          <a class="manage__navbar_item" href="/manage/quan_li_dichvu"><i class="fa-solid fa-concierge-bell mr-2"></i>Dịch vụ</a>
         </li>
-        <li ><a class="manage__navbar_item" href="/manage/quan_li_phieuthue">Phiếu thuê</a></li>
-        <li ><a class="manage__navbar_item" href="/manage/quan_li_hoadon">Hóa Đơn</a></li>
-        <li ><a class="manage__navbar_item" href="/manage/quan_li_khachhang">Khách hàng</a></li>
-        <li ><a class="manage__navbar_item" href="/manage/quan_li_khuyenmai">Giảm giá</a></li>
-        <li ><a class="manage__navbar_item" href="/manage/bao_cao">Báo Cáo</a></li>
-        <li ><a class="manage__navbar_item" href="/manage/quan_li_taikhoan">Tài Khoản</a></li>
+        <li ><a class="manage__navbar_item" href="/manage/quan_li_phieuthue"><i class="fa-solid fa-file-invoice mr-2"></i>Phiếu thuê</a></li>
+        <li ><a class="manage__navbar_item" href="/manage/quan_li_hoadon"><i class="fa-solid fa-receipt mr-2"></i>Hóa Đơn</a></li>
+        <li ><a class="manage__navbar_item" href="/manage/quan_li_khachhang"><i class="fa-solid fa-users mr-2"></i>Khách hàng</a></li>
+        <li ><a class="manage__navbar_item" href="/manage/quan_li_khuyenmai"><i class="fa-solid fa-tags mr-2"></i>Giảm giá</a></li>
+        <li ><a class="manage__navbar_item" href="/manage/bao_cao"><i class="fa-solid fa-chart-line mr-2"></i>Báo Cáo</a></li>
+        <li ><a class="manage__navbar_item" href="/manage/quan_li_taikhoan"><i class="fa-solid fa-user-shield mr-2"></i>Tài Khoản</a></li>
       </ul>
       <ul class="manage__navbar_list">
         {{#if username}}
           <li class="manage__navbar__user">
-            <a href="/manage" class="manage__navbar_item">{{username}}</a>
+            <a href="/manage" class="manage__navbar_item"><i class="fa-solid fa-circle-user mr-2"></i>{{username}}</a>
             <ul class="manage__navbar__user__list">
               <li class="manage__navbar__hangphong__item__link">
-                  <a href="/manage/logout">Đăng xuất</a>
+                  <a href="/manage/logout"><i class="fa-solid fa-right-from-bracket mr-2"></i>Đăng xuất</a>
               </li>
           </ul>
           </li>
@@ -44,4 +49,3 @@
       </ul>
     </div>
   </div>
-

@@ -1,95 +1,160 @@
-@use 'variables' as v;
 
-footer{
-    margin-top: 50px;
-    height: 382px ;
-    background-color: v.$btn;
+// ============================================
+// Footer
+// ============================================
+footer {
+  background: linear-gradient(180deg, $gray-900, darken($gray-900, 3%));
+  color: $gray-300;
+  padding-top: $spacing-3xl;
+  font-family: $font-primary;
+  margin-top: auto;
 }
 
-.row_footer{
-    padding-top: 80px;
+.row_footer {
+  padding-bottom: $spacing-2xl;
 }
 
-.footer__cot{
-    
+.footer__heading {
+  font-family: $font-display;
+  font-size: $font-size-lg;
+  font-weight: 600;
+  color: $white-color;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: $spacing-lg;
+  position: relative;
+  padding-bottom: $spacing-sm;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $primary-500;
+  }
 }
 
-.footer__heading{
-    font-size: 2.1rem;
-    margin-bottom: 20px;
-    color: #fff;
-    font-weight: 600;
-    text-transform: uppercase;
+.footer__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.footer__list{
-    list-style: none;
-    padding: 0;
-}
-
-.footer__item{
-    
+.footer__item {
+  margin-bottom: $spacing-sm;
 }
 
 .footer__item__link {
-    display: block;
-    font-size: 1.4rem;
-    color: v.$white-color;
-    padding: 8px 0;
-}
+  color: $gray-400;
+  font-size: $font-size-sm;
+  text-decoration: none;
+  transition: all $transition-fast;
+  display: inline-flex;
+  align-items: center;
 
-.footer__item__link:hover{
+  i {
+    width: 20px;
+    color: $primary-500;
+  }
+
+  &:hover {
+    color: $primary-400;
     text-decoration: none;
-    color: #fff;
+    transform: translateX(3px);
+  }
 }
 
-.footer__cot4{
-    display: flex;
-    flex-direction: column;
-    padding-left: 40px;
+// Newsletter section
+.footer__cot4 {
+  .footer__heading {
+    margin-bottom: $spacing-md;
+  }
 }
 
-.footer__email{
-    border-radius: 20px;
-    padding: 15px;
-    margin: 10px 0;
-    width: 80% !important;
+.footer__form_group {
+  display: flex;
+  gap: 0;
+  margin-top: $spacing-md;
 }
 
-.footer__form_group{
-    margin-top: 6px;
+.footer__email {
+  background-color: rgba(255,255,255,0.08);
+  border: 1px solid $gray-700;
+  color: $white-color;
+  font-size: $font-size-sm;
+  padding: 10px 16px;
+  border-radius: $radius-md 0 0 $radius-md;
+  transition: border-color $transition-fast;
+
+  &::placeholder {
+    color: $gray-500;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-500;
+    background-color: rgba(255,255,255,0.12);
+  }
+}
+
+.footer__btn {
+  background: $primary-500;
+  color: $white-color;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0 $radius-md $radius-md 0;
+  transition: all $transition-fast;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &:hover {
+    background: $primary-600;
+    color: $white-color;
+    transform: translateX(2px);
+  }
+}
+
+// Bottom bar
+.footer__end {
+  border-top: 1px solid $gray-700;
+  padding: $spacing-lg 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__end__titel {
+  font-size: $font-size-xs;
+  color: $gray-500;
+  margin: 0;
+}
+
+.footer__end__icon {
+  display: flex;
+  gap: $spacing-md;
+
+  i {
+    font-size: $font-size-md;
+    color: $gray-500;
+    cursor: pointer;
+    transition: all $transition-fast;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
-}
+    justify-content: center;
+    border-radius: $radius-full;
+    border: 1px solid $gray-700;
 
-.footer__btn{
-    margin-left: 5px;
-    background-color: v.$chudao;
-    padding: 4px 16px;
-    border-radius: 20px;
-    font-size: 1.6rem;
-    color: #fff;
-}
-
-.footer__end{
-    width: 100%;
-    border-top: 2px solid v.$chudao;
-    height: 52px;
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer__end__titel{
-    margin: 0;
-    font-size: 1.5rem;
-    color: #fff;
-}
-
-.footer__end__icon i{
-    font-size: 1.5rem;
-    padding: 0 15px;
-    color: #fff;
+    &:hover {
+      color: $primary-400;
+      border-color: $primary-500;
+      transform: translateY(-2px);
+    }
+  }
 }

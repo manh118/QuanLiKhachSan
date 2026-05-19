@@ -1,5 +1,4 @@
-@use 'variables' as v;
-
+﻿
 .RoomDetail_img{
     width: 1110px;
     height: 420px;
@@ -11,7 +10,7 @@
     font-size: 2.8rem;
     margin: 25px 0;
     padding: 0 10px ;
-    border-left: 5px solid v.$chudao;
+    border-left: 5px solid $chudao;
     line-height: 28px;
     font-weight: 500;
     display: block;
@@ -20,7 +19,7 @@
 .RoomDetail_des{
     font-size: 1.6rem;
     text-align: justify;
-    color: v.$text;
+    color: $text;
     line-height: 30px;
 }
 
@@ -42,7 +41,7 @@
     justify-content: center;
     align-items: center;
     padding: 8px 20px;
-    border: 1px solid v.$chudao;
+    border: 1px solid $chudao;
     border-radius: 10px;
     
 }
@@ -67,7 +66,7 @@
 // Booking
 .RoomDetail__booking{
     margin-top: 25px;
-    background-color: v.$btn;
+    background-color: $btn;
     padding: 20px 30px;
     border-radius: 3px;
 }
@@ -92,7 +91,7 @@
 
 .RoomDetail__booking__des{
     font-size: 1.6rem;
-    color: v.$white-color;
+    color: $white-color;
     margin-bottom: 7px;
 }
 
@@ -101,7 +100,7 @@
 }
 
 .RoomDetail__booking__btn{
-    background-color: v.$chudao;
+    background-color: $chudao;
     font-size: 1.6rem;
     width: 100%;
     color: #fff;
@@ -118,7 +117,7 @@
 
 //Room lien quan
 .RoomDetail__relate{
-    border: 1px solid v.$chudao;
+    border: 1px solid $chudao;
     border-radius: 5px;
     padding: 0 10px ;
 }
@@ -146,7 +145,7 @@
     text-align: center;
     padding: 10px;
     text-decoration: none;
-    color: v.$chudao;
+    color: $chudao;
 
 }
 
@@ -156,7 +155,7 @@
 
 // Room type
 .RoomDetail__roomtype{
-    border: 1px solid v.$chudao;
+    border: 1px solid $chudao;
     border-radius: 5px;
     height: 395px;
 }
@@ -169,7 +168,7 @@
 }
 
 .RoomDetail__roomtype__item{
-   border-bottom: 1px solid v.$chudao;
+   border-bottom: 1px solid $chudao;
 }
 
 .RoomDetail__roomtype__item:last-child{
@@ -263,7 +262,7 @@
 .modal__booking__close i{
     padding: 5px;
     // color: #fff;
-    color: v.$btn;
+    color: $btn;
 } 
 
 .modal__booking__close:hover i{
@@ -272,13 +271,13 @@
 
 .modal__booking__header{
     font-size: 3rem;
-    border-bottom: 3px solid v.$chudao;
+    border-bottom: 3px solid $chudao;
     height: 90px;
     display: flex;
     align-items: center;
     justify-content: center;
-    // background-color: v.$btn;
-    color: v.$btn;
+    // background-color: $btn;
+    color: $btn;
     font-weight: 700;
 }
 
@@ -286,7 +285,7 @@
     font-weight: 500;
     font-size: 2rem;
     margin: 10px;
-    color: v.$chudao;
+    color: $chudao;
 }
 
 .modal__booking__contet{
@@ -300,7 +299,7 @@
     font-size: 1.8rem;
     display: block;
     font-weight: 500;
-    color: v.$btn;
+    color: $btn;
 }
 
 .modal__booking__input{
@@ -316,7 +315,7 @@
     font-size: 1.6rem;
     color: #fff;
     width: auto;
-    background-color: v.$btn;
+    background-color: $btn;
     padding: 5px;
     border-radius: 3px;
     margin-top: 50px;
@@ -337,7 +336,7 @@
 }
 
 .modal__booking__service__lable{
-    color: v.$btn;
+    color: $btn;
     font-size: 1.4rem;
     width: 115px;
     font-weight: 500;
@@ -363,14 +362,14 @@
     margin-bottom: 15px;
     font-size: 1.6rem;
     color: #fff;
-    background-color: v.$btn;
+    background-color: $btn;
     padding: 5px;
     border-radius: 3px;
     margin-top: 10px;
 }
 
 .modal__booking__frame__btn{
-    background-color: v.$btn;
+    background-color: $btn;
     width: 100%;
     height: 100px;
     display: flex;
@@ -386,7 +385,7 @@
 }
 
 .modal__booking__btn{
-    background-color: v.$chudao;
+    background-color: $chudao;
     font-size: 2rem;
     color: #fff;
     width: 30%;

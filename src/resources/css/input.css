@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+    /* Định nghĩa Font chữ từ User */
+    --font-sans: "Plus Jakarta Sans", sans-serif;
+    --font-serif: "Playfair Display", Georgia, serif;
+    --font-sans: "Inter", Helvetica, Arial, sans-serif;
+
+    /* Định nghĩa màu sắc cần cho giao diện trang Chủ Neo-Heritage */
+    --color-moss: #2E4C3B;
+    --color-stone: #F5F4F0;
+    --color-gold: #D4AF37;
+    --color-dark: #1C1C1C;
+
+    /* Bo góc mịn Premium */
+    --radius-sm: 2px;
+
+    /* Các biến User cung cấp (Primary/Secondary Colors, Shadows) */
+    --color-primary-50: #f0f9ff;
+    --color-primary-100: #e0f2fe;
+    --color-primary-200: #bae6fd;
+    --color-primary-300: #7dd3fc;
+    --color-primary-400: #38bdf8;
+    --color-primary-500: #0ea5e9;
+    --color-primary-600: #0284c7;
+    --color-primary-700: #0369a1;
+    --color-primary-800: #075985;
+    --color-primary-900: #0c4a6e;
+
+    /* Định nghĩa màu Secondary */
+    --color-secondary-50: #f5f3ff;
+    --color-secondary-100: #ede9fe;
+    --color-secondary-500: #8b5cf6;
+    --color-secondary-600: #7c3aed;
+
+    /* Box Shadow */
+    --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+.flatpickr-calendar {
+    z-index: 99999 !important;
+}

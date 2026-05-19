@@ -1,0 +1,127 @@
+<!-- Chatbot Floating Widget -->
+<div class="chatbot-widget" id="chatbotWidget">
+    <!-- Nút toggle mở/đóng -->
+    <div class="chatbot-toggler" onclick="toggleChatbot()">
+        <i class="fa-solid fa-message"></i>
+        <i class="fa-solid fa-xmark"></i>
+    </div>
+
+    <!-- Khung chat chính -->
+    <div class="chatbot-window">
+        <!-- Header -->
+        <div class="chatbot-header">
+            <div class="chatbot-header-info">
+                <h4>20Hotel Lễ Tân Ảo</h4>
+                <p>Luôn sẵn sàng hỗ trợ bạn</p>
+            </div>
+        </div>
+
+        <!-- Body chứa tin nhắn -->
+        <div class="chatbot-body" id="chatbotBody">
+            <!-- Lời chào mặc định -->
+            <div class="chat-message bot">
+                <div class="chat-bubble">
+                    Xin chào! Tôi là trợ lý ảo của 20Hotel. Tôi có thể giúp gì cho bạn hôm nay?
+                </div>
+            </div>
+            
+            <!-- Typing Indicator (ẩn mặc định) -->
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <!-- Footer chứa input -->
+        <div class="chatbot-footer">
+            <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Nhập câu hỏi của bạn..." onkeypress="handleChatbotKeyPress(event)">
+            <button class="chatbot-send-btn" onclick="sendChatbotMessage()">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleChatbot() {
+        document.getElementById('chatbotWidget').classList.toggle('show');
+    }
+
+    function handleChatbotKeyPress(event) {
+        if (event.key === 'Enter') {
+            sendChatbotMessage();
+        }
+    }
+
+    async function sendChatbotMessage() {
+        const inputField = document.getElementById('chatbotInput');
+        const message = inputField.value.trim();
+        if (!message) return;
+
+        const chatBody = document.getElementById('chatbotBody');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        // 1. Hiển thị tin nhắn của User
+        const userMsgDiv = document.createElement('div');
+        userMsgDiv.className = 'chat-message user';
+        userMsgDiv.innerHTML = `<div class="chat-bubble">${escapeHtml(message)}</div>`;
+        chatBody.insertBefore(userMsgDiv, typingIndicator);
+
+        // Clear input và scroll
+        inputField.value = '';
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // 2. Hiện hiệu ứng typing của Bot
+        typingIndicator.style.display = 'flex';
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        try {
+            // 3. Gửi request lên Backend
+            const response = await fetch('/api/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message })
+            });
+
+            const data = await response.json();
+            
+            // Ẩn hiệu ứng typing
+            typingIndicator.style.display = 'none';
+
+            // 4. Hiển thị tin nhắn của Bot
+            const botMsgDiv = document.createElement('div');
+            botMsgDiv.className = 'chat-message bot';
+            
+            if (response.ok) {
+                // Parse newline characters into <br> for better formatting
+                const formattedReply = escapeHtml(data.reply).replace(/\n/g, '<br>');
+                botMsgDiv.innerHTML = `<div class="chat-bubble">${formattedReply}</div>`;
+            } else {
+                botMsgDiv.innerHTML = `<div class="chat-bubble" style="color: red;">${escapeHtml(data.error || 'Có lỗi xảy ra.')}</div>`;
+            }
+            
+            chatBody.insertBefore(botMsgDiv, typingIndicator);
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+        } catch (error) {
+            console.error('Lỗi khi gửi tin nhắn:', error);
+            typingIndicator.style.display = 'none';
+            const errorMsgDiv = document.createElement('div');
+            errorMsgDiv.className = 'chat-message bot';
+            errorMsgDiv.innerHTML = `<div class="chat-bubble" style="color: red;">Xin lỗi, tôi không thể kết nối tới server lúc này. Vui lòng thử lại sau.</div>`;
+            chatBody.insertBefore(errorMsgDiv, typingIndicator);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    }
+
+    // Hàm chống XSS đơn giản
+    function escapeHtml(unsafe) {
+        return (unsafe || '')
+             .replace(/&/g, "&amp;")
+             .replace(/</g, "&lt;")
+             .replace(/>/g, "&gt;")
+             .replace(/"/g, "&quot;")
+             .replace(/'/g, "&#039;");
+    }
+</script>
