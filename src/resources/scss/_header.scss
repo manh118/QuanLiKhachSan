@@ -3,11 +3,12 @@
 // Header - Top Bar
 // ============================================
 .header-1 {
-  color: $white-color;
-  background: linear-gradient(135deg, $secondary-700, $secondary-500);
+  color: $gray-700;
+  background: $white-color;
   font-size: 1.3rem;
   height: 42px;
   letter-spacing: 0.3px;
+  border-bottom: 1px solid $gray-200;
 }
 
 .contact {
@@ -38,7 +39,7 @@
   display: block;
   content: "";
   position: absolute;
-  background-color: rgba(255,255,255,0.3);
+  background-color: $gray-300;
   width: 1px;
   height: 16px;
   top: 50%;
@@ -47,7 +48,7 @@
 }
 
 .contact__icon-link {
-  color: $white-color;
+  color: $gray-600;
   padding: 0 4px;
   transition: all $transition-fast;
   opacity: 0.9;
@@ -75,7 +76,7 @@
 
 .header {
   height: 80px;
-  background-color: rgba(255, 255, 255, 0.98);
+  background: linear-gradient(135deg, $secondary-700, $secondary-500);
   position: sticky;
   position: -webkit-sticky;
   top: 0;
@@ -112,7 +113,7 @@
   font-family: $font-primary;
   font-weight: 600;
   font-size: 1.4rem;
-  color: $gray-700;
+  color: $white-color;
   padding: 0 14px;
   text-transform: uppercase;
   display: flex;

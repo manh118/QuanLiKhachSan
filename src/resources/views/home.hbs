@@ -1,39 +1,88 @@
-{{!-- Gioi thieu --}}
+{{!-- ========== SECTION 1: HERO INTRO ========== --}}
 <div class="container">
   <div class="body">
     <div class="Bao">
-    <div class="row introduce">
-      <div class="col-6 ">
-        <div class="introduce__title_mini">Giới thiệu</div>
-        <div class="introduce__title">Chào Mừng đến với <br> Khách sạn 20Hotel</div>
-        <div class="introduce__description">
-          Tọa lạc tại vị trí đắc địa giữa lòng Hà Nội, Khách sạn 20Hotel mang đến
-        không gian lưu trú hiện đại, tiện nghi và dịch vụ chuyên nghiệp. Đây là điểm dừng chân lý tưởng ...
+      <div class="row introduce">
+        <div class="col-6">
+          <div class="introduce__title_mini">Giới thiệu</div>
+          <div class="introduce__title">Chào Mừng đến với <br>Khách sạn 20Hotel</div>
+          <div class="introduce__description">
+            Tọa lạc tại vị trí đắc địa giữa lòng Hà Nội, Khách sạn 20Hotel mang đến
+            không gian lưu trú hiện đại, tiện nghi và dịch vụ chuyên nghiệp. Đây là điểm dừng chân lý tưởng ...
+          </div>
+          <a href="/gioi_thieu" type="button" class="btn btn-info introduce__btn">Xem thêm</a>
         </div>
-        <a href="/gioi_thieu" type="button" class="btn btn-info introduce__btn">Xem thêm</a>
-      </div>
-      <div class="col-6">
-        <div class="row">
-           <div class="col-6 huy_pd ">
-            <div class="row bo_goc mb-3 "><img class="introduce__img " src="/img/diadiem1.jpg" alt=""></div>
-            <div class="row bo_goc "><img class="introduce__img" src="/img/diadiem4.jpg" alt=""></div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-6 huy_pd">
+              <div class="row bo_goc mb-3"><img class="introduce__img" src="/img/diadiem1.jpg" alt=""></div>
+              <div class="row bo_goc"><img class="introduce__img" src="/img/diadiem4.jpg" alt=""></div>
+            </div>
+            <div class="col-6 huy_pd">
+              <div class="row bo_goc_2"><img class="introduce__img_2" src="/img/diadiem3.jpg" alt=""></div>
+            </div>
           </div>
-          <div class="col-6 huy_pd">
-            <div class="row bo_goc_2 "><img class="introduce__img_2" src="/img/diadiem3.jpg" alt=""></div>
-          </div>
-        </div>    
+        </div>
       </div>
     </div>
   </div>
-  
-  {{!-- Phong nghi --}}
+</div>
+
+{{!-- ========== SECTION 2: TIỆN NGHI NỔI BẬT ========== --}}
+<div class="amenity-bar-section-wrapper">
+  <div class="container">
+    <div class="amenity-bar-section">
+      <div class="amenity-bar-title">Các tiện nghi được ưa chuộng nhất</div>
+        <div class="amenity-bar">
+          <div class="amenity-bar__item">
+            <i class="fa-solid fa-wifi amenity-bar__icon"></i>
+            <span>Wifi 100Mbps miễn phí</span>
+          </div>
+          <div class="amenity-bar__item">
+            <i class="fa-solid fa-person-swimming amenity-bar__icon"></i>
+            <span>Hồ bơi tầng thượng</span>
+          </div>
+          <div class="amenity-bar__item">
+            <i class="fa-solid fa-dumbbell amenity-bar__icon"></i>
+            <span>Phòng tập Gym</span>
+          </div>
+          <div class="amenity-bar__item">
+            <i class="fa-solid fa-utensils amenity-bar__icon"></i>
+            <span>Nhà hàng & Buffet sáng</span>
+          </div>
+          <div class="amenity-bar__item">
+            <i class="fa-solid fa-square-parking amenity-bar__icon"></i>
+            <span>Đỗ xe máy miễn phí</span>
+          </div>
+          <div class="amenity-bar__item">
+            <i class="fa-solid fa-martini-glass amenity-bar__icon"></i>
+            <span>Quầy Bar tầng thượng</span>
+          </div>
+          <div class="amenity-bar__item">
+            <i class="fa-solid fa-user-tie amenity-bar__icon"></i>
+            <span>Lễ tân 24/7</span>
+          </div>
+          <div class="amenity-bar__item">
+            <i class="fa-solid fa-shield-halved amenity-bar__icon"></i>
+            <span>An ninh 24/7</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="body">
+
+    {{!-- ========== SECTION 3: PHÒNG NGHỈ ========== --}}
     <div class="Bao">
       <div class="PhongNghi">
         <div class="PhongNghi_gt">
           <div class="PhongNghi__tieude">Phòng Nghỉ</div>
-          <div class="PhongNghi__mota">Thoải mái & tiện nghi</div>
+          <div class="PhongNghi__mota">Thoải mái và Hiện đại</div>
         </div>
-        <div class="PhongNghi__slide">       
+        <div class="PhongNghi__slide">
           <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               {{#each rooms}}
@@ -67,119 +116,289 @@
         </div>
       </div>
     </div>
-  
-  {{!-- Dich vu --}}
-    <div class="Bao">
+
+  </div>
+</div>
+
+{{!-- ========== SECTION 4: DỊCH VỤ ========== --}}
+<div class="home-section-wrapper--tinted">
+  <div class="container">
+    <div class="body">
+      <div class="Bao">
       <div class="PhongNghi">
         <div class="PhongNghi_gt">
-          <div class="PhongNghi__tieude">dịch vụ</div>
-          <div class="PhongNghi__mota">dịch vụ của chúng tôi</div>
+          <div class="PhongNghi__tieude">Dịch vụ</div>
+          <div class="PhongNghi__mota">Trải nghiệm đẳng cấp</div>
         </div>
-          <div class="row mg-50">
-            <div class="col-4">
-              <a  class="home_gt_dichvu">
-                <img class="home_gt_dichvu__img" src="/img/giatui.png" alt="" style="background: gray;">
-                <p class="home_gt_dichvu__ten">Giặt ủi</p>
-              </a>
-            </div>
-            <div class="col-4">
-              <a  class="home_gt_dichvu">
-                <img class="home_gt_dichvu__img" src="/img/xemay.jpg" alt="">
-                <p class="home_gt_dichvu__ten">Cho thuê xe</p>
-              </a>
-            </div>
-            <div class="col-4">
-              <a  class="home_gt_dichvu">
-                <img class="home_gt_dichvu__img" src="/img/dulich.jpg" alt="">
-                <p class="home_gt_dichvu__ten">Tư vấn tham quan</p>
-              </a>
+        <div class="row mg-50 home-services-grid">
+          <div class="col-md-4 col-6 mb-4">
+            <div class="home-service-card">
+              <div class="home-service-card__icon-wrap">
+                <i class="fa-solid fa-shirt"></i>
+              </div>
+              <h5 class="home-service-card__title">Giặt ủi</h5>
+              <p class="home-service-card__desc">Dịch vụ giặt ủi chuyên nghiệp, giao trả trong ngày cho quý khách.</p>
             </div>
           </div>
+          <div class="col-md-4 col-6 mb-4">
+            <div class="home-service-card">
+              <div class="home-service-card__icon-wrap">
+                <i class="fa-solid fa-motorcycle"></i>
+              </div>
+              <h5 class="home-service-card__title">Thuê xe máy</h5>
+              <p class="home-service-card__desc">Tự do khám phá Hà Nội với dịch vụ cho thuê xe máy đa dạng, giá cả hợp lý.</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-6 mb-4">
+            <div class="home-service-card">
+              <div class="home-service-card__icon-wrap">
+                <i class="fa-solid fa-map-location-dot"></i>
+              </div>
+              <h5 class="home-service-card__title">Tư vấn tham quan</h5>
+              <p class="home-service-card__desc">Đội ngũ lễ tân am hiểu địa phương, sẵn sàng gợi ý tour và địa điểm hấp dẫn nhất Hà Nội.</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-6 mb-4">
+            <div class="home-service-card">
+              <div class="home-service-card__icon-wrap">
+                <i class="fa-solid fa-car"></i>
+              </div>
+              <h5 class="home-service-card__title">Đưa đón sân bay</h5>
+              <p class="home-service-card__desc">Dịch vụ đưa đón sân bay Nội Bài chuyên nghiệp, đúng giờ, thoải mái và an toàn.</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-6 mb-4">
+            <div class="home-service-card">
+              <div class="home-service-card__icon-wrap">
+                <i class="fa-solid fa-spa"></i>
+              </div>
+              <h5 class="home-service-card__title">Spa & Massage</h5>
+              <p class="home-service-card__desc">Thư giãn hoàn toàn với liệu trình Spa & Massage chuyên sâu ngay tại khách sạn.</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-6 mb-4">
+            <div class="home-service-card">
+              <div class="home-service-card__icon-wrap">
+                <i class="fa-solid fa-bowl-food"></i>
+              </div>
+              <h5 class="home-service-card__title">Ẩm thực Hà Nội</h5>
+              <p class="home-service-card__desc">Thưởng thức buffet sáng phong phú và các đặc sản Hà Nội ngay tại nhà hàng tầng 1.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  
-  {{!-- Tin tuc --}}
-    {{!-- <div class="Bao">
-      <div class="PhongNghi">
-        <div class="PhongNghi_gt">
-          <div class="PhongNghi__tieude">tin tức</div>
-          <div class="PhongNghi__mota">tin tức & sự kiện mới nhất</div>
-        </div>
-          <div class="row mg-50">
-            <div class="col-4 ">
-              <div class="home__gt__tintuc" >
-                <img src="/img/tintuc1.jpg" class="home__gt__tintuc__img" alt="...">
-                <div class="home__gt__tintuc__content">
-                  <p class="home__gt__tintuc__time">30 / 5 / 2025 <span class="home__gt__tintuc__time_1">Sự kiện</span>  </p>
-                  <p class="home__gt__tintuc__tieude">thức dậy cùng mây ngàn</p>
-                  <p class="home__gt__tintuc__mota">Thức dậy tràn đầy năng lượng - mở cửa đón mây cùng người ấy.</p>
-                  <p class="home__gt__tintuc__price">Chỉ với 1.200.000 vnđ / 2 người</p>
-                  <a href="#" class="btn home__gt__tintuc__btn">Xem thêm <i class="fa-solid fa-arrow-right home__gt__tintuc__icon "></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="home__gt__tintuc" >
-                <img src="/img/tintuc1.jpg" class="home__gt__tintuc__img" alt="...">
-                <div class="home__gt__tintuc__content">
-                  <p class="home__gt__tintuc__time">30 / 5 / 2025 <span class="home__gt__tintuc__time_1">Sự kiện</span>  </p>
-                  <p class="home__gt__tintuc__tieude">thức dậy cùng mây ngàn</p>
-                  <p class="home__gt__tintuc__mota">Thức dậy tràn đầy năng lượng - mở cửa đón mây cùng người ấy.</p>
-                  <p class="home__gt__tintuc__price">Chỉ với 1.200.000 vnđ / 2 người</p>
-                  <a href="#" class="btn home__gt__tintuc__btn">Xem thêm <i class="fa-solid fa-arrow-right home__gt__tintuc__icon "></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="home__gt__tintuc" >
-                <img src="/img/tintuc1.jpg" class="home__gt__tintuc__img" alt="...">
-                <div class="home__gt__tintuc__content">
-                  <p class="home__gt__tintuc__time">30 / 5 / 2025 <span class="home__gt__tintuc__time_1">Sự kiện</span>  </p>
-                  <p class="home__gt__tintuc__tieude">thức dậy cùng mây ngàn</p>
-                  <p class="home__gt__tintuc__mota">Thức dậy tràn đầy năng lượng - mở cửa đón mây cùng người ấy.</p>
-                  <p class="home__gt__tintuc__price">Chỉ với 1.200.000 vnđ / 2 người</p>
-                  <a href="#" class="btn home__gt__tintuc__btn">Xem thêm <i class="fa-solid fa-arrow-right home__gt__tintuc__icon "></i></a>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-      </div>
-    </div> --}}
-  
-  {{!-- Hinh anh gioi thieu --}}
-    <div class="Bao">
-      <div class="PhongNghi">
-        <div class="PhongNghi_gt">
-          <div class="PhongNghi__tieude">Hình ảnh</div>
-          <div class="PhongNghi__mota">thư viện hình ảnh</div>
-        </div>
-        <div class="row thuvien mg-50">
-          <div class="col-3 row_285" >
-            <div class="row h-50"><img class="thuvien__img" src="/img/Thuvien/anh1.jpg" alt=""></div>
-            <div class="row h-50"><img class="thuvien__img" src="/img/Thuvien/anh2.jpg" alt=""></div>
-          </div>
-         <div class="col-6 row_285">
-          <div class="img3-wrapper">
-            <img class="thuvien__img" src="/img/Thuvien/anh3.jpg" alt="">
-          </div>
-          <div class=" h-50 row ">
-            <div class="col-6 " style="padding-right: 7.5px;">
-              <img class="thuvien__img" src="/img/Thuvien/anh4.jpg" alt="">
-            </div>
-            <div class="col-6" style="padding-left: 7.5px;">
-              <img class="thuvien__img" src="/img/Thuvien/anh5.jpg" alt="">
-            </div>
-          </div>
-        </div>
-          <div class="col-3" style="padding-left: 0;">
-            <img class="thuvien__img" src="/img/Thuvien/anh6.jpg" alt="">
-          </div>
-          <button type="button" class="btn thuvien__btn mb-5">Xem thêm</button>
-        </div>
-        <div class="bao__thuvien__btn"></div>
-  
+
       </div>
     </div>
   </div>
 </div>
+
+<div class="container">
+  <div class="body">
+
+    {{!-- ========== SECTION 5: TẠI SAO CHỌN 20HOTEL ========== --}}
+    <div class="Bao">
+      <div class="PhongNghi">
+        <div class="PhongNghi_gt">
+          <div class="PhongNghi__tieude">Tại sao chọn 20Hotel?</div>
+          <div class="PhongNghi__mota">Những điểm khác biệt tạo nên đẳng cấp</div>
+        </div>
+        <div class="row mg-50">
+          <div class="col-md-3 col-6 mb-4">
+            <div class="why-card">
+              <div class="why-card__icon"><i class="fa-solid fa-map-pin"></i></div>
+              <h5 class="why-card__title">Vị trí đắc địa</h5>
+              <p class="why-card__desc">Tọa lạc trung tâm Cầu Giấy, di chuyển dễ dàng đến mọi điểm tham quan Hà Nội.</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="why-card">
+              <div class="why-card__icon"><i class="fa-solid fa-tags"></i></div>
+              <h5 class="why-card__title">Giá cả minh bạch</h5>
+              <p class="why-card__desc">Không phí ẩn. Giá đặt phòng online rõ ràng, thanh toán đa dạng VNPay, tiền mặt.</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="why-card">
+              <div class="why-card__icon"><i class="fa-solid fa-heart"></i></div>
+              <h5 class="why-card__title">Nhân viên tận tâm</h5>
+              <p class="why-card__desc">Đội ngũ lễ tân thân thiện, phục vụ 24/7 — luôn sẵn sàng hỗ trợ mọi yêu cầu của quý khách.</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-6 mb-4">
+            <div class="why-card">
+              <div class="why-card__icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <h5 class="why-card__title">An toàn tuyệt đối</h5>
+              <p class="why-card__desc">Camera 24/7, khóa thẻ từ điện tử, két sắt riêng trong phòng — nghỉ ngơi thật yên tâm.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{{!-- ========== SECTION 6: ĐÁNH GIÁ KHÁCH HÀNG ========== --}}
+{{#if reviews}}
+<div class="home-section-wrapper--tinted">
+  <div class="container">
+    <div class="body">
+      <div class="Bao">
+      <div class="PhongNghi">
+        <div class="PhongNghi_gt">
+          <div class="PhongNghi__tieude">Khách hàng nói gì?</div>
+          <div class="PhongNghi__mota">Trải nghiệm thực tế từ những vị khách đã lưu trú</div>
+        </div>
+
+        <div class="reviews-carousel-wrapper mg-50">
+          <div class="reviews-track-container">
+            <div class="reviews-track" id="reviewsTrack">
+              {{#each reviews}}
+              <div class="review-card">
+                <div class="review-card__header">
+                  <div class="review-card__avatar">{{initial this.customerName}}</div>
+                  <div class="review-card__info">
+                    <div class="review-card__name">{{this.customerName}}</div>
+                    {{#if this.roomNumber}}<div class="review-card__room">Phòng {{this.roomNumber}}</div>{{/if}}
+                  </div>
+                  <div class="review-card__stars">
+                    {{#times this.rating}}<i class="fa-solid fa-star"></i>{{/times}}
+                  </div>
+                </div>
+                <p class="review-card__comment">"{{this.comment}}"</p>
+                <div class="review-card__date">{{formatDate this.createdAt}}</div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+          <div class="reviews-controls">
+            <button class="reviews-btn" id="reviewsPrev" aria-label="Trang trước">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div class="reviews-dots" id="reviewsDots"></div>
+            <button class="reviews-btn" id="reviewsNext" aria-label="Trang sau">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+
+<div class="container">
+  <div class="body">
+    {{!-- ========== SECTION 7: THƯ VIỆN ẢNH ========== --}}
+    <div class="Bao" style="margin-bottom: 80px;">
+      <div class="PhongNghi">
+        <div class="PhongNghi_gt">
+          <div class="PhongNghi__tieude">Hình ảnh</div>
+          <div class="PhongNghi__mota">Thư viện hình ảnh</div>
+        </div>
+        <div class="gallery-grid mg-50">
+          <div class="gallery-item gallery-item--tall" onclick="openLightbox('/img/Thuvien/anh1.jpg')">
+            <img src="/img/Thuvien/anh1.jpg" alt="Không gian khách sạn">
+            <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('/img/Thuvien/anh2.jpg')">
+            <img src="/img/Thuvien/anh2.jpg" alt="Phòng nghỉ">
+            <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('/img/Thuvien/anh3.jpg')">
+            <img src="/img/Thuvien/anh3.jpg" alt="Tiện nghi">
+            <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('/img/Thuvien/anh4.jpg')">
+            <img src="/img/Thuvien/anh4.jpg" alt="Khu vực ăn uống">
+            <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('/img/Thuvien/anh7.jpg')">
+            <img src="/img/Thuvien/anh7.jpg" alt="Ảnh 7">
+            <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </div>
+          <div class="gallery-item gallery-item--wide" onclick="openLightbox('/img/Thuvien/anh5.jpg')">
+            <img src="/img/Thuvien/anh5.jpg" alt="Hồ bơi">
+            <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </div>
+          <div class="gallery-item" onclick="openLightbox('/img/Thuvien/anh6.jpg')">
+            <img src="/img/Thuvien/anh6.jpg" alt="Khu vực thư giãn">
+            <div class="gallery-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{{!-- ========== LIGHTBOX ========== --}}
+<div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
+
+<script>
+  // ===== LIGHTBOX =====
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightboxOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightboxOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // ===== REVIEWS CAROUSEL =====
+  (function() {
+    const track = document.getElementById('reviewsTrack');
+    if (!track) return;
+
+    const cards = track.querySelectorAll('.review-card');
+    const totalCards = cards.length;
+    const dotsContainer = document.getElementById('reviewsDots');
+    let perPage = window.innerWidth >= 768 ? 3 : 1;
+    let currentPage = 0;
+    let totalPages = Math.ceil(totalCards / perPage);
+
+    function calcPerPage() {
+      perPage = window.innerWidth >= 768 ? 3 : 1;
+      totalPages = Math.ceil(totalCards / perPage);
+      if (currentPage >= totalPages) currentPage = totalPages - 1;
+      render();
+    }
+
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'reviews-dot' + (i === currentPage ? ' active' : '');
+        dot.addEventListener('click', () => { currentPage = i; render(); });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function render() {
+      totalPages = Math.ceil(totalCards / perPage);
+      const cardWidth = cards[0].offsetWidth + 24; // gap=24
+      track.style.transform = `translateX(-${currentPage * perPage * cardWidth}px)`;
+      buildDots();
+      document.getElementById('reviewsPrev').disabled = currentPage === 0;
+      document.getElementById('reviewsNext').disabled = currentPage >= totalPages - 1;
+    }
+
+    document.getElementById('reviewsPrev').addEventListener('click', () => {
+      if (currentPage > 0) { currentPage--; render(); }
+    });
+    document.getElementById('reviewsNext').addEventListener('click', () => {
+      if (currentPage < totalPages - 1) { currentPage++; render(); }
+    });
+
+    window.addEventListener('resize', calcPerPage);
+    render();
+  })();
+</script>

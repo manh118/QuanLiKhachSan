@@ -48,4 +48,28 @@
         {{/if}}
       </ul>
     </div>
-  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const currentPath = window.location.pathname;
+    const navItems = document.querySelectorAll('.manage__navbar_item');
+    
+    navItems.forEach(item => {
+      const href = item.getAttribute('href');
+      if (!href) return;
+      
+      // Bỏ qua logo
+      if (item.innerHTML.includes('fa-hotel')) return;
+      
+      // Xử lý riêng cho "Tổng quan" (href="/manage")
+      if (currentPath === '/manage' && href === '/manage') {
+        item.classList.add('active');
+      } 
+      // Xử lý cho các trang con
+      else if (currentPath !== '/manage' && currentPath.startsWith(href) && href !== '/manage') {
+        item.classList.add('active');
+      }
+    });
+  });
+</script>

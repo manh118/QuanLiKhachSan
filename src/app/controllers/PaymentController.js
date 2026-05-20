@@ -190,9 +190,10 @@ class PaymentController {
             }
         }
 
+        const bookingCode = actualOrderId ? actualOrderId.toString().slice(-6).toUpperCase() : '';
         res.render('payment/vnpay_return', {
             isSuccess: isSuccess,
-            orderId: actualOrderId,
+            bookingCode: bookingCode,
             amount: vnp_Params['vnp_Amount'] / 100,
             orderInfo: vnp_Params['vnp_OrderInfo'],
             layout: 'main'

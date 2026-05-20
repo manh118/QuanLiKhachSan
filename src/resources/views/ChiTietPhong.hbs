@@ -389,9 +389,16 @@
                 </div>
 
                 <h4 class="font-weight-bold mb-4 mt-5" style="color: #1f2937; font-size: 1.8rem; border-left: 4px solid #00796B; padding-left: 10px;">Thông tin Khách hàng</h4>
-                <div class="mb-3">
-                    <label class="font-weight-bold" style="color: #4b5563; font-size: 1.4rem;">Họ và tên</label>
-                    <input type="Text" id="fullName" class="form-control form-control-lg" style="font-size: 1.4rem;" value="{{user.fullName}}">
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label class="font-weight-bold" style="color: #4b5563; font-size: 1.4rem;">Họ</label>
+                        <input type="Text" id="lastName" class="form-control form-control-lg" style="font-size: 1.4rem;" placeholder="VD: Trần">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="font-weight-bold" style="color: #4b5563; font-size: 1.4rem;">Tên</label>
+                        <input type="Text" id="firstName" class="form-control form-control-lg" style="font-size: 1.4rem;" placeholder="VD: Đức Mạnh">
+                    </div>
+                    <input type="hidden" id="hiddenFullName" value="{{user.fullName}}">
                 </div>
                 <div class="row mb-4">
                     <div class="col-6">
@@ -792,6 +799,18 @@
 
         // Tự động tính ngay khi vừa mở modal
         // Lắng nghe MutationObserver để tính khi class 'open' được thêm vào
+        const hiddenName = document.getElementById('hiddenFullName');
+        if (hiddenName && hiddenName.value) {
+            const parts = hiddenName.value.trim().split(' ');
+            if (parts.length > 1) {
+                document.getElementById('lastName').value = parts[0];
+                document.getElementById('firstName').value = parts.slice(1).join(' ');
+            } else {
+                document.getElementById('firstName').value = parts[0];
+            }
+        }
+
+        // Khởi tạo các thay đổi cần thiết cho modal
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.attributeName === 'class' && modal.classList.contains('open')) {
@@ -819,10 +838,12 @@
                 return;
             }
             
-            const fullName = document.getElementById('fullName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const firstName = document.getElementById('firstName').value.trim();
+            const fullName = (lastName + ' ' + firstName).trim();
             const phone = document.getElementById('phone').value.trim();
-            if (!fullName || !phone) {
-                alert('Vui lòng nhập đầy đủ Họ tên và Số điện thoại!');
+            if (!lastName || !firstName || !phone) {
+                alert('Vui lòng nhập đầy đủ Họ, Tên và Số điện thoại!');
                 return;
             }
             
@@ -895,7 +916,8 @@
                             window.location.reload();
                         });
                     } else {
-                        alert('Đặt phòng thành công! Vui lòng chuyển khoản theo thông tin đã cung cấp.');
+                        const shortCode = res.data._id.toString().slice(-6).toUpperCase();
+                        alert(`Đặt phòng thành công! MÃ ĐẶT PHÒNG CỦA BẠN LÀ: ${shortCode}\n\nVui lòng lưu lại mã này để tra cứu đơn hàng và thực hiện chuyển khoản theo thông tin đã cung cấp.`);
                         window.location.reload();
                     }
                 } else {

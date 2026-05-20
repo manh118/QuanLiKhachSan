@@ -133,6 +133,25 @@ app.engine(
         if (!date) return '';
         // Định dạng HH:mm DD/MM/YYYY (ví dụ: 14:30 23/10/2025)
         return moment(date).format('HH:mm DD/MM/YYYY');
+      },
+
+      // Lấy chữ cái đầu của tên (dùng cho avatar đánh giá)
+      initial: function(name) {
+        if (!name) return '?';
+        return name.trim().charAt(0).toUpperCase();
+      },
+
+      // Lặp N lần (dùng cho sao đánh giá)
+      times: function(n, options) {
+        let result = '';
+        for (let i = 0; i < n; i++) result += options.fn(i);
+        return result;
+      },
+
+      // Định dạng ngày tháng cho đánh giá
+      formatDate: function(date) {
+        if (!date) return '';
+        return moment(date).format('DD/MM/YYYY');
       }
 
     }

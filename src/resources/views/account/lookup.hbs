@@ -15,14 +15,18 @@
                     {{/if}}
 
                     <form action="/account/lookup" method="POST">
-                        <div class="form-group mb-3">
-                            <label for="phone" class="font-weight-bold text-hotel-teal">Số điện thoại *</label>
-                            <input type="text" class="form-control" id="phone" name="phone" value="{{phone}}" placeholder="Nhập số điện thoại đã dùng để đặt phòng" required>
+                        <div class="form-group mb-4">
+                            <label for="bookingId" class="font-weight-bold text-hotel-teal mb-2" style="font-size: 1.1rem;">Mã đặt phòng *</label>
+                            <input type="text" class="form-control form-control-lg shadow-sm" id="bookingId" name="bookingId" value="{{bookingId}}" placeholder="VD: 4B07CA" required style="font-size: 1.1rem; padding: 1.5rem 1rem;">
                         </div>
                         <div class="form-group mb-4">
-                            <label for="email" class="font-weight-bold text-hotel-teal">Email (Tuỳ chọn)</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{email}}" placeholder="Nhập email nếu có">
-                            <small class="text-muted">Nhập thêm email giúp tìm kiếm chính xác hơn nếu có nhiều người trùng số điện thoại.</small>
+                            <label for="phone" class="font-weight-bold text-hotel-teal mb-2" style="font-size: 1.1rem;">Số điện thoại</label>
+                            <input type="text" class="form-control form-control-lg shadow-sm" id="phone" name="phone" value="{{phone}}" placeholder="Nhập số điện thoại đã dùng để đặt phòng" style="font-size: 1.1rem; padding: 1.5rem 1rem;">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="email" class="font-weight-bold text-hotel-teal mb-2" style="font-size: 1.1rem;">Email</label>
+                            <input type="email" class="form-control form-control-lg shadow-sm" id="email" name="email" value="{{email}}" placeholder="Nhập email nếu có" style="font-size: 1.1rem; padding: 1.5rem 1rem;">
+                            <small class="text-muted d-block mt-3" style="font-size: 0.95rem;">Vui lòng nhập <b>Mã đặt phòng</b> VÀ <b>Số điện thoại hoặc Email</b> để bảo mật thông tin.</small>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn bg-hotel-teal text-white py-2 px-5 font-weight-bold rounded-pill hover-bg-hotel-teal shadow-sm">
@@ -40,7 +44,7 @@
                 {{#each bookings}}
                 <div class="card shadow-sm border-0 mb-4 rounded-lg overflow-hidden">
                     <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                        <span class="font-weight-bold text-secondary">Mã đơn: #{{this._id}}</span>
+                        <span class="font-weight-bold text-secondary">Mã đơn: #{{this.shortId}}</span>
                         <span class="badge badge-primary px-3 py-2 badge-custom-{{this.bookingStatus}}">{{this.bookingStatus}}</span>
                     </div>
                     <div class="card-body">

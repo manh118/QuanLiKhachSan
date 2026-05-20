@@ -202,32 +202,54 @@ class LoginController {
   }
 
   async lookupBooking(req, res, next) {
-      const { phone, email } = req.body;
+      const { bookingId, phone, email } = req.body;
       
-      if (!phone) {
+      if (!bookingId || bookingId.trim() === '') {
           return res.render('account/lookup', {
               layout: 'main',
-              error: 'Vui lòng nhập Số điện thoại',
-              phone, email
+              error: 'Vui lòng nhập Mã đặt phòng',
+              bookingId, phone, email
+          });
+      }
+
+      if ((!phone || phone.trim() === '') && (!email || email.trim() === '')) {
+          return res.render('account/lookup', {
+              layout: 'main',
+              error: 'Vui lòng nhập Số điện thoại hoặc Email',
+              bookingId, phone, email
           });
       }
 
       try {
-          const query = { 'customer.phone': phone };
+          const query = { $or: [] };
+          if (phone && phone.trim() !== '') {
+              query.$or.push({ 'customer.phone': phone.trim() });
+          }
           if (email && email.trim() !== '') {
-              query['customer.email'] = email;
+              query.$or.push({ 'customer.email': email.trim() });
           }
 
-          const bookings = await Booking.find(query)
+          let bookings = await Booking.find(query)
                                         .populate('room')
                                         .sort({ createdAt: -1 })
                                         .lean();
 
+          // Lọc tiếp bằng JS để so khớp Mã đặt phòng (6 ký tự cuối của ObjectId)
+          const targetSuffix = bookingId.trim().toUpperCase();
+          bookings = bookings.filter(b => {
+              const shortId = b._id.toString().slice(-6).toUpperCase();
+              if (shortId === targetSuffix) {
+                  b.shortId = shortId; // Gắn thêm shortId để view hiển thị
+                  return true;
+              }
+              return false;
+          });
+
           if (bookings.length === 0) {
               return res.render('account/lookup', {
                   layout: 'main',
-                  error: 'Không tìm thấy đơn đặt phòng nào với thông tin này.',
-                  phone, email
+                  error: 'Không tìm thấy đơn đặt phòng nào phù hợp với thông tin này.',
+                  bookingId, phone, email
               });
           }
 
@@ -235,14 +257,14 @@ class LoginController {
               layout: 'main',
               success: 'Tra cứu thành công!',
               bookings: bookings,
-              phone, email
+              bookingId, phone, email
           });
       } catch (error) {
           console.error(error);
           res.render('account/lookup', {
               layout: 'main',
               error: 'Lỗi hệ thống khi tra cứu đơn hàng.',
-              phone, email
+              bookingId, phone, email
           });
       }
   }

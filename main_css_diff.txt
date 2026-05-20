@@ -1,0 +1,35 @@
+﻿diff --git a/src/public/css/main.css b/src/public/css/main.css
+index 280754f..1236b53 100644
+--- a/src/public/css/main.css
++++ b/src/public/css/main.css
+@@ -2170,30 +2170,6 @@ footer {
+   background-color: #f9fafb;
+ }
+ 
+-/* Cross-hair hover logic for Calendar */
+-.table.table-calendar tr:hover td {
+-  background-color: transparent; /* Reset default table hover */
+-}
+-.table-calendar td.hovered-axis {
+-  background-color: #f9fafb !important;
+-}
+-.table-calendar td.status-booked,
+-.table-calendar td.status-booked.hovered-axis {
+-  background-color: #fde8d0 !important;
+-}
+-.table-calendar td.status-past {
+-  background-color: #f3f4f6 !important;
+-  color: #9ca3af;
+-  cursor: not-allowed;
+-}
+-.table-calendar td.status-available.hovered-axis,
+-.table-calendar td.status-past.hovered-axis {
+-  background-color: #f9fafb !important;
+-}
+-.table-calendar td.status-available:hover {
+-  background-color: #c1e7d0 !important;
+-}
+-
+ .table.mt-4 th,
+ .table.mt-4 td {
+   padding: 7.5px 25px;

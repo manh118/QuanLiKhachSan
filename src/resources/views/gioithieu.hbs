@@ -1,58 +1,248 @@
+{{!-- HERO BANNER --}}
 <div class='slide_hbs_phu'>
   <div class='slide__content_phu'>
     <div class='text__des'>Giới thiệu</div>
   </div>
 </div>
-<div class='container'>
-  <div class='row mt-5'>
-    <div class='col-6'>
-      <div class='GioiThieu__titile'>
-        KHÁCH SẠN 20HOTEL – ĐIỂM DỪNG CHÂN LÝ TƯỞNG GIỮA LÒNG HÀ NỘI
-      </div>
-      <p class='GioiThieu__des mb-4'>
-        Tọa lạc tại vị trí đắc địa thuộc quận Cầu Giấy, Hà Nội, Khách sạn 20Hotel
-        mang đến không gian lưu trú hiện đại, tiện nghi và dịch vụ chuyên nghiệp.
-        Từ khách sạn, quý khách dễ dàng di chuyển đến các trung tâm thương mại,
-        khu vui chơi giải trí, nhà hàng và các địa điểm du lịch nổi tiếng
-        của thủ đô. Với hệ thống 20 phòng nghỉ được thiết kế hiện đại, trang bị đầy đủ tiện nghi,
-        cùng đội ngũ nhân viên tận tâm, 20Hotel cam kết mang đến trải nghiệm lưu
-        trú thoải mái, an toàn và đáng nhớ cho mọi du khách.
-      </p>
-      <div class='GioiThieu__img'>
-        <img src='\img\GioiThieu\hoguom.jpg' alt='Hồ Gươm Hà Nội' />
-      </div>
-      <div class='row mt-3'>
-        <div class='col-6 GioiThieu__img' style='padding-right: 6px;'>
-          <img class='img2' src='\img\GioiThieu\langbac.jpg' alt='Lăng Bác' />
+
+<div class="gt-page-wrapper">
+
+  {{!-- ========== SECTION 1: VỀ 20HOTEL ========== --}}
+  <section class="gt-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-4 mb-md-0">
+          <span class="gt-label">Về chúng tôi</span>
+          <h2 class="gt-title">Khách sạn 20Hotel – Điểm dừng chân lý tưởng giữa lòng Hà Nội</h2>
+          <p class="gt-desc">Tọa lạc tại vị trí đắc địa thuộc quận Cầu Giấy, Hà Nội, Khách sạn 20Hotel mang đến không gian lưu trú hiện đại, tiện nghi và dịch vụ chuyên nghiệp. Với hệ thống 20 phòng nghỉ được thiết kế hiện đại, cùng đội ngũ nhân viên tận tâm phục vụ 24/7, chúng tôi cam kết mang đến trải nghiệm lưu trú thoải mái và đáng nhớ cho mọi du khách.</p>
+          <div class="gt-contact-info">
+            <div class="gt-contact-item"><i class="fa-solid fa-location-dot"></i> 49 P. Trần Quốc Vượng, Dịch Vọng Hậu, Cầu Giấy, Hà Nội</div>
+            <div class="gt-contact-item"><i class="fa-solid fa-phone"></i> 0983 230 945 (24/7)</div>
+            <div class="gt-contact-item"><i class="fa-solid fa-envelope"></i> 20hotel@gmail.com</div>
+          </div>
         </div>
-        <div class='col-6 GioiThieu__img' style='padding-left: 6px;'>
-          <img class='img2' src='\img\GioiThieu\phoco.jpg' alt='Phố cổ Hà Nội' />
+        <div class="col-md-6">
+          <div class="gt-img-grid">
+            <img src="/img/GioiThieu/hoguom.jpg" alt="Hồ Gươm Hà Nội" class="gt-img-main">
+            <div class="gt-img-sub-row">
+              <img src="/img/GioiThieu/langbac.jpg" alt="Lăng Bác">
+              <img src="/img/GioiThieu/phoco.jpg" alt="Phố cổ Hà Nội">
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class='col-6'>
-      <img src="/img/logo.png" alt="20Hotel Logo" style="width: 100%; height: 300px; object-fit: contain">
-      <p class='GioiThieu__des'>
-        <p class='GioiThieu__des'>20Hotel không chỉ là nơi nghỉ ngơi mà còn là
-          trải nghiệm khám phá Hà Nội đích thực. Tại 20Hotel, du khách sẽ được tận hưởng
-          không gian yên tĩnh, hiện đại, cùng với các dịch vụ hỗ trợ du lịch
-          tiện lợi, phù hợp cho cả khách du lịch, các cặp đôi và gia đình.</p>
-        <p class='GioiThieu__des'>Khám phá ẩm thực đường phố — Từ khách sạn, quý khách
-          chỉ mất vài phút để thưởng thức những món ăn đặc trưng Hà Nội như phở,
-          bún chả, cà phê trứng và vô vàn đặc sản khác tại các quán ăn nổi tiếng
-          xung quanh.</p>
-        <p class='GioiThieu__des'>Dịch vụ tận tâm từ trái tim — Chúng tôi hiểu rằng
-            du lịch không chỉ là một căn phòng. Đội ngũ lễ tân 24/7 của 20Hotel
-            luôn sẵn sàng hỗ trợ: từ sắp xếp xe đưa đón sân bay,
-            tư vấn điểm tham quan, đến cho thuê xe máy và dịch vụ giặt là.</p>
-        <p class='GioiThieu__des'>Với hệ thống phòng nghỉ đa dạng từ Standard
-          (tiết kiệm) đến Superior (có cửa sổ) và Family (cho gia đình/nhóm
-          bạn), tất cả đều được trang bị đầy đủ tiện nghi cơ bản, cùng đội ngũ
-          nhân viên thân thiện phục vụ 24/7, Khách sạn 20Hotel cam kết mang đến
-          cho quý khách trải nghiệm lưu trú tuyệt vời ngay giữa lòng thủ đô.</p>
-          <p class='GioiThieu__des'>Hãy để Khách sạn 20Hotel là ngôi nhà thứ hai của
-        bạn tại Hà Nội. Chúng tôi rất mong được chào đón bạn!</p>
-      </p>
+  </section>
+
+  {{!-- ========== SECTION 2: TIỆN NGHI ƯA CHUỘNG ========== --}}
+  <div class="amenity-bar-section-wrapper">
+    <div class="container">
+      <div class="amenity-bar-section">
+        <div class="gt-section-header" style="margin-bottom: 30px;">
+          <h3 class="gt-section-title">Các tiện nghi được ưa chuộng nhất</h3>
+        </div>
+        <div class="amenity-bar">
+        <div class="amenity-bar__item">
+          <i class="fa-solid fa-wifi amenity-bar__icon"></i>
+          <span>Wifi miễn phí</span>
+        </div>
+        <div class="amenity-bar__item">
+          <i class="fa-solid fa-person-swimming amenity-bar__icon"></i>
+          <span>Hồ bơi ngoài trời</span>
+        </div>
+        <div class="amenity-bar__item">
+          <i class="fa-solid fa-dumbbell amenity-bar__icon"></i>
+          <span>Phòng tập Gym</span>
+        </div>
+        <div class="amenity-bar__item">
+          <i class="fa-solid fa-car amenity-bar__icon"></i>
+          <span>Đưa đón sân bay</span>
+        </div>
+        <div class="amenity-bar__item">
+          <i class="fa-solid fa-utensils amenity-bar__icon"></i>
+          <span>Nhà hàng</span>
+        </div>
+        <div class="amenity-bar__item">
+          <i class="fa-solid fa-square-parking amenity-bar__icon"></i>
+          <span>Đỗ xe miễn phí</span>
+        </div>
+        <div class="amenity-bar__item">
+          <i class="fa-solid fa-martini-glass amenity-bar__icon"></i>
+          <span>Quầy Bar</span>
+        </div>
+        <div class="amenity-bar__item">
+          <i class="fa-solid fa-ban-smoking amenity-bar__icon"></i>
+          <span>Phòng không hút thuốc</span>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+
+  {{!-- ========== SECTION 3: CHI TIẾT TIỆN NGHI ========== --}}
+  <section class="gt-section">
+    <div class="container">
+      <div class="gt-section-header">
+        <h3 class="gt-section-title">Toàn bộ tiện nghi của 20Hotel</h3>
+        <p class="gt-section-subtitle">Trang bị đầy đủ để quý khách cảm thấy như ở nhà</p>
+      </div>
+      <div class="facility-grid">
+        <div class="facility-group">
+          <div class="facility-group__header"><i class="fa-solid fa-bed"></i> Phòng nghỉ</div>
+          <ul class="facility-list">
+            <li><i class="fa-solid fa-check"></i> Điều hòa nhiệt độ</li>
+            <li><i class="fa-solid fa-check"></i> TV màn hình phẳng</li>
+            <li><i class="fa-solid fa-check"></i> Két sắt trong phòng</li>
+            <li><i class="fa-solid fa-check"></i> Minibar</li>
+            <li><i class="fa-solid fa-check"></i> Khóa thẻ từ điện tử</li>
+            <li><i class="fa-solid fa-check"></i> Ấm đun nước điện</li>
+            <li><i class="fa-solid fa-check"></i> Màn chống muỗi</li>
+          </ul>
+        </div>
+        <div class="facility-group">
+          <div class="facility-group__header"><i class="fa-solid fa-shower"></i> Phòng tắm</div>
+          <ul class="facility-list">
+            <li><i class="fa-solid fa-check"></i> Phòng tắm riêng</li>
+            <li><i class="fa-solid fa-check"></i> Vòi sen / Bồn tắm</li>
+            <li><i class="fa-solid fa-check"></i> Khăn tắm & dép đi trong phòng</li>
+            <li><i class="fa-solid fa-check"></i> Đồ vệ sinh cá nhân miễn phí</li>
+            <li><i class="fa-solid fa-check"></i> Máy sấy tóc</li>
+            <li><i class="fa-solid fa-check"></i> Vòi sen nóng lạnh</li>
+          </ul>
+        </div>
+        <div class="facility-group">
+          <div class="facility-group__header"><i class="fa-solid fa-utensils"></i> Ăn uống</div>
+          <ul class="facility-list">
+            <li><i class="fa-solid fa-check"></i> Nhà hàng Tầng 1 (06:00–22:00)</li>
+            <li><i class="fa-solid fa-check"></i> Buffet sáng (06:30–09:30)</li>
+            <li><i class="fa-solid fa-check"></i> Quầy Bar tầng thượng (17:00–23:00)</li>
+            <li><i class="fa-solid fa-check"></i> Room service</li>
+            <li><i class="fa-solid fa-check"></i> Thực đơn đặc biệt theo yêu cầu</li>
+          </ul>
+        </div>
+        <div class="facility-group">
+          <div class="facility-group__header"><i class="fa-solid fa-shield-halved"></i> An ninh</div>
+          <ul class="facility-list">
+            <li><i class="fa-solid fa-check"></i> Camera CCTV 24/7</li>
+            <li><i class="fa-solid fa-check"></i> Bảo vệ 24/7</li>
+            <li><i class="fa-solid fa-check"></i> Khóa thẻ từ điện tử</li>
+            <li><i class="fa-solid fa-check"></i> Két sắt trong phòng</li>
+            <li><i class="fa-solid fa-check"></i> Bình chữa cháy</li>
+          </ul>
+        </div>
+        <div class="facility-group">
+          <div class="facility-group__header"><i class="fa-solid fa-sun"></i> Tiện ích ngoài trời</div>
+          <ul class="facility-list">
+            <li><i class="fa-solid fa-check"></i> Hồ bơi tầng thượng (06:00–21:00)</li>
+            <li><i class="fa-solid fa-check"></i> Phòng tập Gym Tầng 2 (05:30–22:00)</li>
+            <li><i class="fa-solid fa-check"></i> Bãi đỗ xe máy miễn phí</li>
+            <li><i class="fa-solid fa-check"></i> Bãi đỗ ô tô (50K/đêm)</li>
+            <li><i class="fa-solid fa-check"></i> Sân thượng view thành phố</li>
+          </ul>
+        </div>
+        <div class="facility-group">
+          <div class="facility-group__header"><i class="fa-solid fa-concierge-bell"></i> Dịch vụ lễ tân</div>
+          <ul class="facility-list">
+            <li><i class="fa-solid fa-check"></i> Lễ tân 24/7</li>
+            <li><i class="fa-solid fa-check"></i> Gửi hành lý miễn phí</li>
+            <li><i class="fa-solid fa-check"></i> Xuất hóa đơn VAT</li>
+            <li><i class="fa-solid fa-check"></i> Đặt tour tham quan</li>
+            <li><i class="fa-solid fa-check"></i> Đổi ngoại tệ</li>
+            <li><i class="fa-solid fa-check"></i> Fax/Photocopy</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{!-- ========== SECTION 4: CHÍNH SÁCH ========== --}}
+  <section class="gt-section gt-section--gray">
+    <div class="container">
+      <div class="gt-section-header">
+        <h3 class="gt-section-title">Chính sách & Quy định</h3>
+        <p class="gt-section-subtitle">Mọi thông tin minh bạch để quý khách an tâm đặt phòng</p>
+      </div>
+      <div class="policy-grid">
+
+        {{!-- Check-in / Check-out --}}
+        <div class="policy-card">
+          <div class="policy-card__icon"><i class="fa-solid fa-clock"></i></div>
+          <h4 class="policy-card__title">Check-in / Check-out</h4>
+          <ul class="policy-list">
+            <li><i class="fa-solid fa-circle-check text-success"></i> <strong>Check-in:</strong> 14:00 | <strong>Check-out:</strong> 12:00</li>
+            <li><i class="fa-solid fa-circle-info text-warning"></i> <strong>Check-in sớm</strong> (trước 10:00): Phụ thu 50% giá phòng</li>
+            <li><i class="fa-solid fa-circle-info text-warning"></i> <strong>Check-out trễ</strong> đến 15:00: Phụ thu 30% giá phòng</li>
+            <li><i class="fa-solid fa-circle-info text-warning"></i> Check-out trễ đến 18:00: Phụ thu 50% giá phòng</li>
+            <li><i class="fa-solid fa-circle-xmark text-danger"></i> Check-out sau 18:00: Tính thêm 1 đêm</li>
+            <li><i class="fa-solid fa-circle-check text-success"></i> Lễ tân trực 24/7, có thể check-in bất kỳ giờ nào</li>
+          </ul>
+        </div>
+
+        {{!-- Đặt cọc & Thanh toán --}}
+        <div class="policy-card">
+          <div class="policy-card__icon"><i class="fa-solid fa-credit-card"></i></div>
+          <h4 class="policy-card__title">Đặt cọc & Thanh toán</h4>
+          <ul class="policy-list">
+            <li><i class="fa-solid fa-circle-check text-success"></i> Đặt cọc <strong>30% tổng tiền phòng</strong> qua VNPay khi đặt online</li>
+            <li><i class="fa-solid fa-circle-check text-success"></i> Phần còn lại thanh toán khi check-in hoặc check-out</li>
+            <li><i class="fa-solid fa-circle-check text-success"></i> Phương thức: Tiền mặt, Chuyển khoản, VNPay QR</li>
+            <li><i class="fa-solid fa-circle-check text-success"></i> Tiền cọc tại quầy (nếu không đặt trước): 500.000 VNĐ/phòng</li>
+            <li><i class="fa-solid fa-circle-check text-success"></i> Xuất hóa đơn VAT (đỏ): Thông báo trước khi check-out</li>
+          </ul>
+        </div>
+
+        {{!-- Hủy phòng & Hoàn tiền --}}
+        <div class="policy-card">
+          <div class="policy-card__icon"><i class="fa-solid fa-rotate-left"></i></div>
+          <h4 class="policy-card__title">Hủy phòng & Hoàn tiền</h4>
+          <ul class="policy-list">
+            <li><i class="fa-solid fa-circle-check text-success"></i> Hủy <strong>trước 3 ngày</strong>: Hoàn 100% tiền cọc</li>
+            <li><i class="fa-solid fa-circle-info text-warning"></i> Hủy <strong>trước 1–2 ngày</strong>: Hoàn 50% tiền cọc</li>
+            <li><i class="fa-solid fa-circle-xmark text-danger"></i> Hủy trong ngày check-in / No-show: Không hoàn tiền</li>
+            <li><i class="fa-solid fa-circle-check text-success"></i> Đổi ngày miễn phí nếu thông báo <strong>trước 2 ngày</strong></li>
+          </ul>
+        </div>
+
+        {{!-- Trẻ em & Giường phụ --}}
+        <div class="policy-card">
+          <div class="policy-card__icon"><i class="fa-solid fa-baby"></i></div>
+          <h4 class="policy-card__title">Trẻ em & Giường phụ</h4>
+          <ul class="policy-list">
+            <li><i class="fa-solid fa-circle-check text-success"></i> <strong>Trẻ dưới 6 tuổi:</strong> Miễn phí (ngủ chung giường bố mẹ)</li>
+            <li><i class="fa-solid fa-circle-info text-warning"></i> <strong>Trẻ 6–12 tuổi:</strong> Có thể phụ thu tùy loại phòng</li>
+            <li><i class="fa-solid fa-circle-check text-success"></i> <strong>Nôi em bé (baby cot):</strong> Miễn phí, thông báo trước</li>
+            <li><i class="fa-solid fa-circle-info text-warning"></i> Giường phụ: Tùy loại phòng, xem chi tiết từng phòng</li>
+          </ul>
+        </div>
+
+        {{!-- Quy định chung --}}
+        <div class="policy-card">
+          <div class="policy-card__icon"><i class="fa-solid fa-list-check"></i></div>
+          <h4 class="policy-card__title">Quy định chung</h4>
+          <ul class="policy-list">
+            <li><i class="fa-solid fa-circle-xmark text-danger"></i> <strong>Không</strong> cho phép mang thú cưng</li>
+            <li><i class="fa-solid fa-circle-xmark text-danger"></i> <strong>Cấm hút thuốc</strong> trong phòng</li>
+            <li><i class="fa-solid fa-circle-check text-success"></i> Hút thuốc tại khu vực chỉ định (sân thượng)</li>
+            <li><i class="fa-solid fa-circle-check text-success"></i> Gửi hành lý miễn phí tại lễ tân</li>
+            <li><i class="fa-solid fa-circle-check text-success"></i> Phòng thông nhau: Có một số phòng hỗ trợ</li>
+          </ul>
+        </div>
+
+        {{!-- Liên hệ & Hỗ trợ --}}
+        <div class="policy-card policy-card--highlight">
+          <div class="policy-card__icon"><i class="fa-solid fa-headset"></i></div>
+          <h4 class="policy-card__title">Cần hỗ trợ?</h4>
+          <ul class="policy-list">
+            <li><i class="fa-solid fa-phone"></i> Hotline: <strong>0983 230 945</strong> (24/7)</li>
+            <li><i class="fa-solid fa-envelope"></i> Email: <strong>20hotel@gmail.com</strong></li>
+            <li><i class="fa-solid fa-location-dot"></i> 49 P. Trần Quốc Vượng, Cầu Giấy, Hà Nội</li>
+            <li><i class="fa-solid fa-robot"></i> Chat với AI Concierge <strong>"Linh"</strong> góc dưới phải</li>
+          </ul>
+          <a href="/hangphong" class="policy-card__cta">Xem phòng trống <i class="fa-solid fa-arrow-right ml-1"></i></a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
 </div>
