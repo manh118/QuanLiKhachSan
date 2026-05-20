@@ -216,25 +216,35 @@ class ManageController {
   dsPhieuThue(req, res, next) {
 
     const searchName = req.query.q || '';
-  const searchPhone = req.query.q1 || '';
-  let query = {};
+    const searchPhone = req.query.q1 || '';
+    const searchCode = req.query.q2 || '';
+    const searchRoom = req.query.q3 || '';
+    let query = { $and: [] };
 
-  if (searchName && searchPhone) {
-    query = {
-      $and: [
-        { 'customer.fullName': { $regex: searchName, $options: 'i' } },
-        { 'customer.phone': { $regex: searchPhone, $options: 'i' } },
-      ]
-    };
-  } else if (searchName) {
-    query = {
-      'customer.fullName': { $regex: searchName, $options: 'i' }
-    };
-  } else if (searchPhone) {
-    query = {
-      'customer.phone': { $regex: searchPhone, $options: 'i' }
-    };
-  }
+    if (searchName) {
+        query.$and.push({ 'customer.fullName': { $regex: searchName, $options: 'i' } });
+    }
+    if (searchPhone) {
+        query.$and.push({ 'customer.phone': { $regex: searchPhone, $options: 'i' } });
+    }
+    if (searchRoom) {
+        query.$and.push({ roomNumber: { $regex: searchRoom, $options: 'i' } });
+    }
+    if (searchCode) {
+        query.$and.push({
+            $expr: {
+                $regexMatch: {
+                    input: { $toString: '$_id' },
+                    regex: searchCode,
+                    options: 'i'
+                }
+            }
+        });
+    }
+
+    if (query.$and.length === 0) {
+        query = {}; // Remove empty $and array
+    }
 
     Booking.find(query)
       .populate('services.service')
@@ -251,14 +261,17 @@ class ManageController {
                  const standardCheckOutTime = new Date(booking.checkOutDate);
                  standardCheckOutTime.setHours(STANDARD_CHECKOUT_HOUR, 0, 0, 0);
 
-                 // Nếu thời gian hiện tại đã vượt qua giờ checkout chuẩn (12h của ngày checkout)
                  if (now > standardCheckOutTime) {
                      isOverdue = true;
                  }
              }
 
+             // Tạo mã ngắn (6 ký tự cuối của _id)
+             const shortCode = booking._id.toString().slice(-6).toUpperCase();
+
              return {
                  ...booking,
+                 shortCode,
                  isOverdue
              };
          });
@@ -266,7 +279,9 @@ class ManageController {
         res.render('manage/quan_li_phieuthue', {
            Bookings: processedBookings,
            searchQuery: searchName, 
-          searchPhone: searchPhone 
+           searchPhone: searchPhone,
+           searchCode: searchCode,
+           searchRoom: searchRoom
           })
       })
       .catch(next)
@@ -382,6 +397,8 @@ class ManageController {
                              checkIn: moment(relevantBooking.checkInDate).format('DD/MM'),
                              checkOut: moment(relevantBooking.checkOutDate).format('DD/MM')
                         };
+                    } else if (day.isBefore(moment(), 'day')) {
+                         status = 'past'; // Không cho phép đặt ngày trong quá khứ
                     } else if (room.status === 'Dọn dẹp') {
                          // Nếu phòng không có booking hôm đó NHƯNG đang ở trạng thái 'Dọn dẹp'
                          // (Logic này có thể cần xem lại, vì trạng thái Dọn dẹp chỉ áp dụng cho hôm nay)

@@ -3,6 +3,7 @@ const Room = require('../models/Room');
 const User = require('../models/User'); 
 const Service = require('../models/Service');
 const moment = require('moment'); // Import missing moment library
+const { calculateStayCost } = require('./../utils/pricingEngine');
 
 const SURCHARGE_PER_EXTRA_ADULT = 100000;
 const STANDARD_CHECKOUT_HOUR = 12; 
@@ -37,8 +38,11 @@ class BookingController {
       const checkOut = new Date(checkOutDate);
       const soNgay = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
       if (soNgay <= 0) { return res.status(400).json({ message: 'Ngày trả phòng phải sau ngày nhận phòng.' }); }
-      const roomPrice = room.roomType.price;
-      const totalRoomCost = soNgay * roomPrice;
+      
+      const pricingResult = calculateStayCost(checkIn, checkOut, room.roomType);
+      const totalRoomCost = pricingResult.totalCost;
+      const roomPrice = room.roomType.price; // Keep base price for reference
+      
       const roomNumber = room.roomNumber;
       let totalServiceCost = 0;
       const serviceDetails = services
@@ -368,6 +372,11 @@ class BookingController {
                 return res.status(404).send('Không tìm thấy phiếu thuê');
             }
 
+            if (booking.bookingStatus === 'Checked Out' || booking.bookingStatus === 'Cancelled') {
+                // Không cho phép xem form update của phiếu đã trả phòng/hủy
+                return res.redirect('/manage/quan_li_phieuthue');
+            }
+
             // Tạo một đối tượng map để dễ dàng kiểm tra dịch vụ nào đã được chọn trong view
             const selectedServicesMap = {};
             if (booking.services) {
@@ -401,6 +410,10 @@ class BookingController {
             const booking = await Booking.findById(bookingId);
             if (!booking) {
                 return res.status(404).json({ success: false, message: 'Không tìm thấy phiếu thuê' });
+            }
+
+            if (booking.bookingStatus === 'Checked Out' || booking.bookingStatus === 'Cancelled') {
+                return res.status(400).json({ success: false, message: 'Không thể cập nhật phiếu thuê đã hoàn tất hoặc đã hủy.' });
             }
 
             // 1. Cập nhật thông tin cơ bản (Ngày, Khách hàng)
@@ -457,6 +470,38 @@ class BookingController {
             console.error('Lỗi khi cập nhật phiếu thuê:', error);
             res.status(500).json({ success: false, message: 'Lỗi server khi cập nhật' });
             next(error);
+        }
+    }
+
+    // API tính giá phòng động
+    async calculatePrice(req, res) {
+        const { roomId, checkInDate, checkOutDate } = req.body;
+        
+        try {
+            const room = await Room.findById(roomId).populate('roomType');
+            if (!room) {
+                return res.status(404).json({ message: 'Không tìm thấy phòng' });
+            }
+
+            const checkIn = new Date(checkInDate);
+            const checkOut = new Date(checkOutDate);
+
+            if (isNaN(checkIn.getTime()) || isNaN(checkOut.getTime()) || checkOut <= checkIn) {
+                return res.status(400).json({ message: 'Ngày không hợp lệ' });
+            }
+
+            const pricingResult = calculateStayCost(checkIn, checkOut, room.roomType);
+            
+            res.json({
+                success: true,
+                totalRoomCost: pricingResult.totalCost,
+                soNgay: pricingResult.nights,
+                breakdown: pricingResult.breakdown
+            });
+
+        } catch (error) {
+            console.error('Lỗi tính giá phòng:', error);
+            res.status(500).json({ success: false, message: 'Lỗi server khi tính giá' });
         }
     }
 }

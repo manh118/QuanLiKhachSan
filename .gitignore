@@ -1,2 +1,36 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
 node_modules/
+
+# Environment variables
 .env
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Documents and Temporary Files
+*.docx
+~$*.docx
+read_docx.py
+
+# AI and Agent directories/files
+.agent/
+.gemini/
+analysis_results.md
+implementation_plan.md
+task.md
+walkthrough.md
+scripts/
+
+# Heavy Assets / Images (Theo yêu cầu)
+src/public/img/
+# Nếu bạn muốn giữ lại thư mục Logo thì có thể bỏ comment 2 dòng dưới:
+# !src/public/img/
+# !src/public/img/Logo/

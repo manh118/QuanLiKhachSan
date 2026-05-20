@@ -9,6 +9,8 @@ router.get('/login', accountController.showLogin)
 router.get('/regis', accountController.showRegis)
 router.post('/regis', accountController.regis)
 router.get('/bookings', authCustomer,accountController.showMyBookings)
+router.get('/lookup', accountController.showLookup)
+router.post('/lookup', accountController.lookupBooking)
 router.get('/logout', accountController.logout)
 
 module.exports = router

@@ -6,6 +6,7 @@
                  <div class="mt-3 d-flex justify-content-end">
                     <span class="mr-3"><span class="legend-color legend-available"></span> Trống</span>
                     <span class="mr-3"><span class="legend-color legend-booked"></span> Đã đặt</span>
+                    <span class="mr-3"><span class="legend-color legend-past" style="background-color: #f3f4f6;"></span> Quá khứ</span>
                 </div>
             </div>
             
@@ -146,6 +147,40 @@ document.addEventListener('DOMContentLoaded', function() {
         adminModalContainer.style.display = 'none';
         document.body.classList.remove('no-scroll');
     });
+    
+    // Cross-hair hover logic cho Lịch
+    const calendarTable = document.querySelector('.table-calendar');
+    if (calendarTable) {
+        calendarTable.querySelectorAll('td.day-cell').forEach(cell => {
+            cell.addEventListener('mouseenter', function() {
+                const tr = this.parentElement;
+                const cellIndex = Array.from(tr.children).indexOf(this);
+                const tbody = tr.parentElement;
+                
+                // Highlight cả dòng
+                Array.from(tr.children).forEach(td => td.classList.add('hovered-axis'));
+                
+                // Highlight cả cột
+                tbody.querySelectorAll(`tr td:nth-child(${cellIndex + 1})`).forEach(td => {
+                    td.classList.add('hovered-axis');
+                });
+            });
+            cell.addEventListener('mouseleave', function() {
+                const tr = this.parentElement;
+                const cellIndex = Array.from(tr.children).indexOf(this);
+                const tbody = tr.parentElement;
+                
+                // Xóa Highlight dòng
+                Array.from(tr.children).forEach(td => td.classList.remove('hovered-axis'));
+                
+                // Xóa Highlight cột
+                tbody.querySelectorAll(`tr td:nth-child(${cellIndex + 1})`).forEach(td => {
+                    td.classList.remove('hovered-axis');
+                });
+            });
+        });
+    }
+
     adminModalContainer.addEventListener('click', function(event) {
          if (event.target === adminModalContainer) {
              adminModalContainer.style.display = 'none';

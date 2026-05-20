@@ -27,13 +27,23 @@ class ReportController {
                 createdAt: { $gte: startDate.toDate(), $lte: endDate.toDate() }
             };
 
-            // 2. Báo cáo Doanh thu (Hóa đơn)
+            // 2. Báo cáo Doanh thu (Hóa đơn) và chi tiết doanh thu
             const revenueReport = await Bill.aggregate([
                 { $match: { paymentDate: { $gte: startDate.toDate(), $lte: endDate.toDate() } } },
+                { $lookup: {
+                    from: 'bookings',
+                    localField: 'booking',
+                    foreignField: '_id',
+                    as: 'bookingDetails'
+                }},
+                { $unwind: { path: "$bookingDetails", preserveNullAndEmptyArrays: true } },
                 { $group: {
                     _id: null,
                     totalRevenue: { $sum: "$totalAmount" },
-                    totalBills: { $sum: 1 }
+                    totalBills: { $sum: 1 },
+                    totalRoomRevenue: { $sum: { $ifNull: ["$bookingDetails.totalRoomCost", "$totalAmount"] } }, // Fallback in case booking is missing
+                    totalServiceRevenue: { $sum: { $ifNull: ["$bookingDetails.totalServiceCost", 0] } },
+                    totalSurcharge: { $sum: { $add: [{ $ifNull: ["$bookingDetails.extraAdultSurcharge", 0] }, { $ifNull: ["$bookingDetails.lateCheckOutFee", 0] }] } }
                 }}
             ]);
 
@@ -67,6 +77,9 @@ class ReportController {
             // 5. Chuẩn bị dữ liệu gửi ra view
             const reports = {
                 totalRevenue: revenueReport[0]?.totalRevenue || 0,
+                totalRoomRevenue: revenueReport[0]?.totalRoomRevenue || 0,
+                totalServiceRevenue: revenueReport[0]?.totalServiceRevenue || 0,
+                totalSurcharge: revenueReport[0]?.totalSurcharge || 0,
                 totalBills: revenueReport[0]?.totalBills || 0,
                 totalNightsBooked: occupancyReport[0]?.totalNightsBooked || 0,
                 occupancyRate: totalPossibleNights > 0 ? (occupancyReport[0]?.totalNightsBooked || 0) / totalPossibleNights * 100 : 0,

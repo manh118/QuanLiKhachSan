@@ -68,7 +68,9 @@
                 <h4 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 16px; color: #1f2937;">
                     <i class="fa-solid fa-chart-column mr-2" style="color:#0284c7"></i>Tổng Quan Doanh Thu
                 </h4>
-                <canvas id="revenueChart" height="280"></canvas>
+                <div style="position: relative; height: 300px; width: 100%;">
+                    <canvas id="revenueChart"></canvas>
+                </div>
             </div>
         </div>
         <div class="col-lg-4 mb-4">
@@ -76,7 +78,9 @@
                 <h4 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 16px; color: #1f2937;">
                     <i class="fa-solid fa-chart-pie mr-2" style="color:#16a34a"></i>Nguồn Đặt Phòng
                 </h4>
-                <canvas id="bookingSourceChart" height="280"></canvas>
+                <div style="position: relative; height: 300px; width: 100%;">
+                    <canvas id="bookingSourceChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -94,7 +98,7 @@
                 labels: ['Doanh thu phòng', 'Doanh thu DV', 'Phụ thu'],
                 datasets: [{
                     label: 'Doanh thu (VNĐ)',
-                    data: [{{totalRevenue}}, 0, 0],
+                    data: [{{totalRoomRevenue}}, {{totalServiceRevenue}}, {{totalSurcharge}}],
                     backgroundColor: [
                         'rgba(2, 132, 199, 0.8)',
                         'rgba(16, 185, 129, 0.8)',

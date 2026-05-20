@@ -2170,6 +2170,30 @@ footer {
   background-color: #f9fafb;
 }
 
+/* Cross-hair hover logic for Calendar */
+.table.table-calendar tr:hover td {
+  background-color: transparent; /* Reset default table hover */
+}
+.table-calendar td.hovered-axis {
+  background-color: #f9fafb !important;
+}
+.table-calendar td.status-booked,
+.table-calendar td.status-booked.hovered-axis {
+  background-color: #fde8d0 !important;
+}
+.table-calendar td.status-past {
+  background-color: #f3f4f6 !important;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+.table-calendar td.status-available.hovered-axis,
+.table-calendar td.status-past.hovered-axis {
+  background-color: #f9fafb !important;
+}
+.table-calendar td.status-available:hover {
+  background-color: #c1e7d0 !important;
+}
+
 .table.mt-4 th,
 .table.mt-4 td {
   padding: 7.5px 25px;
@@ -2875,4 +2899,35 @@ footer {
   40% {
     transform: scale(1);
   }
+}
+/* Markdown rendering inside bot bubble */
+.chat-message.bot .chat-bubble {
+  /* Remove margin on first/last child */
+}
+.chat-message.bot .chat-bubble p {
+  margin: 0 0 6px 0;
+}
+.chat-message.bot .chat-bubble p:last-child {
+  margin-bottom: 0;
+}
+.chat-message.bot .chat-bubble ul, .chat-message.bot .chat-bubble ol {
+  margin: 4px 0 6px 0;
+  padding-left: 18px;
+}
+.chat-message.bot .chat-bubble ul li, .chat-message.bot .chat-bubble ol li {
+  margin-bottom: 3px;
+  line-height: 1.5;
+}
+.chat-message.bot .chat-bubble strong {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.chat-message.bot .chat-bubble em {
+  font-style: italic;
+}
+.chat-message.bot .chat-bubble > *:first-child {
+  margin-top: 0;
+}
+.chat-message.bot .chat-bubble > *:last-child {
+  margin-bottom: 0;
 }

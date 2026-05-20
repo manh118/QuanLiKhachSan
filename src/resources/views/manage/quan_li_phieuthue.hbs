@@ -5,48 +5,51 @@
                 {{!-- Tiêu đề bên trái --}}
                 <h2 style="margin-bottom: 0;">Danh sách phiếu thuê</h2>
 
-                <fsorm class="form__sreach ql_phieuthue" method="GET" action="/manage/quan_li_phieuthue"> {{!-- Bỏ margin-top, set width cố định hoặc max-width --}}
-                    {{!-- <p class="lable__search">Tìm kiếm</p> --}} {{!-- Có thể bỏ label này --}}
-                    <div class="input-group "> {{!-- Dùng input-group của Bootstrap --}}
-                         <input class="form-control" name="q" type="search" placeholder="Nhập tên khách hàng" value="{{searchQuery}}">
+                <form class="form__sreach ql_phieuthue d-flex align-items-center" style="gap: 10px; flex-wrap: wrap;" method="GET" action="/manage/quan_li_phieuthue">
+                    <div class="input-group" style="width: auto;">
+                         <input class="form-control px-3 py-4" style="font-size: 1.3rem;" name="q" type="search" placeholder="Nhập tên khách hàng" value="{{searchQuery}}">
                     </div>
-                     <div class="input-group ">
-                         <input class="form-control" name="q1" type="search" placeholder="Nhập số điện thoại" value="{{searchPhone}}">
+                    <div class="input-group" style="width: auto;">
+                         <input class="form-control px-3 py-4" style="font-size: 1.3rem;" name="q1" type="search" placeholder="Nhập số điện thoại" value="{{searchPhone}}">
                     </div>
-                    <button class="btn btn-primary form__sreach__btn" style="margin-top: 0; font-size: 1.4rem;">Lọc</button>
-
-                </fsorm>
+                    <div class="input-group" style="width: auto;">
+                         <input class="form-control px-3 py-4" style="font-size: 1.3rem;" name="q2" type="search" placeholder="Nhập mã phiếu" value="{{searchCode}}">
+                    </div>
+                    <div class="input-group" style="width: auto;">
+                         <input class="form-control px-3 py-4" style="font-size: 1.3rem;" name="q3" type="search" placeholder="Nhập số phòng" value="{{searchRoom}}">
+                    </div>
+                    <button class="btn btn-primary px-4 py-2" style="font-size: 1.4rem; height: 100%;">Lọc</button>
+                </form>
             </div>
             <div style="overflow-x: auto; white-space: nowrap;"> 
                 <table class="table mt-4" style="min-width: 1400px;">
                     <thead>
                         <tr> 
                             <th scope="col">STT</th>
+                            <th scope="col">Mã phiếu</th>
                             <th scope="col">Phòng</th>
                             <th scope="col">Khách hàng</th>
                             <th scope="col">Số điện thoại</th>
                             <th scope="col">Ngày đặt</th> 
                             <th scope="col">Ngày trả</th>   
-                            {{!-- <th scope="col">Tiền cọc</th>
-                            <th scope="col">Còn lại</th> --}}
                             <th scope="col">Tổng tiền</th>
                             <th scope="col">Trạng thái</th>                          
-                            <th  colspan="3"></th>         
+                            <th scope="col" class="text-center">Thao tác</th>
+                            <th scope="col" class="text-center">Tùy chọn</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each Bookings}}
                         <tr {{#if this.isOverdue}}style="background-color: #ffe6e6;"{{/if}}>                       
-                            <th scope="row">{{sum @index 1}}</th>
-                            <td>{{this.roomNumber}}</td>
-                            <td>{{this.customer.fullName}}</td>
-                            <td>{{this.customer.phone}}</td>
-                            <td>{{Date this.checkInDate}}</td>  
-                            <td>{{Date this.checkOutDate}}</td>
-                            {{!-- <td>{{money this.depositAmount}}</td>
-                            <td style="color: red;">{{money this.remainingAmount}}</td> --}}
-                            <td>{{money this.totalAmount}} VNĐ</td>
-                            <td>
+                            <th scope="row" class="align-middle">{{sum @index 1}}</th>
+                            <td class="align-middle" style="font-weight: bold; color: #007bff;">{{this.shortCode}}</td>
+                            <td class="align-middle">{{this.roomNumber}}</td>
+                            <td class="align-middle">{{this.customer.fullName}}</td>
+                            <td class="align-middle">{{this.customer.phone}}</td>
+                            <td class="align-middle">{{Date this.checkInDate}}</td>  
+                            <td class="align-middle">{{Date this.checkOutDate}}</td>
+                            <td class="align-middle">{{money this.totalAmount}} VNĐ</td>
+                            <td class="align-middle">
                                 {{!-- Hiển thị trạng thái với màu sắc --}}
                                 {{#if (eqString this.bookingStatus 'Pending Deposit')}}
                                     <span class="badge badge-warning">{{this.bookingStatus}}</span>
@@ -63,54 +66,51 @@
                                     <span class="badge badge-danger">{{this.bookingStatus}}</span>
                                 {{/if}}
                             </td>
-                            <td style="display: flex; border-width: 0;">
-                                {{#if (eqString this.bookingStatus 'Pending Deposit')}}
-                                    {{!-- Nếu đang chờ cọc, hiển thị nút Xác nhận --}}
-                                    <form method="POST" action="/manage/quan_li_phieuthue/crud/{{this._id}}/confirm-deposit">
-                                        <button type="submit" class="btn btn-success btn-sm">Xác nhận cọc</button>
-                                    </form>
-                                {{else if (eqString this.bookingStatus 'Confirmed')}}
-                                    {{!-- Nút Check-in mở Modal nhập CCCD --}}
-                                    <button type="button" class="btn btn-info btn-sm js-CheckInModalBtn" 
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center justify-content-center" style="gap: 8px;">
+                                    {{!-- Main action button --}}
+                                    {{#if (eqString this.bookingStatus 'Pending Deposit')}}
+                                        <span class="text-muted" style="font-size: 1.2rem; font-style: italic;">Chờ thanh toán</span>
+                                    {{else if (eqString this.bookingStatus 'Confirmed')}}
+                                        <button type="button" class="btn btn-outline-info btn-sm js-CheckInModalBtn" 
+                                                data-id="{{this._id}}"
+                                                data-room="{{this.roomNumber}}"
+                                                data-fullname="{{this.customer.fullName}}"
+                                                data-phone="{{this.customer.phone}}">Check-in</button>
+                                    {{else if (eqString this.bookingStatus 'Checked In')}}
+                                        <button class="btn btn-outline-primary btn-sm js-TraPhong"
                                             data-id="{{this._id}}"
                                             data-room="{{this.roomNumber}}"
                                             data-fullname="{{this.customer.fullName}}"
-                                            data-phone="{{this.customer.phone}}">Check-in</button>
-                                {{else if (eqString this.bookingStatus 'Checked In')}}
-                                    {{!-- Nếu đã Check-in, hiển thị nút Thanh toán (mở modal) --}}
-                                    <a class="btn btn-primary btn-sm js-TraPhong"  style="font-size: 1.2rem;"
-                                    data-id="{{this._id}}" {{!-- ĐẢM BẢO CÓ DÒNG NÀY --}}
-                                    data-room="{{this.roomNumber}}"
-                                    data-fullname="{{this.customer.fullName}}"
-                                    data-phone="{{this.customer.phone}}"
-                                    data-checkin="{{isoDate this.checkInDate }}"
-                                    data-checkout="{{isoDate this.checkOutDate }}"
-                                   data-total="{{money this.totalAmount}}" 
-                                   data-deposit="{{money this.depositAmount}}" 
-                                   data-remaining="{{money this.remainingAmount}}"> 
-                                    Thanh toán
-                                    </a>
-                                {{else}}
-                                    {{!-- Các trạng thái khác (Checked Out, Cancelled) có thể không cần nút --}}
-                                {{/if}}
+                                            data-phone="{{this.customer.phone}}"
+                                            data-checkin="{{isoDate this.checkInDate }}"
+                                            data-checkout="{{isoDate this.checkOutDate }}"
+                                            data-total="{{money this.totalAmount}}" 
+                                            data-deposit="{{money this.depositAmount}}" 
+                                            data-remaining="{{money this.remainingAmount}}">Thanh toán</button>
+                                    {{/if}}
 
-                               
+                                    {{!-- Cancel button --}}
+                                    {{#if (or (eqString this.bookingStatus 'Pending Deposit') (eqString this.bookingStatus 'Confirmed'))}}
+                                        <form method="POST" action="/manage/quan_li_phieuthue/crud/{{this._id}}/cancel?_method=PUT" style="margin: 0;" class="form-cancel-booking"> 
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Hủy</button>
+                                        </form>
+                                    {{/if}}
+                                </div>
                             </td>
-                            <td class="btn_huy">
-                                 {{#if (or (eqString this.bookingStatus 'Pending Deposit') (eqString this.bookingStatus 'Confirmed'))}}
-                                    <form method="POST" action="/manage/quan_li_phieuthue/crud/{{this._id}}/cancel?_method=PUT" style="display: inline-block;" class="form-cancel-booking"> 
-                                        <button type="submit" class="btn btn-danger btn-sm">Hủy</button>
-                                    </form>
-                                {{/if}}
+                            <td class="align-middle">
+                                <div class="d-flex align-items-center justify-content-center" style="gap: 8px;">
+                                    {{!-- Chi tiết button --}}
+                                    <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse" data-target="#collapse-{{@index}}" aria-expanded="false" aria-controls="collapse-{{@index}}">
+                                        Chi tiết
+                                    </button>
+
+                                    {{!-- Cập nhật button (Ẩn nếu đã checkout hoặc hủy) --}}
+                                    {{#unless (or (eqString this.bookingStatus 'Checked Out') (eqString this.bookingStatus 'Cancelled'))}}
+                                        <a href="/manage/quan_li_phieuthue/crud/{{this._id}}/show_update" class="btn btn-outline-dark btn-sm">Cập nhật</a>
+                                    {{/unless}}
+                                </div>
                             </td>
-                             <td>
-                                <button class="btn btn-link p-0" type="button" data-toggle="collapse" data-target="#collapse-{{@index}}" aria-expanded="false" aria-controls="collapse-{{@index}}" style="font-size: 1.6rem;">
-                                    Chi tiết
-                                </button>                                                             
-                            </td>
-                            <td>
-                                <a href="/manage/quan_li_phieuthue/crud/{{this._id}}/show_update" class="btn btn-link">Cập nhập</a>
-                            </td>   
                         </tr>  
   
                         <tr class="collapse" id="collapse-{{@index}}">  
@@ -166,58 +166,109 @@
 
  
  <div class="modal__booking js-modal__booking">
-    <div class="modal__booking__container" style="overflow-y: auto; overflow-x: hidden">
-        <div class="modal__booking__close">
+    <div class="modal__booking__container" style="max-width: 600px; padding: 0; border-radius: 12px; overflow: hidden; background: #f8f9fa;">
+        <div class="modal__booking__close" style="z-index: 100; color: white;">
             <i class="fa-solid fa-xmark"></i>
         </div>
-        <div class="modal__booking__header" style="color: rgb(3, 98, 206);border-bottom: 3px solid rgb(0, 112, 244);">Hóa Đơn</div>
         
-        <input type="hidden" id="bookingIdForCheckout">
-        <input type="hidden" id="roomNumber">
+        <!-- Header -->
+        <div class="bg-primary text-white p-4 text-center" style="background: linear-gradient(135deg, #007bff, #0056b3) !important;">
+            <h3 class="font-weight-bold mb-0 text-white" style="font-size: 2.2rem; letter-spacing: 1px;">HÓA ĐƠN THANH TOÁN</h3>
+            <p class="mb-0 mt-2" style="font-size: 1.4rem; opacity: 0.9;">Phòng <span id="modalRoom" class="font-weight-bold" style="font-size: 1.6rem;"></span></p>
+        </div>
+        
+        <div style="padding: 30px; max-height: 75vh; overflow-y: auto;">
+            <input type="hidden" id="bookingIdForCheckout">
+            <input type="hidden" id="maHoaDon">
+            
+            <!-- Thông tin khách -->
+            <div class="card border-0 shadow-sm mb-4" style="border-radius: 10px;">
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <p class="text-muted mb-1" style="font-size: 1.2rem; text-transform: uppercase; font-weight: 600;">Mã hóa đơn</p>
+                            <h5 class="font-weight-bold text-dark" id="maHoaDonText" style="font-size: 1.4rem; font-family: monospace;"></h5>
+                        </div>
+                        <div class="col-6 mb-3 text-right">
+                            <p class="text-muted mb-1" style="font-size: 1.2rem; text-transform: uppercase; font-weight: 600;">Trả phòng lúc</p>
+                            <h5 class="font-weight-bold text-primary" id="modalActualCheckoutTime" style="font-size: 1.4rem;"></h5>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <p class="text-muted mb-1" style="font-size: 1.2rem; text-transform: uppercase; font-weight: 600;">Khách hàng</p>
+                            <h5 class="font-weight-bold text-dark" id="fullNameText" style="font-size: 1.5rem;"></h5>
+                        </div>
+                        <div class="col-12">
+                            <p class="text-muted mb-1" style="font-size: 1.2rem; text-transform: uppercase; font-weight: 600;">Số điện thoại</p>
+                            <h5 class="font-weight-bold text-dark" id="phoneText" style="font-size: 1.4rem;"></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="row" style="align-items: center; margin-left: 0;">
-            <div class="modal__booking__title" id="modalRoom" style="color:rgb(0, 112, 244) ;"></div>
-                <p style="font-size: 1.4rem; color: #555; margin-bottom: 0;">
-                    <em>Giờ trả phòng hiện tại: <strong id="modalActualCheckoutTime">--:-- --/--/----</strong></em>
-                </p>
-        </div>
-        <div class="row modal__booking__contet">
-            <div class="col-6">
-                <div class="modal__booking__body">
-                    <label class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Mã hóa đơn</label>
-                    <input type="text" id="maHoaDon" class="modal__booking__input" readonly>
-                </div>
-                <div class="modal__booking__body">
-                    <label class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Họ tên</label>
-                    <input type="text" id="fullName" class="modal__booking__input" readonly>
-                </div>
-                <div class="modal__booking__body">
-                    <label class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Nhận phòng</label>
-                    <input type="date" id="checkInDate" class="modal__booking__input" readonly>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="modal__booking__body">
-                    <label class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Số điện thoại</label>
-                    <input type="text" id="phone" class="modal__booking__input" readonly>
-                </div>
-                <div class="modal__booking__body">
-                    <label class="modal__booking__label" style="color:rgb(0, 112, 244) ;">Trả phòng</label>
-                    <input type="date" id="checkOutDate" class="modal__booking__input" readonly>
+            <!-- Chi tiết tiền -->
+            <div class="card border-0 shadow-sm mb-4" style="border-radius: 10px;">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                        <span class="text-muted font-weight-bold" style="font-size: 1.4rem;">Tổng tiền:</span>
+                        <span class="font-weight-bold text-dark" style="font-size: 1.5rem;" id="modalTotalAmount"></span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                        <span class="text-muted font-weight-bold" style="font-size: 1.4rem;">Đã đặt cọc:</span>
+                        <span class="font-weight-bold text-success" style="font-size: 1.5rem;" id="modalDepositAmount"></span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                        <span class="text-danger font-weight-bold" style="font-size: 1.4rem;">Phí trả muộn:</span>
+                        <span class="font-weight-bold text-danger" style="font-size: 1.5rem;" id="modalLateFee">0 VNĐ</span>
+                    </div>
+                    <div class="d-flex justify-content-between mt-4 p-3 rounded" style="background-color: #fff3cd; border: 1px solid #ffeeba;">
+                        <span class="font-weight-bold text-dark" style="font-size: 1.6rem; display: flex; align-items: center;">CẦN THANH TOÁN:</span>
+                        <span class="font-weight-bold text-danger" style="font-size: 2.2rem;" id="modalRemainingAmount"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="modal__booking__title" style="margin-top: 20px; color: red;" id="modalTotalAmount"></div>
-        <div class="modal__booking__title" style="margin-top: 10px; color: red;" id="modalDepositAmount"></div>
-        <div class="modal__booking__title" style="margin-top: 10px; color: red;" id="modalLateFee">Phí trả muộn: ...</div>
-        <div class="modal__booking__title" style="margin-top: 10px; color: rgb(250, 0, 0); font-weight: bold;" id="modalRemainingAmount"></div>
-        
-        <div class="modal__booking__frame__btn" style="background-color: rgb(3, 98, 206);">
-            <button type="button" class="btn modal__booking__btn" style="background-color:rgb(34, 136, 253) ;">Lưu hóa đơn</button>
+            
+            <!-- Tabs Thanh Toán -->
+            <ul class="nav nav-pills nav-fill mb-3" id="paymentTabs" role="tablist">
+                <li class="nav-item" style="padding-right: 5px;">
+                    <a class="nav-link active font-weight-bold py-3 rounded shadow-sm" id="cash-tab" data-toggle="pill" href="#cash-payment" role="tab" style="font-size: 1.4rem; border: 2px solid #28a745; color: #28a745; transition: all 0.3s;">
+                        <i class="fa-solid fa-money-bill-wave mr-2"></i>Tiền mặt
+                    </a>
+                </li>
+                <li class="nav-item" style="padding-left: 5px;">
+                    <a class="nav-link font-weight-bold py-3 rounded shadow-sm" id="vnpay-tab" data-toggle="pill" href="#vnpay-payment" role="tab" style="font-size: 1.4rem; border: 2px solid #007bff; color: #007bff; transition: all 0.3s;">
+                        <i class="fa-solid fa-qrcode mr-2"></i>VNPay QR
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content mt-4" id="paymentTabsContent">
+                <!-- Tab Tiền mặt -->
+                <div class="tab-pane fade show active" id="cash-payment" role="tabpanel">
+                    <button type="button" class="btn btn-success btn-block py-3 font-weight-bold shadow-sm js-checkout-cash" style="font-size: 1.6rem; border-radius: 8px; border: none; background: linear-gradient(135deg, #28a745, #218838);">
+                        <i class="fa-solid fa-check-circle mr-2"></i> XÁC NHẬN THU & TRẢ PHÒNG
+                    </button>
+                </div>
+                
+                <!-- Tab VNPay -->
+                <div class="tab-pane fade" id="vnpay-payment" role="tabpanel">
+                    <div class="text-center p-4 shadow-sm" style="background: #e6f2ff; border-radius: 8px; border: 2px dashed #007bff;">
+                        <p style="font-size: 1.3rem; color: #333; margin-bottom: 15px;">Hệ thống sẽ tạo đường dẫn VNPay, mở ở một tab mới để hiển thị Mã QR cho khách quét thanh toán.</p>
+                        <button type="button" class="btn btn-primary btn-block py-3 font-weight-bold shadow-sm js-checkout-vnpay" style="font-size: 1.6rem; border-radius: 8px; border: none; background: linear-gradient(135deg, #007bff, #0056b3);">
+                            <i class="fa-solid fa-qrcode mr-2"></i> TẠO MÃ QR VNPAY
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
+<style>
+    #paymentTabs .nav-link { background-color: white; }
+    #paymentTabs .nav-link:hover { transform: translateY(-2px); }
+    #paymentTabs #cash-tab.active { background-color: #28a745 !important; color: white !important; }
+    #paymentTabs #vnpay-tab.active { background-color: #007bff !important; color: white !important; }
+</style>
 
 {{!-- Modal Check-in --}}
 <div class="modal__booking js-modal__checkin">
@@ -285,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
         maHoaDonInput.value = 'Đang tải...';
-        maHoaDonInput.disabled = true;
+        document.getElementById('maHoaDonText').innerText = 'Đang tải...';
 
         const response = await fetch('/manage/quan_li_hoadon/crud/get-next-id');
         if (!response.ok) {
@@ -294,32 +345,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
 
         maHoaDonInput.value = data.nextBillId;
+        document.getElementById('maHoaDonText').innerText = data.nextBillId;
       } catch (error) {
           console.error(error);
-          maHoaDonInput.value = 'Lỗi!'; // Báo lỗi nếu không lấy được
+          maHoaDonInput.value = 'Lỗi!';
+          document.getElementById('maHoaDonText').innerText = 'Lỗi!';
       }
       // Lấy dữ liệu từ data-*
       const dataset = this.dataset;
 
-        document.getElementById('modalRoom').innerText = 'Phòng ' + dataset.room;
-        document.getElementById('fullName').value = dataset.fullname;
-        document.getElementById('phone').value = dataset.phone;
-        document.getElementById('checkInDate').value = dataset.checkin;
-        document.getElementById('checkOutDate').value = dataset.checkout;
+        document.getElementById('modalRoom').innerText = dataset.room;
+        document.getElementById('fullNameText').innerText = dataset.fullname;
+        document.getElementById('phoneText').innerText = dataset.phone;
         document.getElementById('bookingIdForCheckout').value = dataset.id;
 
-        // **THAY ĐỔI QUAN TRỌNG: Điền thông tin tài chính chi tiết**
-        document.getElementById('modalTotalAmount').innerHTML = `<span>Tổng tiền:</span> ${dataset.total} VNĐ`;
-        document.getElementById('modalDepositAmount').innerHTML = `<span>Đã cọc:</span> ${dataset.deposit} VNĐ`;
-        document.getElementById('modalRemainingAmount').innerHTML = `<span>Cần thanh toán:</span> ${dataset.remaining} VNĐ`;
+        // Điền thông tin tài chính chi tiết
+        document.getElementById('modalTotalAmount').innerText = `${dataset.total} VNĐ`;
+        document.getElementById('modalDepositAmount').innerText = `${dataset.deposit} VNĐ`;
+        document.getElementById('modalRemainingAmount').innerText = `${dataset.remaining} VNĐ`;
 
         const now = new Date();
         const formattedCheckoutTime =
-            `${now.getHours().toString().padStart(2, '0')}:` + // Giờ
-            `${now.getMinutes().toString().padStart(2, '0')} ` + // Phút
-            `${now.getDate().toString().padStart(2, '0')}/` +   // Ngày
-            `${(now.getMonth() + 1).toString().padStart(2, '0')}/` + // Tháng
-            `${now.getFullYear()}`;                             // Năm
+            `${now.getHours().toString().padStart(2, '0')}:` + 
+            `${now.getMinutes().toString().padStart(2, '0')} ` + 
+            `${now.getDate().toString().padStart(2, '0')}/` +   
+            `${(now.getMonth() + 1).toString().padStart(2, '0')}/` + 
+            `${now.getFullYear()}`;                             
         document.getElementById('modalActualCheckoutTime').textContent = formattedCheckoutTime;
     });
   });
@@ -386,60 +437,102 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const btnLuu = document.querySelector('.modal__booking__btn');
+document.addEventListener('DOMContentLoaded', () => {
+    const btnLuuTienMat = document.querySelector('.js-checkout-cash');
+    const btnTaoQR = document.querySelector('.js-checkout-vnpay');
 
-    btnLuu.addEventListener('click', () => {
-        // 1. Dữ liệu gửi đi giờ rất đơn giản và an toàn
+    // HÀM CHUNG: XỬ LÝ LƯU HÓA ĐƠN TRƯỚC
+    async function processInvoice() {
         const billData = {
             idBill: document.getElementById('maHoaDon').value.trim(),
             bookingId: document.getElementById('bookingIdForCheckout').value
         };
         
-        // Kiểm tra nếu chưa có bookingId thì không làm gì cả
-        if (!billData.bookingId) {
-            alert('Lỗi: Không tìm thấy thông tin phiếu thuê.');
-            return;
-        }
+        if (!billData.bookingId) throw new Error('Không tìm thấy thông tin phiếu thuê.');
 
-        // 2. Gọi API Lưu hóa đơn (bước đầu tiên trong chuỗi xử lý của bạn)
-        fetch('/manage/quan_li_hoadon/crud/create', {
+        const res = await fetch('/manage/quan_li_hoadon/crud/create', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(billData)
-        })
-        .then(res => {
-            if (!res.ok) throw new Error('Bước 1: Lưu hóa đơn thất bại');
-            return res.json();
-        })
-        .then(billRes => {
-            if (billRes.message === 'success') {
-                // 3. LƯU HÓA ĐƠN THÀNH CÔNG -> Gọi API Checkout Booking
-                return fetch(`/manage/quan_li_phieuthue/crud/${billData.bookingId}/checkout`, {
-                    method: 'POST'
-                })
-                .then(checkoutRes => {
-                    if (!checkoutRes.ok) throw new Error('Bước 2: Cập nhật trạng thái booking thất bại');
-                    return checkoutRes.json();
-                });
-            } else {
-                throw new Error(billRes.message || 'Lưu hóa đơn thất bại!');
-            }
-        })
-        .then(checkoutBookingRes => {
-            if (checkoutBookingRes.message === 'success') {
-                // 4. MỌI THỨ THÀNH CÔNG -> Thông báo và tải lại trang
+        });
+        const billRes = await res.json();
+        if (billRes.message !== 'success') throw new Error(billRes.message || 'Lưu hóa đơn thất bại!');
+        return billData.bookingId;
+    }
+
+    // LUỒNG 1: TRẢ TIỀN MẶT (Như cũ)
+    btnLuuTienMat.addEventListener('click', async () => {
+        try {
+            btnLuuTienMat.disabled = true;
+            btnLuuTienMat.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang xử lý...';
+            
+            const bookingId = await processInvoice();
+
+            const checkoutRes = await fetch(`/manage/quan_li_phieuthue/crud/${bookingId}/checkout`, { method: 'POST' }).then(r => r.json());
+            if (checkoutRes.message === 'success') {
                 alert('Thanh toán và trả phòng thành công!');
                 window.location.reload();
             } else {
-                throw new Error(checkoutBookingRes.message || 'Cập nhật trạng thái booking thất bại!');
+                throw new Error(checkoutRes.message || 'Cập nhật trạng thái booking thất bại!');
             }
-        })
-        .catch(err => {
-            // 5. Bắt tất cả lỗi từ chuỗi API và hiển thị
-            console.error('Lỗi trong quá trình thanh toán:', err);
+        } catch (err) {
+            console.error('Lỗi thanh toán tiền mặt:', err);
             alert('Có lỗi xảy ra: ' + err.message);
-        });
+            btnLuuTienMat.disabled = false;
+            btnLuuTienMat.innerHTML = '<i class="fa-solid fa-print mr-2"></i> Xác nhận thu & Lưu hóa đơn';
+        }
+    });
+
+    // LUỒNG 2: THANH TOÁN BẰNG VNPAY QR
+    btnTaoQR.addEventListener('click', async () => {
+        try {
+            btnTaoQR.disabled = true;
+            btnTaoQR.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang tạo mã...';
+            
+            // Lấy số tiền còn lại từ DOM (bỏ các ký tự không phải số)
+            const remainingText = document.getElementById('modalRemainingAmount').innerText;
+            const amountMatch = remainingText.match(/[\d\.]+/);
+            if (!amountMatch) throw new Error('Không tính được số tiền còn lại.');
+            const amount = parseInt(amountMatch[0].replace(/\./g, ''), 10);
+            
+            if (amount <= 0) {
+                alert('Số tiền còn lại là 0đ, vui lòng chọn hình thức Tiền mặt!');
+                btnTaoQR.disabled = false;
+                btnTaoQR.innerHTML = '<i class="fa-solid fa-qrcode mr-2"></i> Tạo Mã QR Thanh Toán';
+                return;
+            }
+
+            // 1. Lưu hóa đơn vào DB trước
+            const bookingId = await processInvoice();
+
+            // 2. Tạo link VNPay cho số tiền này
+            const res = await fetch('/payment/create_payment_url', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    bookingId: bookingId, 
+                    amount: amount,
+                    paymentType: 'checkout' // Đánh dấu là thanh toán checkout
+                })
+            });
+            const data = await res.json();
+            
+            if (data.code === '00') {
+                // Mở tab mới chứa cổng VNPay để khách quét
+                window.open(data.data, '_blank');
+                
+                // Hiển thị thông báo hướng dẫn lễ tân
+                alert('Đã mở cổng thanh toán VNPay ở tab mới. Hãy xoay màn hình để khách quét mã!\n\nSau khi khách quét xong và báo thành công, hãy tải lại trang này (F5).');
+                window.location.reload(); 
+            } else {
+                throw new Error('Không thể kết nối với VNPAY.');
+            }
+        } catch (err) {
+            console.error('Lỗi tạo VNPay:', err);
+            alert('Có lỗi xảy ra: ' + err.message);
+            btnTaoQR.disabled = false;
+            btnTaoQR.innerHTML = '<i class="fa-solid fa-qrcode mr-2"></i> Tạo Mã QR Thanh Toán';
+        }
     });
 
     const cancelForms = document.querySelectorAll('.form-cancel-booking');

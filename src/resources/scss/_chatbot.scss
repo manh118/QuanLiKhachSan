@@ -198,3 +198,34 @@
     0%, 80%, 100% { transform: scale(0); }
     40% { transform: scale(1); }
 }
+
+/* Markdown rendering inside bot bubble */
+.chat-message.bot .chat-bubble {
+    p {
+        margin: 0 0 6px 0;
+        &:last-child { margin-bottom: 0; }
+    }
+
+    ul, ol {
+        margin: 4px 0 6px 0;
+        padding-left: 18px;
+
+        li {
+            margin-bottom: 3px;
+            line-height: 1.5;
+        }
+    }
+
+    strong {
+        font-weight: 600;
+        color: #1a1a1a;
+    }
+
+    em {
+        font-style: italic;
+    }
+
+    /* Remove margin on first/last child */
+    > *:first-child { margin-top: 0; }
+    > *:last-child  { margin-bottom: 0; }
+}

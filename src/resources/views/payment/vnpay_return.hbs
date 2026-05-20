@@ -1,0 +1,53 @@
+<div class="container mt-5 pt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-lg">
+                <div class="card-header bg-white border-0 text-center pt-4 pb-0">
+                    {{#if isSuccess}}
+                        <div class="mb-3">
+                            <i class="fa-solid fa-circle-check text-success" style="font-size: 5rem;"></i>
+                        </div>
+                        <h2 class="text-success font-weight-bold">Thanh Toán Thành Công!</h2>
+                        <p class="text-muted">Cảm ơn bạn đã tin tưởng và đặt phòng tại khách sạn chúng tôi.</p>
+                    {{else}}
+                        <div class="mb-3">
+                            <i class="fa-solid fa-circle-xmark text-danger" style="font-size: 5rem;"></i>
+                        </div>
+                        <h2 class="text-danger font-weight-bold">Giao Dịch Thất Bại</h2>
+                        <p class="text-muted">Rất tiếc, giao dịch của bạn không thể hoàn tất hoặc đã bị hủy.</p>
+                    {{/if}}
+                </div>
+                
+                <div class="card-body px-5 py-4">
+                    <div class="bg-light p-4 rounded mb-4">
+                        <table class="table table-borderless mb-0">
+                            <tbody>
+                                <tr>
+                                    <td class="text-muted" width="40%">Mã giao dịch:</td>
+                                    <td class="font-weight-bold">{{orderId}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Số tiền thanh toán:</td>
+                                    <td class="font-weight-bold text-primary" style="font-size: 1.2rem;">{{money amount}} VNĐ</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Nội dung:</td>
+                                    <td>{{orderInfo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="text-center">
+                        <a href="/" class="btn bg-hotel-teal text-white py-2 px-4 rounded-pill font-weight-bold hover-bg-hotel-teal mr-2">Về Trang Chủ</a>
+                        {{#if isSuccess}}
+                            <a href="/account/lookup" class="btn btn-outline-secondary py-2 px-4 rounded-pill font-weight-bold">Tra Cứu Đơn Hàng</a>
+                        {{else}}
+                            <a href="/hangphong" class="btn btn-outline-danger py-2 px-4 rounded-pill font-weight-bold">Thử Lại</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

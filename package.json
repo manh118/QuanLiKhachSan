@@ -37,6 +37,7 @@
     "mongoose-slug-generator": "^1.0.4",
     "mongoose-slug-updater": "^3.3.0",
     "multer": "^2.0.1",
+    "nodemailer": "^8.0.7",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {

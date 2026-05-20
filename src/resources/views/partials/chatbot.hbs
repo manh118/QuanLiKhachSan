@@ -41,7 +41,15 @@
     </div>
 </div>
 
+<!-- marked.js: lightweight markdown → HTML parser -->
+<script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
 <script>
+    // Configure marked: safe rendering, no pedantic mode
+    marked.setOptions({ breaks: true, gfm: true });
+
+    // Mảng lưu lịch sử chat của phiên hiện tại
+    let chatHistory = [];
+
     function toggleChatbot() {
         document.getElementById('chatbotWidget').classList.toggle('show');
     }
@@ -75,14 +83,22 @@
         chatBody.scrollTop = chatBody.scrollHeight;
 
         try {
-            // 3. Gửi request lên Backend
+            // 3. Gửi request lên Backend kèm lịch sử chat
+            const payload = {
+                message: message,
+                history: chatHistory
+            };
+
             const response = await fetch('/api/chatbot', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ message: message })
+                body: JSON.stringify(payload)
             });
+
+            // Sau khi gửi xong, thêm câu hỏi của user vào mảng lịch sử (để dành cho lần gọi sau)
+            chatHistory.push({ role: 'user', text: message });
 
             const data = await response.json();
             
@@ -94,9 +110,11 @@
             botMsgDiv.className = 'chat-message bot';
             
             if (response.ok) {
-                // Parse newline characters into <br> for better formatting
-                const formattedReply = escapeHtml(data.reply).replace(/\n/g, '<br>');
-                botMsgDiv.innerHTML = `<div class="chat-bubble">${formattedReply}</div>`;
+                // Render markdown → HTML (marked handles XSS-safe output by default)
+                botMsgDiv.innerHTML = `<div class="chat-bubble">${marked.parse(data.reply)}</div>`;
+                
+                // Thêm câu trả lời của Bot vào lịch sử
+                chatHistory.push({ role: 'bot', text: data.reply });
             } else {
                 botMsgDiv.innerHTML = `<div class="chat-bubble" style="color: red;">${escapeHtml(data.error || 'Có lỗi xảy ra.')}</div>`;
             }

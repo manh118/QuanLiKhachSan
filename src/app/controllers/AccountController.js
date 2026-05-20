@@ -91,6 +91,28 @@ class LoginController {
         const existingUser = await User.findOne({ $or: orQuery });
         
         if (existingUser) {
+            // KIỂM TRA: Nếu user này chưa có password (tức là tài khoản khách vãng lai tự động tạo lúc đặt phòng)
+            if (!existingUser.password) {
+                // Đảm bảo tên đăng nhập (name) không bị trùng với một tài khoản KHÁC
+                const nameTaken = await User.findOne({ name: name, _id: { $ne: existingUser._id } });
+                if (nameTaken) {
+                    return res.status(400).json({ success: false, message: 'Tên đăng nhập này đã tồn tại' });
+                }
+
+                // Cập nhật tài khoản khách thành tài khoản chính thức
+                existingUser.name = name;
+                existingUser.password = password;
+                if (email) existingUser.email = email;
+                await existingUser.save();
+                
+                return res.status(201).json({
+                    success: true,
+                    message: 'Đăng ký tài khoản thành công! Vui lòng đăng nhập.',
+                    redirect: '/account/login'
+                });
+            }
+
+            // Nếu user đã có password (tài khoản đã đăng ký thật) -> Báo lỗi
             let message = 'Thông tin đăng ký đã tồn tại';
             if (existingUser.name === name) message = 'Tên đăng nhập này đã tồn tại';
             else if (existingUser.phone === phone) message = 'Số điện thoại này đã tồn tại';
@@ -102,7 +124,7 @@ class LoginController {
             });
         }
 
-        // 3. Tạo user mới (lưu plain text)
+        // 3. Nếu chưa tồn tại bất kỳ thông tin nào -> Tạo user mới (lưu plain text)
         const newUser = new User({
             name: name,
             phone: phone,
@@ -133,11 +155,29 @@ class LoginController {
 
   async showMyBookings(req, res, next) {
         try {
-            // 1. Lấy userId từ session đã lưu
+            // 1. Lấy thông tin user từ session
             const userId = req.session.user._id;
+            const userPhone = req.session.user.phone;
+            const userEmail = req.session.user.email;
 
-            // 2. Tìm tất cả đơn đặt phòng có userId đó
-            const bookings = await Booking.find({ userId: userId })
+            // 2. Tự động nhận diện và ghép nối các phiếu thuê vãng lai (guest) 
+            // có cùng số điện thoại hoặc email với tài khoản hiện tại.
+            const query = {
+                $or: [
+                    { userId: userId }
+                ]
+            };
+            
+            if (userPhone) {
+                query.$or.push({ 'customer.phone': userPhone });
+            }
+            
+            if (userEmail) {
+                query.$or.push({ 'customer.email': userEmail });
+            }
+
+            // 3. Tìm tất cả đơn đặt phòng thỏa mãn
+            const bookings = await Booking.find(query)
                                           .populate('room') // Thay 'roomId' bằng trường liên kết phòng của bạn
                                           .sort({ createdAt: -1 })
                                           .lean();
@@ -154,6 +194,58 @@ class LoginController {
         }
   }
 
+
+  showLookup(req, res, next) {
+      res.render('account/lookup', {
+          layout: 'main'
+      });
+  }
+
+  async lookupBooking(req, res, next) {
+      const { phone, email } = req.body;
+      
+      if (!phone) {
+          return res.render('account/lookup', {
+              layout: 'main',
+              error: 'Vui lòng nhập Số điện thoại',
+              phone, email
+          });
+      }
+
+      try {
+          const query = { 'customer.phone': phone };
+          if (email && email.trim() !== '') {
+              query['customer.email'] = email;
+          }
+
+          const bookings = await Booking.find(query)
+                                        .populate('room')
+                                        .sort({ createdAt: -1 })
+                                        .lean();
+
+          if (bookings.length === 0) {
+              return res.render('account/lookup', {
+                  layout: 'main',
+                  error: 'Không tìm thấy đơn đặt phòng nào với thông tin này.',
+                  phone, email
+              });
+          }
+
+          res.render('account/lookup', {
+              layout: 'main',
+              success: 'Tra cứu thành công!',
+              bookings: bookings,
+              phone, email
+          });
+      } catch (error) {
+          console.error(error);
+          res.render('account/lookup', {
+              layout: 'main',
+              error: 'Lỗi hệ thống khi tra cứu đơn hàng.',
+              phone, email
+          });
+      }
+  }
 
   logout(req, res, next) {
         req.session.destroy((err) => {

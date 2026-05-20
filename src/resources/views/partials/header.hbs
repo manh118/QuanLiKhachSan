@@ -83,12 +83,23 @@
                 </li>
             </ul>
         </li>
-    {{else}}
+        {{else}}
         {{!-- NẾU CHƯA ĐĂNG NHẬP --}}
-        <li>
-            <a href="/account/login" class="navbar_item">
+        <li class="navbar__taikhoan">
+            <a class="navbar_item Huy_padding no-hover" style="cursor: pointer;">
                 <i class="fa-solid fa-user mr-2"></i>Tài khoản
             </a>
+            <ul class="navbar__hangphong__list">
+                <li class="navbar__hangphong__item__link">
+                    <a href="/account/login">Đăng nhập</a>
+                </li>
+                <li class="navbar__hangphong__item__link">
+                    <a href="/account/regis">Đăng ký</a>
+                </li>
+                <li class="navbar__hangphong__item__link">
+                    <a href="/account/lookup">Tra cứu lịch sử</a>
+                </li>
+            </ul>
         </li>
     {{/if}}
       </ul>

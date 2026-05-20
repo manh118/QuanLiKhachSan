@@ -374,6 +374,7 @@
                             <button type="button" class="btn btn-sm btn-outline-secondary js-qty-btn" data-target="modalNguoiLon" data-action="plus"><i class="fa-solid fa-plus"></i></button>
                             <input type="hidden" id="modalNguoiLon" value="1">
                         </div>
+                        <small id="adultWarning" class="text-danger d-none mt-1" style="font-size: 1.2rem;"></small>
                     </div>
                     <div class="col-6">
                         <label class="font-weight-bold" style="color: #4b5563; font-size: 1.4rem;">Trẻ em</label>
@@ -383,6 +384,7 @@
                             <button type="button" class="btn btn-sm btn-outline-secondary js-qty-btn" data-target="modalTreEm" data-action="plus"><i class="fa-solid fa-plus"></i></button>
                             <input type="hidden" id="modalTreEm" value="0">
                         </div>
+                        <small id="childWarning" class="text-danger d-none mt-1" style="font-size: 1.2rem;"></small>
                     </div>
                 </div>
 
@@ -448,18 +450,27 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-4 rounded border mb-4 shadow-sm text-center">
-                    <h5 class="font-weight-bold mb-3" style="color: #00796B; font-size: 1.6rem;">Thanh Toán Đặt Cọc (50%)</h5>
-                    <p class="mb-3 text-muted" style="font-size: 1.3rem;">Vui lòng quét mã QR để thanh toán cọc và giữ phòng.</p>
-                    <div class="mb-3">
-                        <span style="font-size: 2.6rem; font-weight: bold; color: #00796B;" id="tienCoc">0 VNĐ</span>
+                <div class="rounded mb-4" style="border: 1.5px solid #e0f2f1; background: #f0fdfb; padding: 0; overflow: hidden;">
+                    <!-- Header -->
+                    <div style="background: linear-gradient(135deg, #00796B, #009688); padding: 1.2rem 1.5rem; text-align: center;">
+                        <h5 class="font-weight-bold mb-0 text-white" style="font-size: 1.5rem; letter-spacing: 0.5px;">
+                            <i class="fa-solid fa-shield-halved mr-2"></i> Thanh Toán Đặt Cọc (50%)
+                        </h5>
                     </div>
-                    <img src="/img/qr.png" alt="Mã QR" style="max-width: 180px; border-radius: 8px; border: 1px solid #e5e7eb; padding: 5px;" class="mb-3">
-                    <div class="p-3 rounded" style="background-color: #f3f4f6;">
-                        <small class="d-block text-muted mb-1" style="font-size: 1.2rem;">Nội dung chuyển khoản:</small>
-                        <strong class="text-danger" id="noiDungCK" style="font-size: 1.4rem; letter-spacing: 1px;">DP [Số điện thoại]</strong>
+
+                    <!-- Amount Display -->
+                    <div style="text-align: center; padding: 1.2rem 1.5rem 0.5rem; border-bottom: 1px solid #e0f2f1;">
+                        <p class="mb-1 text-muted" style="font-size: 1.1rem;">Số tiền cần thanh toán:</p>
+                        <span style="font-size: 2.8rem; font-weight: 800; color: #00796B; letter-spacing: -0.5px;" id="tienCoc">0 VNĐ</span>
+                    </div>
+
+                    <!-- Thanh toán qua VNPay info -->
+                    <div style="padding: 1.2rem 1.5rem; text-align: center;">
+                        <p class="text-muted mb-3" style="font-size: 1.2rem;">Hệ thống sẽ chuyển hướng bạn tới <strong>Cổng thanh toán VNPay</strong> sau khi ấn Xác nhận.</p>
+                        <img src="/img/Logo/VNPAY.jpg" alt="VNPay Logo" style="height: auto; width: 140px; display: block; margin: 0 auto;">
                     </div>
                 </div>
+
 
                 <button type="button" class="btn btn-block bg-hotel-teal text-white py-3 rounded font-weight-bold modal__booking__btn hover-bg-hotel-teal" style="font-size: 1.8rem; width: 100%; border: none;">XÁC NHẬN ĐẶT PHÒNG</button>
             </div>
@@ -688,7 +699,7 @@
         });
 
         // Hàm tính toán Real-time
-        function calculateTotal() {
+        async function calculateTotal() {
             const checkIn = new Date(document.getElementById('checkInDate').value);
             const checkOut = new Date(document.getElementById('checkOutDate').value);
             let soNgay = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
@@ -696,8 +707,38 @@
             
             document.getElementById('soNgay').textContent = soNgay;
 
-            const roomPrice = parseFloat(modal.dataset.roomPrice) || ROOM_PRICE_PER_NIGHT;
-            const tienPhong = soNgay * roomPrice;
+            let tienPhong = 0;
+            const roomId = document.getElementById('roomId').value;
+            
+            // Lấy giá động từ server
+            if (!isNaN(checkIn.getTime()) && !isNaN(checkOut.getTime()) && checkOut > checkIn) {
+                try {
+                    const res = await fetch('/datphong/calculate-price', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            roomId: roomId,
+                            checkInDate: document.getElementById('checkInDate').value,
+                            checkOutDate: document.getElementById('checkOutDate').value
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        tienPhong = data.totalRoomCost;
+                    } else {
+                        // Fallback to base price calculation
+                        const roomPrice = parseFloat(modal.dataset.roomPrice) || ROOM_PRICE_PER_NIGHT;
+                        tienPhong = soNgay * roomPrice;
+                    }
+                } catch (e) {
+                    const roomPrice = parseFloat(modal.dataset.roomPrice) || ROOM_PRICE_PER_NIGHT;
+                    tienPhong = soNgay * roomPrice;
+                }
+            } else {
+                const roomPrice = parseFloat(modal.dataset.roomPrice) || ROOM_PRICE_PER_NIGHT;
+                tienPhong = soNgay * roomPrice;
+            }
+
             document.getElementById('tienPhong').textContent = tienPhong.toLocaleString('vi-VN') + ' VNĐ';
 
             let tienDichVu = 0;
@@ -715,11 +756,30 @@
             let tienPhuThu = 0;
             // Phụ thu người lớn (vượt quá tiêu chuẩn)
             const numExtraAdults = Math.max(0, numNguoiLon - ROOM_TYPE_MAX_ADULTS);
-            tienPhuThu += numExtraAdults * 200000 * soNgay; // 200k/người lớn/đêm
+            const adultSurcharge = numExtraAdults * 200000 * soNgay; // 200k/người lớn/đêm
+            tienPhuThu += adultSurcharge;
+            
+            const adultWarningEl = document.getElementById('adultWarning');
+            if (numExtraAdults > 0) {
+                adultWarningEl.textContent = `*Phụ thu thêm ${numExtraAdults} người: ${(adultSurcharge).toLocaleString('vi-VN')} VNĐ`;
+                adultWarningEl.classList.remove('d-none');
+            } else {
+                adultWarningEl.classList.add('d-none');
+            }
             
             // Phụ thu trẻ em (Trẻ em thứ 2 trở đi)
+            let childSurcharge = 0;
             if (numTreEm > 1) {
-                tienPhuThu += (numTreEm - 1) * 100000 * soNgay; // 100k/trẻ/đêm
+                childSurcharge = (numTreEm - 1) * 100000 * soNgay; // 100k/trẻ/đêm
+                tienPhuThu += childSurcharge;
+            }
+
+            const childWarningEl = document.getElementById('childWarning');
+            if (numTreEm > 1) {
+                childWarningEl.textContent = `*Phụ thu thêm ${numTreEm - 1} trẻ: ${(childSurcharge).toLocaleString('vi-VN')} VNĐ`;
+                childWarningEl.classList.remove('d-none');
+            } else {
+                childWarningEl.classList.add('d-none');
             }
 
             document.getElementById('tienPhuThu').textContent = tienPhuThu.toLocaleString('vi-VN') + ' VNĐ';
@@ -737,7 +797,9 @@
                 if (mutation.attributeName === 'class' && modal.classList.contains('open')) {
                     calculateTotal();
                     const phone = document.getElementById('phone').value;
-                    document.getElementById('noiDungCK').textContent = `DP ${phone || '[Số điện thoại]'}`;
+                    const ckContent = `DP ${phone || '[Số điện thoại]'}`;
+                    document.getElementById('noiDungCK').textContent = ckContent;
+                    document.getElementById('noiDungCK2').textContent = ckContent;
                 }
             });
         });
@@ -808,8 +870,34 @@
             })
             .then(res => {
                 if (res.message === 'success') {
-                    alert('Đặt phòng thành công! Vui lòng kiểm tra email xác nhận.');
-                    window.location.reload();
+                    if (window.activePayTab === 'qr') {
+                        // Gọi API tạo URL VNPay
+                        fetch('/payment/create_payment_url', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                bookingId: res.data._id,
+                                amount: res.data.depositAmount
+                            })
+                        })
+                        .then(payRes => payRes.json())
+                        .then(payData => {
+                            if (payData.code === '00') {
+                                window.location.href = payData.data;
+                            } else {
+                                alert('Không thể kết nối với cổng thanh toán VNPay. Vui lòng thử lại sau.');
+                                window.location.reload();
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Lỗi VNPay:', err);
+                            alert('Lỗi tạo thanh toán VNPay.');
+                            window.location.reload();
+                        });
+                    } else {
+                        alert('Đặt phòng thành công! Vui lòng chuyển khoản theo thông tin đã cung cấp.');
+                        window.location.reload();
+                    }
                 } else {
                     alert('Đặt phòng thất bại: ' + res.message);
                     btnDat.disabled = false;
@@ -825,6 +913,34 @@
         });
     });
 </script>
+
+<script>
+    window.activePayTab = 'qr';
+    function switchPayTab(tab) {
+        window.activePayTab = tab;
+        const panelQR = document.getElementById('panelQR');
+        const panelCard = document.getElementById('panelCard');
+        const tabQR = document.getElementById('tabQR');
+        const tabCard = document.getElementById('tabCard');
+        if (tab === 'qr') {
+            panelQR.style.display = 'block';
+            panelCard.style.display = 'none';
+            tabQR.style.color = '#00796B';
+            tabQR.style.borderBottom = '3px solid #00796B';
+            tabCard.style.color = '#6b7280';
+            tabCard.style.borderBottom = '3px solid transparent';
+        } else {
+            panelQR.style.display = 'none';
+            panelCard.style.display = 'block';
+            tabQR.style.color = '#6b7280';
+            tabQR.style.borderBottom = '3px solid transparent';
+            tabCard.style.color = '#00796B';
+            tabCard.style.borderBottom = '3px solid #00796B';
+        }
+    }
+</script>
+
+
 
 
 

@@ -60,52 +60,57 @@
     /* ============ FILTER BAR ============ */
     .rp-filter-bar {
         background: white;
-        border: 1px solid #e5e7eb;
-        border-radius: 0.5rem;
-        padding: 1.5rem 2rem;
+        border: none;
+        border-radius: 12px;
+        padding: 1.2rem 2rem;
         margin-bottom: 3rem;
         display: flex;
         align-items: center;
         gap: 1.5rem;
         flex-wrap: wrap;
-        box-shadow: 0 1px 3px rgba(0,0,0,.06);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     }
     .rp-filter-bar label {
         font-weight: 600;
-        font-size: 1.3rem;
-        color: #374151;
+        font-size: 1.1rem;
+        color: #4b5563;
         white-space: nowrap;
         margin-bottom: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     .rp-filter-bar select {
-        border: 1px solid #d1d5db;
-        border-radius: 0.375rem;
-        padding: 0.6rem 1rem;
-        font-size: 1.3rem;
-        color: #374151;
-        min-width: 220px;
-        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 0.6rem 1.2rem;
+        font-size: 1.1rem;
+        color: #1f2937;
+        min-width: 240px;
+        background: #f9fafb;
+        transition: all 0.2s;
     }
     .rp-filter-bar select:focus {
         border-color: #00796B;
+        background: white;
         outline: none;
-        box-shadow: 0 0 0 2px rgba(0,121,107,0.15);
+        box-shadow: 0 0 0 3px rgba(0,121,107,0.1);
     }
     .rp-filter-btn {
-        background-color: #1f2937;
+        background-color: #00796B;
         color: white;
         border: none;
         padding: 0.6rem 2rem;
-        border-radius: 0.375rem;
-        font-size: 1.3rem;
+        border-radius: 8px;
+        font-size: 1.1rem;
         font-weight: 600;
         cursor: pointer;
-        transition: background-color 0.2s;
+        transition: all 0.2s;
         margin-left: auto;
     }
     .rp-filter-btn:hover {
-        background-color: #111827;
-        color: white;
+        background-color: #006055;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(0,121,107,0.2);
     }
 
     /* ============ ROOM CARDS GRID ============ */
@@ -124,110 +129,127 @@
 
     .rp-card {
         background: white;
-        border: 1px solid #e5e7eb;
-        border-radius: 0.5rem;
+        border: none;
+        border-radius: 16px;
         overflow: hidden;
-        transition: box-shadow 0.3s;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        display: flex;
+        flex-direction: column;
     }
     .rp-card:hover {
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        transform: translateY(-4px);
     }
     .rp-card-img {
         position: relative;
-        height: 250px;
+        height: 240px;
         overflow: hidden;
     }
     .rp-card-img img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.5s ease;
+        transition: transform 0.6s ease;
     }
     .rp-card:hover .rp-card-img img {
         transform: scale(1.05);
     }
     .rp-card-status {
         position: absolute;
-        top: 12px;
-        left: 12px;
-        padding: 4px 12px;
-        border-radius: 4px;
-        font-size: 1rem;
+        top: 16px;
+        left: 16px;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.85rem;
         font-weight: 600;
         z-index: 2;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        backdrop-filter: blur(4px);
     }
     .rp-card-status--available {
-        background-color: #00796B;
-        color: white;
+        background-color: rgba(209, 250, 229, 0.95);
+        color: #065f46;
+        border: 1px solid rgba(16, 185, 129, 0.2);
     }
     .rp-card-status--booked {
-        background-color: #f59e0b;
-        color: white;
-    }
-    .rp-card-price {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
-        color: white;
-        padding: 2rem 1.2rem 0.8rem;
-        font-size: 1.2rem;
-        font-weight: 700;
-        text-align: center;
+        background-color: rgba(254, 243, 199, 0.95);
+        color: #92400e;
+        border: 1px solid rgba(245, 158, 11, 0.2);
     }
 
     .rp-card-body {
         padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
     }
     .rp-card-title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: 700;
-        color: #1f2937;
-        margin-bottom: 0.8rem;
+        color: #111827;
     }
-    .rp-card-amenities {
+    .rp-card-price-text {
+        color: #00796B;
+        font-weight: 700;
+    }
+    
+    .rp-card-primary-amenities {
         display: flex;
         gap: 1.5rem;
-        flex-wrap: wrap;
-        margin-bottom: 1.2rem;
-        padding-bottom: 1.2rem;
-        border-bottom: 1px solid #f3f4f6;
     }
     .rp-card-amenity {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        gap: 0.3rem;
-        color: #6b7280;
+        gap: 0.5rem;
+        color: #4b5563;
     }
     .rp-card-amenity i {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         color: #00796B;
+        opacity: 0.8;
     }
     .rp-card-amenity span {
-        font-size: 1rem;
+        font-size: 0.95rem;
         font-weight: 500;
+    }
+
+    .rp-card-secondary-amenities {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: auto; /* pushes it to the bottom if content is short */
+    }
+    .rp-card-secondary-amenities span {
+        color: #9ca3af;
+        font-size: 1.2rem;
+        transition: color 0.2s;
+        cursor: default;
+    }
+    .rp-card-secondary-amenities span:hover {
+        color: #4b5563;
     }
 
     .rp-card-btn {
         display: block;
         width: 100%;
         padding: 0.8rem;
-        background-color: #00796B;
-        color: white;
-        border: none;
-        border-radius: 0.375rem;
-        font-size: 1.3rem;
-        font-weight: 700;
+        background-color: #f3f4f6;
+        color: #1f2937;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
         text-align: center;
         text-decoration: none;
-        transition: background-color 0.2s;
+        transition: all 0.2s;
     }
     .rp-card-btn:hover {
-        background-color: #004D40;
+        background-color: #00796B;
         color: white;
         text-decoration: none;
+        box-shadow: 0 4px 10px rgba(0,121,107,0.15);
     }
 
     /* ============ PAGINATION ============ */
@@ -302,13 +324,22 @@
                     {{#if (eqString this.status 'Đã đặt')}}
                         <span class="rp-card-status rp-card-status--booked">Đã đặt</span>
                     {{else}}
-                        <span class="rp-card-status rp-card-status--available">✓ Trống</span>
+                        <span class="rp-card-status rp-card-status--available">Trống</span>
                     {{/if}}
-                    <div class="rp-card-price">{{money this.roomType.price}} VNĐ / ĐÊM</div>
                 </div>
                 <div class="rp-card-body">
-                    <h3 class="rp-card-title">Phòng {{this.roomNumber}}, Tầng {{this.floor}}</h3>
-                    <div class="rp-card-amenities">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h3 class="rp-card-title mb-1">Phòng {{this.roomNumber}}</h3>
+                            <span class="text-muted" style="font-size: 0.95rem;">Tầng {{this.floor}}</span>
+                        </div>
+                        <div class="rp-card-price-text text-right">
+                            <div style="font-size: 1.3rem; line-height: 1.2;">{{money this.roomType.price}} <span style="font-size: 0.9rem; color: #6b7280; font-weight: 500;">VNĐ</span></div>
+                            <div style="font-size: 0.85rem; color: #6b7280; font-weight: 400;">/ Đêm</div>
+                        </div>
+                    </div>
+                    
+                    <div class="rp-card-primary-amenities mb-4">
                         <div class="rp-card-amenity">
                             <i class="fa-solid fa-bed"></i>
                             <span>{{this.bedType.name}}</span>
@@ -317,13 +348,14 @@
                             <i class="bx bx-area"></i>
                             <span>{{{m2 this.area}}}</span>
                         </div>
+                    </div>
+                    
+                    <div class="rp-card-secondary-amenities mb-4">
                         {{#each this.roomType.utilities}}
-                        <div class="rp-card-amenity">
-                            <i class="{{this.icon}}"></i>
-                            <span>{{this.name}}</span>
-                        </div>
+                            <span title="{{this.name}}"><i class="{{this.icon}}"></i></span>
                         {{/each}}
                     </div>
+
                     <a href="/hangphong/room/{{this.roomNumber}}" class="rp-card-btn">Xem Chi Tiết</a>
                 </div>
             </div>

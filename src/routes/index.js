@@ -7,6 +7,7 @@ const serviceRouter = require('./service')
 const bookingRouter = require('./booking')
 const questionRouter = require('./question')
 const chatbotRouter = require('./chatbot')
+const paymentRouter = require('./payment')
 const manageLayout = require('../middleware/manage_layout')
 
 
@@ -36,6 +37,7 @@ function route(app) {
   app.use('/dichvu', serviceRouter)
   app.use('/hangphong', hangphongRouter)
   app.use('/datphong', bookingRouter)
+  app.use('/payment', paymentRouter)
   app.use('/gioi_thieu', gioithieuRouter)
   app.use('/question', questionRouter)
   app.use('/api/chatbot', chatbotRouter)
